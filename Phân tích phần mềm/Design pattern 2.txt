@@ -1,0 +1,21 @@
+https://sourcemaking.com/design_patterns/factory_method
+https://sourcemaking.com/design_patterns/state
+https://sourcemaking.com/design_patterns/strategy
+https://sourcemaking.com/design_patterns/adapter
+https://sourcemaking.com/design_patterns/proxy
+
+https://www.avajava.com/tutorials/lessons/factory-pattern.html
+https://www.avajava.com/tutorials/lessons/state-pattern.html
+https://www.avajava.com/tutorials/lessons/strategy-pattern.html
+
+Notes cho báo cáo đồ án cuối kì:
+1. Phải có tên project ở trang đầu mỗi file báo cáo.
+2. Bỏ các chữ in nghiêng, màu xanh. Chữ trong file phải cùng font, cùng size, thẳng đứng, in đậm.
+3. Phát biểu bài toán: phải viết 1 đoạn văn, mô tả cho 1 chức năng, ko gạch đầu dòng.
+4. Sơ đồ use case: tránh những use-case ko phải là use-case: "nhập username", "nhập password" ko phải là use-case.
+5. Đặc tả rõ ràng, từng bước, luồng sự kiện chính.
+6. Bắt buộc phải có luồng sự kiện phụ, ở tất cả use case.
+7. Sơ đồ lớp: suy nghĩ về những class cần sử dụng khi implement. Mỗi class đều phải có method. Tránh mang các table trong CSDL thành class trong sơ đồ lớp. Lưu ý: table là lưu trữ trong CSDL; sơ đồ lớp là xử lí trên memory.
+8. Tránh "giết gà bằng dao mỗ trâu". Với những project ko có CSDL, phải đặc tả file text, file xml, file json, hoặc định dạng firebase sử dụng trong project.
+9. Kiến trúc: ko ghi chung chung MVC, làm trong M có những thành phần nào, trong V có những thành phần nào, trong C có những thành phần nào.
+10. Khi cài đặt, nếu có thì thay đổi, phải update lại các document ở trên.
