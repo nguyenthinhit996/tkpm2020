@@ -15,13 +15,16 @@ public class Ticketbooking extends MinaHoTelPojo{
 	private LocalDateTime timestamprent;
 	private String idstaffreception;
 	private int numberroom;
+	private int numberinroom;
 	
 	public Ticketbooking() {
 		super();
 	}
 
+	
+	
 	public Ticketbooking(String idticketbooking, String iduserrentroom, String usernamerentroom,
-			LocalDateTime timestamprent, String idstaffreception, int numberroom) {
+			LocalDateTime timestamprent, String idstaffreception, int numberroom, int numberinroom) {
 		super();
 		this.idticketbooking = idticketbooking;
 		this.iduserrentroom = iduserrentroom;
@@ -29,56 +32,96 @@ public class Ticketbooking extends MinaHoTelPojo{
 		this.timestamprent = timestamprent;
 		this.idstaffreception = idstaffreception;
 		this.numberroom = numberroom;
+		this.numberinroom = numberinroom;
 	}
+
+	
+
 
 	public String getIdticketbooking() {
 		return idticketbooking;
 	}
 
+
+
 	public void setIdticketbooking(String idticketbooking) {
 		this.idticketbooking = idticketbooking;
 	}
+
+
 
 	public String getIduserrentroom() {
 		return iduserrentroom;
 	}
 
+
+
 	public void setIduserrentroom(String iduserrentroom) {
 		this.iduserrentroom = iduserrentroom;
 	}
+
+
 
 	public String getUsernamerentroom() {
 		return usernamerentroom;
 	}
 
+
+
 	public void setUsernamerentroom(String usernamerentroom) {
 		this.usernamerentroom = usernamerentroom;
 	}
+
+
 
 	public LocalDateTime getTimestamprent() {
 		return timestamprent;
 	}
 
+
+
 	public void setTimestamprent(LocalDateTime timestamprent) {
 		this.timestamprent = timestamprent;
 	}
+
+
 
 	public String getIdstaffreception() {
 		return idstaffreception;
 	}
 
+
+
 	public void setIdstaffreception(String idstaffreception) {
 		this.idstaffreception = idstaffreception;
 	}
+
+
 
 	public int getNumberroom() {
 		return numberroom;
 	}
 
+
+
 	public void setNumberroom(int numberroom) {
 		this.numberroom = numberroom;
 	}
-	
+
+
+
+	public int getNumberinroom() {
+		return numberinroom;
+	}
+
+
+
+	public void setNumberinroom(int numberinroom) {
+		this.numberinroom = numberinroom;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		super.setIdHashCode(idticketbooking);

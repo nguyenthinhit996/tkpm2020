@@ -46,6 +46,7 @@ public class TicketbookingRepositoryServices implements MinaHotelServices{
 			 x.setNumberroom(objectConvertFromMina.getNumberroom());
 			 x.setTimestamprent(objectConvertFromMina.getTimestamprent());
 			 x.setUsernamerentroom(objectConvertFromMina.getUsernamerentroom());
+			 x.setNumberinroom(objectConvertFromMina.getNumberinroom());
 			return ticketbookingRepository.save(x);
 		}).orElseGet(()->{
 			return ticketbookingRepository.save(objectConvertFromMina);
