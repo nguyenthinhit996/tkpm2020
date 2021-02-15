@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import TodoAppContext from './TodoAppContext'
 
-export default function Tododel({ value, toDoListbtnDelete_Clicked }) {
+export default function Tododel({ value }) {
 
-    const toDoDelbtnDelete_Clicked = () => {
-        toDoListbtnDelete_Clicked(value.id);
+    const AppContext = useContext(TodoAppContext);
+
+    const btnDetele_Clicked = () => {
+        var itemsDel = AppContext.items.map(item => item.id === value.id ? { ...item, finish: false } : item);
+        AppContext.setItems(itemsDel);
     }
 
     return (
         <li className={value.finish ? "highlight" : ""}>
             {value.name}
-            {value.finish ? <button onClick={toDoDelbtnDelete_Clicked}> Delete</button> : <button disabled>Delete</button>}
+            {value.finish ? <button onClick={btnDetele_Clicked}> Delete</button> : <button disabled>Delete</button>}
         </li>
     )
 }

@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 import Todolist from './component/TodoList';
 import Addtask from './component/AddTask';
 import Search from './component/Search';
+import TodoAppContext from "./component/TodoAppContext"
 
 function App() {
 
 
   const [items, setItems] = useState([]);
+
 
   useEffect(() => {
     setItems([{ id: "1", name: "hix1", finish: true },
@@ -23,25 +25,13 @@ function App() {
     setItems([...items, elementItem])
   }
 
-
-  const btnFilterClicked = (valueFilter) => {
-    setvalueFilter(valueFilter);
-  }
-
-  const btnDetele_Clicked = (id) => {
-    // var itemsDel = items.filter((value) => 
-    //   value.id !== id
-    // );
-
-    var itemsDel = items.map(value => value.id === id ? { ...value, finish: false } : value);
-    setItems(itemsDel);
-  }
-
   return (
     <div className="App">
-      <Search intialQuery="" filterClicked={btnFilterClicked} />
-      <Todolist list={items} valueFilter={valueFilter} btnDetele_Clicked={btnDetele_Clicked} />
-      <Addtask btnAddFucntion={btnAddClicked} />
+      <TodoAppContext.Provider value = { {items, setItems, valueFilter, setvalueFilter} }>
+        <Search intialQuery="" />
+        <Todolist/>
+        <Addtask initalValue = ''/>
+      </TodoAppContext.Provider>
     </div>
   );
 }

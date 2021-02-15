@@ -1,29 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import TodoAppContext from './TodoAppContext'
 
-export default function Search({ intialQuery, filterClicked }) {
+export default function Search({ intialQuery }) {
+
+    const AppContext = useContext(TodoAppContext)
 
     // neu muon su dung ngay sau khi setQuery thi su dung useEffect
-    const [query, setquery] = useState(intialQuery);
+    const [term, setterm] = useState(intialQuery);
 
     useEffect(() => {
-        filterClicked(query);
-    }, [query])
+        AppContext.setvalueFilter(term);
+    }, [term])
 
     const btnClean_Click = () => {
-        setquery(intialQuery);
+        setterm(intialQuery);
         //filterClicked(intialQuery); useEffect instead of use direct
     }
 
     const txtFilter_Change = (e) => {
-        setquery(e.target.value);
-        console.log(query);
+        setterm(e.target.value);
+        console.log(term);
       //  filterClicked(e.target.value); useEffect instead of use direct
     }
 
     return (
         <div className="center">
             <h3> Search </h3>
-            <input type="text" value={query} onChange={txtFilter_Change} />
+            <input type="text" value={term} onChange={txtFilter_Change} />
             <button onClick={btnClean_Click}> Clear </button>
         </div>
     )
