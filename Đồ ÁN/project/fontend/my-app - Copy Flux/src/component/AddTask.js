@@ -4,7 +4,7 @@ import TodoAppContext from './TodoAppContext'
 
 export default function Addtask({ initalValue }) {
 
-    const AppContext = useContext(TodoAppContext);
+    const {store, dispatch } = useContext(TodoAppContext);
 
     const [itemNew, setItemNew] = useState(initalValue);
 
@@ -14,7 +14,13 @@ export default function Addtask({ initalValue }) {
 
     const btnAddClicked = () => {
         let elementItem = { id: Math.floor(Math.random() * 100), name: itemNew, finish: true };
-        AppContext.setItems([...AppContext.items, elementItem]);
+
+        dispatch({
+            type: "add",
+            payLoad:{
+                items: [...store.items, elementItem]
+            }
+        })
         setItemNew(initalValue);
     }
 

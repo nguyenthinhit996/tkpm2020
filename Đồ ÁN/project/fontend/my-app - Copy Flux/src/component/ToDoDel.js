@@ -3,11 +3,17 @@ import TodoAppContext from './TodoAppContext'
 
 export default function Tododel({ value }) {
 
-    const AppContext = useContext(TodoAppContext);
+    const {store, dispatch} = useContext(TodoAppContext);
 
     const btnDetele_Clicked = () => {
-        var itemsDel = AppContext.items.map(item => item.id === value.id ? { ...item, finish: false } : item);
-        AppContext.setItems(itemsDel);
+        var itemsDel = store.items.map(item => item.id === value.id ? { ...item, finish: false } : item);
+        dispatch({
+            type: "del",
+            payLoad:{
+                items: itemsDel
+            }
+        })
+        
     }
 
     return (

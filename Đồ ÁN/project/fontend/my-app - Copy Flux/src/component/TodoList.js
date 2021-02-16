@@ -5,14 +5,14 @@ import TodoAppContext from './TodoAppContext'
 
 export default function Todolist(pros) {
 
-    const AppContext = useContext(TodoAppContext);
+    const {store} = useContext(TodoAppContext);
 
     return (
         <div className="center">
             <h3> To Do List</h3>
             <ul>
                 {
-                    AppContext.items.filter(value => value.name.toLowerCase().includes(AppContext.valueFilter.toLowerCase()))
+                    store.items.filter(value => value.name.toLowerCase().includes(store.valueFilter.toLowerCase()))
                         .map(value => <Tododel key={value.id} value={value} />)
                 }
             </ul>

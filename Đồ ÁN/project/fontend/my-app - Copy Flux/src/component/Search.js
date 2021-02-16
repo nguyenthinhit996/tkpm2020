@@ -3,13 +3,18 @@ import TodoAppContext from './TodoAppContext'
 
 export default function Search({ intialQuery }) {
 
-    const AppContext = useContext(TodoAppContext)
+    const {store, dispatch} = useContext(TodoAppContext)
 
     // neu muon su dung ngay sau khi setQuery thi su dung useEffect
     const [term, setterm] = useState(intialQuery);
 
     useEffect(() => {
-        AppContext.setvalueFilter(term);
+        dispatch({
+            type: 'filter',
+            payLoad: {
+              valueFilter: term
+            }
+        })
     }, [term])
 
     const btnClean_Click = () => {
