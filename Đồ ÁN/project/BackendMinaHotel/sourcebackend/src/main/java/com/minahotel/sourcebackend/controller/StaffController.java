@@ -1,5 +1,6 @@
 package com.minahotel.sourcebackend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.minahotel.sourcebackend.enums.EnumTicketAndRoom;
+import com.minahotel.sourcebackend.pojo.ChangePassPojo;
+import com.minahotel.sourcebackend.pojo.LoginPojo;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.pojo.Staff;
 import com.minahotel.sourcebackend.services.StaffRepositoryServices;
 
+ 
 @RestController
 public class StaffController {
 
@@ -27,7 +32,16 @@ public class StaffController {
 	@GetMapping("/staff")
 	List<? extends MinaHoTelPojo> getStaffById(@RequestParam(name = "id", defaultValue = "All") String idStaff) {
 		if("All".equals(idStaff)) {
-			return staffRepositoryServices.getAll();
+			List<Staff> getListOnLyOnStatus = new ArrayList<Staff>();
+			
+			 for (MinaHoTelPojo in: staffRepositoryServices.getAll()) {
+				 Staff staffObject = (Staff) in;
+				 if(EnumTicketAndRoom.ON.getName().equals(staffObject.getStatus())) {
+					 getListOnLyOnStatus.add(staffObject);
+				 }
+			 }
+			 
+			 return getListOnLyOnStatus;
 		}
 		 return staffRepositoryServices.getObjectById(idStaff);
 	}
@@ -56,5 +70,23 @@ public class StaffController {
         staffRepositoryServices.deleteObject(staff);
     }
     
+    // Auth
+    //return 200
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/auth")
+    LoginPojo authStaff(@RequestBody LoginPojo loginPojo) {
+    	//System.out.println(username+" --------------- "+pass);    	
+    	staffRepositoryServices.checkLogin(loginPojo);
+    	return loginPojo;
+    }
     
+    //return 200
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/changepass")
+    public String changePass(@RequestBody ChangePassPojo loginPojo) {
+    	//System.out.println(username+" --------------- "+pass);    	
+    	return staffRepositoryServices.changePass(loginPojo);
+    }
+    
+
 }

@@ -3,26 +3,39 @@ package com.minahotel.sourcebackend.pojo;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.Table;
 
-@Entity  @IdClass(Dailyworking.class)
+@Entity 
+@IdClass(Dailyworking.class) 
 public class Dailyworking extends MinaHoTelPojo implements Serializable{
 
-	private static final long serialVersionUID = -5194306779785637854L;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7364467469594740507L;
+
 	@Id
-	private LocalDate  idtoday;
+	private Date idtoday;
+	
 	@Id
 	private String idstaffwork;
+	
 	private LocalTime timestart;
 	private LocalTime timeend;
 	private String note;
 	private String idstaffmanagement;
+	private String usernamestaff;
 	
-	public Dailyworking(LocalDate idtoday, String idstaffwork, LocalTime timestart, LocalTime timeend, String note,
-			String idstaffmanagement) {
+
+	public Dailyworking(Date idtoday, String idstaffwork, LocalTime timestart, LocalTime timeend, String note,
+			String idstaffmanagement, String usernamework) {
 		super();
 		this.idtoday = idtoday;
 		this.idstaffwork = idstaffwork;
@@ -30,17 +43,40 @@ public class Dailyworking extends MinaHoTelPojo implements Serializable{
 		this.timeend = timeend;
 		this.note = note;
 		this.idstaffmanagement = idstaffmanagement;
+		this.usernamestaff = usernamework;
+	}
+
+	
+	
+	public String getUsernamestaff() {
+		return usernamestaff;
+	}
+
+
+
+	public void setUsernamestaff(String usernamestaff) {
+		this.usernamestaff = usernamestaff;
+	}
+
+
+
+	public String getUsernamework() {
+		return usernamestaff;
+	}
+
+	public void setUsernamework(String usernamework) {
+		this.usernamestaff = usernamework;
 	}
 
 	public Dailyworking() {
 		super();
 	}
 
-	public LocalDate getIdtoday() {
+	public Date getIdtoday() {
 		return idtoday;
 	}
 
-	public void setIdtoday(LocalDate idtoday) {
+	public void setIdtoday(Date idtoday) {
 		this.idtoday = idtoday;
 	}
 

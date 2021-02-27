@@ -1,0 +1,57 @@
+
+ 
+.dialogUpdateDamaged div.MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiPaper-elevation24.MuiPaper-rounded{
+    background-color: #67D265;
+ }
+
+.dialogUpdateDamaged .MuiTypography-h6 {
+     text-align: center;
+     font-family: Risque, cursive !important;
+ }
+
+.dialogUpdateDamaged .MuiDialog-paperWidthSm{
+    min-width: 420px;
+}
+
+.dialogUpdateDamaged span.MuiTypography-root.MuiListItemText-primary.MuiTypography-body1.MuiTypography-displayBlock{
+    font-family: Risque, cursive !important;
+}
+
+.dialogUpdateDamaged li{
+    padding: 0px 16px !important;
+}
+
+.dialogUpdateDamaged form.dialogUpdateDamagedForm{
+    margin: 0px 5px;
+}
+
+.dialogUpdateDamaged form.dialogUpdateDamagedForm input {
+    background-color: #67D265;
+    border: none;
+    border-bottom: 2px ridge black;
+  }
+
+
+.dialogUpdateDamaged form.dialogUpdateDamagedForm .form--mod {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin: 5px 0px;
+}
+
+.dialogUpdateDamaged .btn--quanlikhachsan__changePass{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.dialogUpdateDamaged .btn--quanlikhachsan__changePass button{
+    background-color:yellow;
+    padding: 5px;
+}
+
+.dialogUpdateDamaged p.container--removespace {
+    margin-left: 15px;
+}

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
+import com.minahotel.sourcebackend.pojo.Revenue;
 import com.minahotel.sourcebackend.pojo.Ticketcheckoutroom;
 import com.minahotel.sourcebackend.services.TicketcheckoutroomRepositoryServices;
 
@@ -32,6 +33,11 @@ public class TicketcheckoutroomController {
 	}
 	
 
+	@GetMapping("/TicketcheckoutroombyIdTicket")
+	MinaHoTelPojo getObjectByIdTicketCheckin(@RequestParam(name = "id") String id, @RequestParam(name = "numberroom") String numberroom) {
+		 return ticketcheckoutroomRepositoryServices.getObjectByIdTicketCheckin(id,numberroom);
+	}
+	
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/Ticketcheckoutroom")
     boolean newObject(@RequestBody Ticketcheckoutroom object ) {
@@ -51,4 +57,9 @@ public class TicketcheckoutroomController {
     void deleteObject(@RequestBody Ticketcheckoutroom object ) {
     	ticketcheckoutroomRepositoryServices.deleteObject(object);
     }
+    
+    @GetMapping("/Revenue")
+    List<Revenue> Revenue() {
+		 return ticketcheckoutroomRepositoryServices.getRevenue();
+	}
 }

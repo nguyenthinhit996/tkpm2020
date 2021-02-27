@@ -1,0 +1,21 @@
+ 
+.chooseoptionuserviewinfo div.MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiPaper-elevation24.MuiPaper-rounded{
+    background-color: #67D265;
+ }
+
+.chooseoptionuserviewinfo .MuiTypography-h6 {
+     text-align: center;
+     font-family: Risque, cursive !important;
+ }
+
+.chooseoptionuserviewinfo .MuiDialog-paperWidthSm{
+    min-width: 370px;
+}
+
+.chooseoptionuserviewinfo span.MuiTypography-root.MuiListItemText-primary.MuiTypography-body1.MuiTypography-displayBlock{
+    font-family: Risque, cursive !important;
+}
+
+.chooseoptionuserviewinfo li{
+    padding: 0px 16px !important;
+}

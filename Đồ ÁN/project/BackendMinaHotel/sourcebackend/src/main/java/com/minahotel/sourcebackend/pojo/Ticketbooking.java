@@ -16,15 +16,10 @@ public class Ticketbooking extends MinaHoTelPojo{
 	private String idstaffreception;
 	private int numberroom;
 	private int numberinroom;
-	
-	public Ticketbooking() {
-		super();
-	}
-
-	
+	private String status; // on off
 	
 	public Ticketbooking(String idticketbooking, String iduserrentroom, String usernamerentroom,
-			LocalDateTime timestamprent, String idstaffreception, int numberroom, int numberinroom) {
+			LocalDateTime timestamprent, String idstaffreception, int numberroom, int numberinroom, String status) {
 		super();
 		this.idticketbooking = idticketbooking;
 		this.iduserrentroom = iduserrentroom;
@@ -33,10 +28,26 @@ public class Ticketbooking extends MinaHoTelPojo{
 		this.idstaffreception = idstaffreception;
 		this.numberroom = numberroom;
 		this.numberinroom = numberinroom;
+		this.status = status;
 	}
 
-	
 
+
+	public String getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+
+	public Ticketbooking() {
+		super();
+	}
 
 	public String getIdticketbooking() {
 		return idticketbooking;

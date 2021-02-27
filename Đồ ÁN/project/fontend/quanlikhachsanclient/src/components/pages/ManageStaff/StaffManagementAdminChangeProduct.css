@@ -1,0 +1,22 @@
+
+
+
+.StaffManagementAdminChangeProduct .StaffManagementAdminChangeProductHeader{
+    margin-top: 20px;
+}
+
+.StaffManagementAdminChangeProductHeader .btn--quanlikhachsan__green__ManagementStaff {
+    margin: 10px 0px 0px 10px;
+    background-color: rgba(15, 178, 32, 0.68);
+}
+
+.StaffManagementAdminChangeProductHeader .btn--quanlikhachsan__green__Salary{
+    margin: 10px 0px 0px 40px;
+    background-color: rgba(15, 178, 32, 0.68);
+}
+
+.StaffManagementAdminChangeProductBody {
+    margin: 10px;
+}
+ 
+ 

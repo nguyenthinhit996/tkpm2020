@@ -1,5 +1,7 @@
 package com.minahotel.sourcebackend.services;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +24,22 @@ public class TicketbookingRepositoryServices implements MinaHotelServices{
 
 	@Override
 	public List<? extends MinaHoTelPojo> getObjectById(String... id) {
-		return (List<Ticketbooking>) ticketbookingRepository.findObjectById(id[0]);
+		List<Ticketbooking> ds = (List<Ticketbooking>) ticketbookingRepository.findObjectById(id[0]);
+		LocalDateTime localDateNow = LocalDateTime.now();
+		Duration timeRent = Duration.between(ds.get(0).getTimestamprent(), localDateNow);
+		String time = timeRent.toDaysPart() +":"+ timeRent.toHoursPart() + ":" + timeRent.toMinutesPart();
+		ds.get(0).setIdstaffreception(time); // thay the tam thoi
+		return ds;
 	}
 
 	@Override
 	public boolean createObject(MinaHoTelPojo minapojo) {
 		try {
 			Ticketbooking objectConvertFromMina = (Ticketbooking) minapojo;
+			LocalDateTime localDateNow = LocalDateTime.now();
+			String idCheckingTiket = localDateNow.toString();
+			objectConvertFromMina.setIdticketbooking(idCheckingTiket);
+			objectConvertFromMina.setTimestamprent(localDateNow);
 			ticketbookingRepository.save(objectConvertFromMina);
 		}catch(Exception e) {
 			return false;

@@ -1,0 +1,41 @@
+
+
+Bảng ticket thêm trường status để check xe vé đó còn hiệu lực hay không (on, off)
+
+Bảng Product thêm type [xe, thức ăn, dọn dẹp]
+
+
+Chi Tiết sản phẩm thêm các status : Prepare, Shipping, Done, Cancel
+
+quan hệ : Prepare có thể đổi qua 3 thằng kìa
+	Shipping, Done
+	Done Not change
+	Cancel Delete khi update refesh lại trang
+				
+
+bảng checkout:
+
+
+
+
+Luông làm việc
+	*** ticket đặt phòng
+	room  đặt phòng, mua thêm services,
+	
+	*** checkout
+	checkout, ->>> đợi kiểm tra hư hại ( bảng checkingoutroomdamaged update status Checking -> DoneCheck) 
+
+	reshes lại page checkout chọn paid 
+
+	** clean 
+	room được clean từ userClean
+
+	vào table ticketcheckoutroom cập nhật lại status clean ->> off
+	
+	** empty
+	room empty
+
+Phân hệ services:
+	shipping chuyển giao cho các user services , ai muốn làm thì chọn chuyển sang trạng thái ToDo
+	ToDo ở đây có button Detail xuất hiện muốn xem thông tin hay là update thông tin thì vào đó.
+	Done Hoàn thành công việc

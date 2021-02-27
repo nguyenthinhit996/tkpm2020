@@ -17,9 +17,12 @@ public class Staff extends MinaHoTelPojo{
 	private LocalDate datework;
 	private BigDecimal salarymonth;
 	private BigDecimal bonussalary;
+	private String status;
 	
+ 
+
 	public Staff(String idstaff, String username, String pass, String role, LocalDate datework, BigDecimal salarymonth,
-			BigDecimal bonussalary) {
+			BigDecimal bonussalary, String status) {
 		super();
 		this.idstaff = idstaff;
 		this.username = username;
@@ -28,6 +31,15 @@ public class Staff extends MinaHoTelPojo{
 		this.datework = datework;
 		this.salarymonth = salarymonth;
 		this.bonussalary = bonussalary;
+		this.status = status;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public Staff() {

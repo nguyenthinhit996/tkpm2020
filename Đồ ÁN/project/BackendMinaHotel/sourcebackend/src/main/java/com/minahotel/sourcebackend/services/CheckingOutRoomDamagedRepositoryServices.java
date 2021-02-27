@@ -1,11 +1,13 @@
 package com.minahotel.sourcebackend.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.minahotel.sourcebackend.pojo.CheckingOutRoomDamaged;
+import com.minahotel.sourcebackend.pojo.Dailyworking;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.repository.CheckingOutRoomDamagedRepository;
  
@@ -59,8 +61,25 @@ public class CheckingOutRoomDamagedRepositoryServices implements MinaHotelServic
 
 	@Override
 	public List<? extends MinaHoTelPojo> getObjectById(String ...id) {
-		int intId= Integer.valueOf(id[0]);
-		return checkingOutRoomDamagedRepository.findObjectById(intId);
+		return checkingOutRoomDamagedRepository.findObjectById(id[0]);
 	}
 	
+	public Optional<CheckingOutRoomDamaged> getObjectByIdCheckOut(String ...id) {
+		return checkingOutRoomDamagedRepository.getObjectByIdCheckOut(id[0]);
+	}
+	
+	public Boolean updateObject(CheckingOutRoomDamaged object){
+		try {
+			Optional<CheckingOutRoomDamaged> checkingOutRoomDamaged = checkingOutRoomDamagedRepository.findObjectByIdOnlyOne(object.getIdcheckingoutroomdamaded());
+			if(checkingOutRoomDamaged.isPresent()) {
+				CheckingOutRoomDamaged checkingOutRoomDamagedObject = checkingOutRoomDamaged.get();
+				checkingOutRoomDamagedObject.setListproductdamaded(object.getListproductdamaded());
+				checkingOutRoomDamagedObject.setSumaryindemnify(object.getSumaryindemnify());
+				checkingOutRoomDamagedRepository.save(checkingOutRoomDamagedObject);
+			}
+		}catch( Exception e) {
+			return false;
+		}
+		return true;
+	}
 }

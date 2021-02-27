@@ -1,5 +1,6 @@
 package com.minahotel.sourcebackend.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +9,14 @@ import org.springframework.stereotype.Service;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.pojo.Production;
 import com.minahotel.sourcebackend.repository.ProductionRepository;
+import com.minahotel.sourcebackend.repository.RoomRepository;
 
 @Service
 public class ProductionRepositoryServices implements MinaHotelServices{
 
 	@Autowired
 	ProductionRepository productionRepository;
+	
 	
 	@Override
 	public List<? extends MinaHoTelPojo> getAll() {
@@ -29,6 +32,8 @@ public class ProductionRepositoryServices implements MinaHotelServices{
 	public boolean createObject(MinaHoTelPojo minapojo) {
 		try {
 			Production objectConvertFromMina = (Production) minapojo;
+			LocalDateTime now = LocalDateTime.now();
+			objectConvertFromMina.setIdproduction(now.toString());
 			productionRepository.save(objectConvertFromMina);
 		}catch(Exception e) {
 			return false;
@@ -44,6 +49,9 @@ public class ProductionRepositoryServices implements MinaHotelServices{
 			 x.setExtention(objectConvertFromMina.getExtention());
 			 x.setNameproduct(objectConvertFromMina.getNameproduct());
 			 x.setProductrates(objectConvertFromMina.getProductrates());
+			 x.setImg(objectConvertFromMina.getImg());
+			 x.setType(objectConvertFromMina.getType());
+			 x.setStatus(objectConvertFromMina.getStatus());
 			return productionRepository.save(x);
 		}).orElseGet(()->{
 			return productionRepository.save(objectConvertFromMina);
@@ -56,5 +64,7 @@ public class ProductionRepositoryServices implements MinaHotelServices{
 		Production objectConvertFromMina = (Production) minapojo;
 		productionRepository.delete(objectConvertFromMina);
 	}
+
+	
 
 }

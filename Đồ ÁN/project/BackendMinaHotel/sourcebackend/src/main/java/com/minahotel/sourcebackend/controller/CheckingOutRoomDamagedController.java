@@ -38,6 +38,12 @@ public class CheckingOutRoomDamagedController {
     boolean newObject(@RequestBody CheckingOutRoomDamaged object ) {
         return checkingOutRoomDamagedRepositoryServices.createObject(object);
     }
+    
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/UpdateCheckingOutRoomDamaged")
+    Boolean updateObject(@RequestBody CheckingOutRoomDamaged object ) {
+        return checkingOutRoomDamagedRepositoryServices.updateObject(object);
+    }
 	
 
     @ResponseStatus(HttpStatus.OK)

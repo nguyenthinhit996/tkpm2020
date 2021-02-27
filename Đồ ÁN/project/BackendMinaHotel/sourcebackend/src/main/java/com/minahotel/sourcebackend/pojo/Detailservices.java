@@ -8,8 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 
-@Entity  @IdClass(Detailservices.class)
-public class Detailservices extends MinaHoTelPojo implements Serializable{
+@Entity
+@IdClass(Detailservices.class)
+public class Detailservices extends MinaHoTelPojo implements Serializable {
 
 	/**
 	 * 
@@ -23,9 +24,9 @@ public class Detailservices extends MinaHoTelPojo implements Serializable{
 	private int amount;
 	private LocalDateTime startrent;
 	private LocalDateTime endrent;
-	private String status;
+	private String status;  // prepare-> shipping (send to user service) -> Todo(userservices doing) -> Done
 	private BigDecimal sumaryservices;
-	
+
 	public Detailservices() {
 		super();
 	}
@@ -106,16 +107,16 @@ public class Detailservices extends MinaHoTelPojo implements Serializable{
 	public void setSumaryservices(BigDecimal sumaryservices) {
 		this.sumaryservices = sumaryservices;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		super.setIdHashCode(idticketbooking,idproduct);
+		super.setIdHashCode(idticketbooking, idproduct);
 		return super.hashCode();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		super.setIdHashCode(idticketbooking,idproduct);
+		super.setIdHashCode(idticketbooking, idproduct);
 		return super.equals(obj);
 	}
 }

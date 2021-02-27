@@ -61,7 +61,7 @@ public class Datework extends MinaHoTelPojo{
 	
 	@Override
 	public int hashCode() {
-		super.setIdHashCode(iddatework);
+		super.setIdHashCode(this.iddatework);
 		return super.hashCode();
 	}
 	

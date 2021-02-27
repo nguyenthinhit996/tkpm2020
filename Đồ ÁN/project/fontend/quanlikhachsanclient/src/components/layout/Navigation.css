@@ -2,24 +2,20 @@
     font-family: "Risque";
     src: url("../../comon/font/Risque/Risque-Regular.ttf");
 }
-.navigation{
-    font-style: normal;
-    font-weight: normal;
-    font-size: 1rem;
-}
 
-.navigation--mod{
+
+.navigationAppBar{
     background-color: #ACEDF2 !important; 
     font-family: Risque, cursive !important;
     font-style: normal;
     font-weight: normal;
 }
 
-.bell-icon{
+.navigationAppBar .bell-icon{
     color: yellow;
 }
 
-.acount-icon {
+.navigationAppBar .acount-icon {
     color: rgb(212, 48, 48);
     margin: 0px 0px 0px 15px;
 }
@@ -39,7 +35,7 @@
     right: 90px;
 } */
 
-.noti-text-overflow-ellipsis{
+.navigationStyledMenu .noti-text-overflow-ellipsis{
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis;
@@ -48,16 +44,20 @@
 }
 
 
-.noti-text-overflow-ellipsis__not__viewed{
+.navigationStyledMenu .noti-text-overflow-ellipsis__not__viewed{
     background-color: green  !important;
   }
 
-li {
+.navigationStyledMenu li {
     font-family: Risque, cursive !important;
     font-style: normal;
     font-weight: normal;
 }
 
-li:hover{
+.navigationStyledMenu li:hover{
     background-color:white !important;
+}
+
+.navigationAppBar .navigationAppBar--home {
+    cursor: pointer;
 }

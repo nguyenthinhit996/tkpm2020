@@ -15,9 +15,19 @@ public interface CheckingOutRoomDamagedRepository extends CrudRepository<Checkin
 	
 	String queryFindObjectById = "select * from CheckingOutRoomDamaged c where c.idcheckingoutroomdamaded = :idcheckingoutroomdamaded";
 	@Query(value = queryFindObjectById, nativeQuery = true )
-	public List<CheckingOutRoomDamaged> findObjectById(@Param("idcheckingoutroomdamaded") int id);
+	public List<CheckingOutRoomDamaged> findObjectById(@Param("idcheckingoutroomdamaded") String id);
 	
 	@Query(value = queryFindObjectById, nativeQuery = true )
-	public Optional<CheckingOutRoomDamaged> findObjectByIdOnlyOne(@Param("idcheckingoutroomdamaded") int id);
+	public Optional<CheckingOutRoomDamaged> findObjectByIdOnlyOne(@Param("idcheckingoutroomdamaded") String id);
 	
+	
+	
+	String queryFindObjectByIdCheckout = "select * from CheckingOutRoomDamaged c where c.idcheckoutroom = :idcheckoutroom";
+	@Query(value = queryFindObjectByIdCheckout, nativeQuery = true )
+	public Optional<CheckingOutRoomDamaged> getObjectByIdCheckOut(@Param("idcheckoutroom") String id);
+	
+	
+	String queryFindObjectByIdCheckIn = "select * from CheckingOutRoomDamaged c where c.idticketbooking = :idticketbooking";
+	@Query(value = queryFindObjectByIdCheckIn, nativeQuery = true )
+	public Optional<CheckingOutRoomDamaged> getObjectByIdCheckIn(@Param("idticketbooking") String idticketbooking);
 }

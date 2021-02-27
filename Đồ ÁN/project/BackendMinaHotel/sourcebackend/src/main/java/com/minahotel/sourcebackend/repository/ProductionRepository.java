@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.minahotel.sourcebackend.pojo.DetailRoom;
 import com.minahotel.sourcebackend.pojo.Production;
 
  
@@ -19,4 +20,6 @@ public interface ProductionRepository extends CrudRepository<Production, Long>{
 	
 	@Query(value = queryFindObjectById, nativeQuery = true )
 	public Optional<Production> findObjectByIdOnlyOne(@Param("idproduction") String idproduction);
+	
+
 }

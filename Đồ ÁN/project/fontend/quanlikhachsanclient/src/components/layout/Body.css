@@ -9,7 +9,7 @@
     font-family: Risque, cursive !important;
     font-style: normal;
     font-weight: normal;
-    height: 100vh;
+    min-height: 100vh;
     font-size:1rem;
 }
 
@@ -56,3 +56,10 @@
     margin-inline-end: unset;
 }
 
+.btn--quanlikhachsan__cancel{
+    background-color: #E94141;
+}
+
+.btn--quanlikhachsan__green__MoreService{
+    background-color: rgba(15, 178, 32, 0.68);
+}

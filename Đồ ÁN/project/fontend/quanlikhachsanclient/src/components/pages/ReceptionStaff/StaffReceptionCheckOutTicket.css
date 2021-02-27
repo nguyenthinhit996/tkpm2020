@@ -1,0 +1,73 @@
+
+
+@font-face {
+    font-family: "Risque";
+    src: url("../../../comon/font/Risque/Risque-Regular.ttf");
+}
+
+.staffreceptioncheckoutticket {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.gridViewPaidRoom {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0px 20px;
+}
+ 
+.staffreceptioncheckoutticket .gridViewPaidRoom span {
+    font-family: Risque, cursive !important;
+}
+
+.staffreceptioncheckoutticket .gridViewPaidRoom .formViewInfoPaidRoom {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.staffreceptioncheckoutticket .gridViewPaidRoom li {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.staffreceptioncheckoutticket .gridViewPaidRoom .formViewDetailPaidRoom {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    min-width: 600px;
+}
+
+.staffreceptioncheckoutticket .gridViewPaidRoom .formViewDetailPaidRoom li div {
+    max-width: 200px;
+}
+
+.staffreceptioncheckoutticket .gridViewPaidRoom .btn-paidRoom--group {
+    margin: 10px 0px 50px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    min-width: 600px;
+}
+
+.staffreceptioncheckoutticket button:disabled {
+   opacity: 0.5;
+}
+
+.staffreceptioncheckoutticket .gridViewPaidRoom .btn-paidRoom--group .btn--quanlikhachsan__Paid {
+    background-color: yellow;
+    width: 90px;
+    height: 30px;
+    margin-left: 50px;
+}
+
+.gridViewPaidRoom .btn--quanlikhachsan__green__MoreService{
+    background-color: rgba(15, 178, 32, 0.68);
+ }

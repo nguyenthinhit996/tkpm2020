@@ -25,12 +25,11 @@ public class DailyworkingController {
 	
 
 	@GetMapping("/Dailyworking")
-	List<? extends MinaHoTelPojo> getObjectById(@RequestParam(name = "idtoday", defaultValue = "All") String idtoday,
-			@RequestParam(name = "idstaff", defaultValue = "All") String idstaff) {
+	List<? extends MinaHoTelPojo> getObjectById(@RequestParam(name = "idtoday", defaultValue = "All") String idtoday) {
 		if("All".equals(idtoday)) {
 			return dailyworkingRepositoryServices.getAll();
 		}
-		 return dailyworkingRepositoryServices.getObjectById(idtoday,idstaff);
+		 return dailyworkingRepositoryServices.getObjectById(idtoday);
 	}
 	
 
@@ -53,4 +52,10 @@ public class DailyworkingController {
     void deleteObject(@RequestBody Dailyworking object ) {
     	dailyworkingRepositoryServices.deleteObject(object);
     }
+    
+	// get all or get by idstaff
+	@GetMapping("/autotime")
+	void getStaffById() {
+		 dailyworkingRepositoryServices.autotime();
+	}
 }

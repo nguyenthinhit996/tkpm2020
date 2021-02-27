@@ -52,4 +52,9 @@ public class DateworkController {
     void deleteObject(@RequestBody Datework object ) {
     	dateworkRepositoryServices.deleteObject(object);
     }
+    
+    @GetMapping("/Salary")
+	List<? extends MinaHoTelPojo> getSalaryAllStaffByMonth(@RequestParam(name = "month", defaultValue = "All") String id) {
+		 return dateworkRepositoryServices.getSalaryAllStaffByMonthYear(id);
+	}
 }

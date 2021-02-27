@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.minahotel.sourcebackend.pojo.Detailservices;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
+import com.minahotel.sourcebackend.pojo.fontendsendto.ListDetailservicesLinkFontEnd;
+import com.minahotel.sourcebackend.pojo.fontendsendto.StatusServiceTableFontEnd;
 import com.minahotel.sourcebackend.services.DetailservicesRepositoryServices;
 
 @RestController
@@ -33,11 +35,27 @@ public class DetailservicesController {
 		 return detailservicesRepositoryServices.getObjectById(idticketbooking,idproduct);
 	}
 	
+	@GetMapping("/DetailservicesByChecking")
+	List<? extends MinaHoTelPojo> getObjectByIdTicket(@RequestParam(name = "idticketbooking") String idticketbooking){
+		 return detailservicesRepositoryServices.getObjectByIdTicket(idticketbooking);
+	}
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/Detailservices")
     boolean newObject(@RequestBody Detailservices object ) {
         return detailservicesRepositoryServices.createObject(object);
+    }
+    
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/DetailservicesUpdate")
+    boolean DetailservicesUpdate(@RequestBody ListDetailservicesLinkFontEnd object ) {
+        return detailservicesRepositoryServices.DetailservicesUpdate(object);
+    }
+    
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/DetailservicesUpdateOneProduct")
+    boolean DetailservicesUpdateByUserReception(@RequestBody Detailservices object ) {
+        return detailservicesRepositoryServices.DetailservicesUpdateByUserReception(object);
     }
 	
 
@@ -53,4 +71,25 @@ public class DetailservicesController {
     void deleteObject(@RequestBody Detailservices object ) {
     	detailservicesRepositoryServices.deleteObject(object);
     }
+    
+    
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/getWorkAllStaffStatusServices")
+    public List<? extends MinaHoTelPojo> getWorkAllStaffStatusServices() {
+        return detailservicesRepositoryServices.getWorkAllStaffStatusServices();
+    }
+    
+    
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/UpdateStatusServicesByUserServices")
+    boolean UpdateStatusServices(@RequestBody StatusServiceTableFontEnd object ) {
+        return detailservicesRepositoryServices.UpdateStatusServicesByUserServices(object);
+    }
+    
+    
+	@GetMapping("/DetailservicesInforDrinkAndFood")
+	String getObjectByIdResponseString(@RequestParam(name = "idticketbooking", defaultValue = "All") String idticketbooking,
+			@RequestParam(name = "idproduct", defaultValue = "All") String idproduct) {
+		 return detailservicesRepositoryServices.getObjectByIdResponseString(idticketbooking,idproduct);
+	}
 }

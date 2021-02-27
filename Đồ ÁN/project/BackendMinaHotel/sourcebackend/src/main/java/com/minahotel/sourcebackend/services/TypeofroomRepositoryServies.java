@@ -1,11 +1,14 @@
 package com.minahotel.sourcebackend.services;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
+import com.minahotel.sourcebackend.pojo.TypeOfRoomAll;
 import com.minahotel.sourcebackend.pojo.Typeofroom;
 import com.minahotel.sourcebackend.repository.TypeofroomRepository;
 
@@ -50,6 +53,39 @@ public class TypeofroomRepositoryServies implements MinaHotelServices{
 			return typeofroomRepository.save(objectConvertFromMina);
 		});
 		return result != null ? true : false;
+	}
+	
+
+	public boolean saveOrUpdateAll(TypeOfRoomAll minapojo) {
+		 try {
+			 Optional<Typeofroom> opSingle = typeofroomRepository.findObjectByIdOnlyOne("single");
+			 Typeofroom single = opSingle.get();
+			 single.setNumberinroom(Integer.valueOf(minapojo.getSingleNumberInRoom()));
+			 single.setRoomratescharge(BigDecimal.valueOf(Double.valueOf(minapojo.getSingleSubcharged())));
+			 single.setRoomratesdates(BigDecimal.valueOf(Double.valueOf(minapojo.getSingleRoomRatesDay())));
+			 single.setRoomrateshours(BigDecimal.valueOf(Double.valueOf(minapojo.getSingleRoomRatesHours())));
+			 typeofroomRepository.save(single);
+			 
+			 Optional<Typeofroom> opDouble = typeofroomRepository.findObjectByIdOnlyOne("double");
+			 Typeofroom doubles= opDouble.get();
+			 doubles.setNumberinroom(Integer.valueOf(minapojo.getDoubleNumberInRoom()));
+			 doubles.setRoomratescharge(BigDecimal.valueOf(Double.valueOf(minapojo.getDoubleSubcharged())));
+			 doubles.setRoomratesdates(BigDecimal.valueOf(Double.valueOf(minapojo.getDoubleRoomRatesDay())));
+			 doubles.setRoomrateshours(BigDecimal.valueOf(Double.valueOf(minapojo.getDoubleRoomRatesHours())));
+			 typeofroomRepository.save(doubles);
+			 
+			 Optional<Typeofroom> opVip = typeofroomRepository.findObjectByIdOnlyOne("vip");
+			 Typeofroom vip= opVip.get();
+			 vip.setNumberinroom(Integer.valueOf(minapojo.getVipNumberInRoom()));
+			 vip.setRoomratescharge(BigDecimal.valueOf(Double.valueOf(minapojo.getVipSubcharged())));
+			 vip.setRoomratesdates(BigDecimal.valueOf(Double.valueOf(minapojo.getVipRoomRatesDay())));
+			 vip.setRoomrateshours(BigDecimal.valueOf(Double.valueOf(minapojo.getVipRoomRatesHours())));
+			 typeofroomRepository.save(vip);
+			 
+		 }catch(Exception x) {
+			 return false;
+		 }
+		 return true;
 	}
 
 	@Override

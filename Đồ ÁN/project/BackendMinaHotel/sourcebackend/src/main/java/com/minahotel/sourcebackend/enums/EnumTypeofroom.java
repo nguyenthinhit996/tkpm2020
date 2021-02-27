@@ -3,12 +3,9 @@ package com.minahotel.sourcebackend.enums;
 public enum EnumTypeofroom {
 
 	
-	NAMETYPEOFROOM("nametypeofroom"),
-	ROOMRATESHOURS("roomrateshours"),
-	ROOMRATESDATES("roomratesdates"),
-	NUMBERINROOM("numberinroom"),
-	ROOMRATESCHARGE("roomratescharge"),
-	TABLENAME("typeofroom");
+	SINGLE("single"),
+	DOUBLE("double"),
+	VIP("vip");
 	
 	private String name;
 	

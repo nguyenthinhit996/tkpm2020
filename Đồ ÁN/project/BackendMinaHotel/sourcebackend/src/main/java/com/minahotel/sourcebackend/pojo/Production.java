@@ -13,18 +13,65 @@ public class Production extends MinaHoTelPojo {
 	private String nameproduct;
 	private String extention;
 	private BigDecimal productrates;
+	private String img;
+	private String type;
+	private String status;
 
 	public Production() {
 		super();
 	}
 
-	public Production(String idproduction, String nameproduct, String extention, BigDecimal productrates) {
+
+	public Production(String idproduction, String nameproduct, String extention, BigDecimal productrates, String img,
+			String type, String status) {
 		super();
 		this.idproduction = idproduction;
 		this.nameproduct = nameproduct;
 		this.extention = extention;
 		this.productrates = productrates;
+		this.img = img;
+		this.type = type;
+		this.status = status;
 	}
+
+
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+	public String getImg() {
+		return img;
+	}
+
+
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+
 
 	public String getIdproduction() {
 		return idproduction;

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
+import com.minahotel.sourcebackend.pojo.TypeOfRoomAll;
 import com.minahotel.sourcebackend.pojo.Typeofroom;
 import com.minahotel.sourcebackend.services.TypeofroomRepositoryServies;
 
@@ -42,8 +43,8 @@ public class TypeofroomController {
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/Typeofroom")
-    boolean saveOrUpdate(@RequestBody Typeofroom object ) {
-        return TypeofroomRepositoryServies.saveOrUpdate(object);
+    boolean saveOrUpdate(@RequestBody TypeOfRoomAll object ) {
+        return TypeofroomRepositoryServies.saveOrUpdateAll(object);
     }
     
 
