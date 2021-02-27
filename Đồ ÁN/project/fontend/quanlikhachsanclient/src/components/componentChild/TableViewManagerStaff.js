@@ -15,6 +15,7 @@ import { DetailservicesUpdate } from '../../core/product';
 import { useSnackbar } from 'notistack';
 import { editStaff } from '../../core/staff';
 import { useHistory } from 'react-router-dom';
+import { STAFF_MANAGER_ADMIN } from '../../constants/ConstApp';
 
 
 const useStyles = makeStyles({
@@ -71,13 +72,13 @@ export default function TableViewManagerStaff(pros) {
 
     const handlerRemoveStaff = async (row) => {
 
-        row.status= "Off";
+        row.status = "Off";
 
         let result = await editStaff(row);
 
         if (result) {
             var id = row.idstaff;
-            let mess = "Remove Staff ("+id+") Success";
+            let mess = "Remove Staff (" + id + ") Success";
             exportToastSuccess(mess);
         } else {
             exportToastError("Not Detele Staff Success")
@@ -98,8 +99,7 @@ export default function TableViewManagerStaff(pros) {
                         <TableCell align="justify">DateStart</TableCell>
                         <TableCell align="justify">SalaryMonth</TableCell>
                         <TableCell align="justify">BonusMonth</TableCell>
-                        <TableCell align="justify">Edit</TableCell>
-                        <TableCell align="justify">Delete</TableCell>
+                        <TableCell align="justify">Action</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody className="group--body-table-viewer">
@@ -118,20 +118,45 @@ export default function TableViewManagerStaff(pros) {
                                 {row.datework}
                             </TableCell>
                             <TableCell align="justify">
-                                
+
                                 <CurrencyFormat value={row.salarymonth} displayType={'text'} thousandSeparator={true} suffix={'đ'} renderText={value => <div>{value}</div>} />
                             </TableCell>
                             <TableCell align="justify">
-                               
-                                <CurrencyFormat value= {row.bonussalary} displayType={'text'} thousandSeparator={true} suffix={'đ'} renderText={value => <div>{value}</div>} />
-                            </TableCell>
-                            <TableCell align="justify">
-                                <button disabled={row.idstaff === localStorage.onlineAcademy_userName ? true : false} onClick={() => handlerEditStaff(row)} className="btn--quanlikhachsan btn--quanlikhachsan__green__Edit" > Edit </button>
+
+                                <CurrencyFormat value={row.bonussalary} displayType={'text'} thousandSeparator={true} suffix={'đ'} renderText={value => <div>{value}</div>} />
                             </TableCell>
 
-                            <TableCell align="justify">
-                                <button disabled={row.idstaff === localStorage.onlineAcademy_userName ? true : false} onClick={() => handlerRemoveStaff(row)} className="btn--quanlikhachsan btn--quanlikhachsan__green__Remove" > Remove </button>
-                            </TableCell>
+                            {
+                                // admin view len het ngoai tru no
+                                localStorage.onlineAcademy_role === STAFF_MANAGER_ADMIN
+                                &&
+                                <div>
+                                    <TableCell align="justify">
+                                        <button disabled={(row.idstaff === localStorage.onlineAcademy_userName) ? true : false} onClick={() => handlerEditStaff(row)} className="btn--quanlikhachsan btn--quanlikhachsan__green__Edit" > Edit </button>
+                                    </TableCell>
+
+                                    <TableCell align="justify">
+                                        <button disabled={(row.idstaff === localStorage.onlineAcademy_userName) ? true : false} className="btn--quanlikhachsan btn--quanlikhachsan__green__Remove" > Remove </button>
+                                    </TableCell>
+                                </div>
+                            }
+                            {
+                                // ko la admin 
+                                // view le het ngoai tru no va admin
+                                localStorage.onlineAcademy_role !== STAFF_MANAGER_ADMIN &&
+                                <div>
+                                    <TableCell align="justify">
+                                        <button disabled={(row.idstaff === localStorage.onlineAcademy_userName || row.role === STAFF_MANAGER_ADMIN) ? true : false} onClick={() => handlerEditStaff(row)} className="btn--quanlikhachsan btn--quanlikhachsan__green__Edit" > Edit </button>
+                                    </TableCell>
+
+                                    <TableCell align="justify">
+                                        <button disabled={(row.idstaff === localStorage.onlineAcademy_userName || row.role === STAFF_MANAGER_ADMIN) ? true : false} className="btn--quanlikhachsan btn--quanlikhachsan__green__Remove" > Remove </button>
+                                    </TableCell>
+                                </div>
+
+                            }
+
+
 
                         </TableRow>
                     ))}
