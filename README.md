@@ -1,5 +1,2 @@
 # tkpm2020
-Môi trường webApplication.
-Font-end : ReactJs
-Back-end: Spring Boot
-DataBase: MySql
+Introduce: https://nguyenthinhit996.github.io/tkpm2020/
