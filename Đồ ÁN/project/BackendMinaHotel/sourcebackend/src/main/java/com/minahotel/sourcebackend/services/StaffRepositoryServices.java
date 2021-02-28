@@ -78,6 +78,18 @@ public class StaffRepositoryServices implements MinaHotelServices, UserDetailsSe
 		return result != null ? true : false;
 	}
 
+	public boolean resetPassword(String idstaff) {
+		Optional<Staff> result = staffRepository.findStaffByIdOnlyOne(idstaff);
+		Staff staffSuccess = null;
+		if(result.isPresent()) {
+			Staff staff = result.get();
+			staff.setPass(bCryptPasswordEncoder().encode("123"));
+			staffSuccess = staffRepository.save(staff);
+		}
+		return staffSuccess != null ? true : false;
+	}
+
+	
 	public void deleteObject(MinaHoTelPojo staff) {
 		Staff staffConvertFromMina = (Staff) staff;
 		staffRepository.delete(staffConvertFromMina);

@@ -1,11 +1,12 @@
 import { Container, Grid, makeStyles, Paper, Typography } from '@material-ui/core'
 import { useForm } from "react-hook-form";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../layout/Body.css'
 import './Login.css'
 import { useHistory, useLocation } from 'react-router-dom';
 import { login } from '../../core/auth';
 import { STAFF_RECEPTION, STAFF_SERVICE ,STAFF_MANAGER, STAFF_MANAGER_ADMIN} from '../../constants/ConstApp';
+import { useSnackbar } from 'notistack';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,6 +25,45 @@ export default function Login(props) {
     const [loginState, setloginState] = useState('');
 
     const classes = useStyles();
+
+     // toast  start
+     const [messageToast, setmessageToast] = useState({ message: '', variant: '' });
+
+     useEffect(() => {
+         if (messageToast.message.length !== 0) {
+             handlerMessageToast(messageToast.message, messageToast.variant);
+         }
+     }, [messageToast])
+ 
+     const { enqueueSnackbar } = useSnackbar();
+ 
+ 
+     const handlerMessageToast = (mess, variant) => {
+         // variant could be success, error, warning, info, or default
+         enqueueSnackbar(mess, { variant });
+     };
+ 
+     const exportToastSuccess = (mess) => {
+         let a = 'success';
+         setmessageToast({ message: mess, variant: a })
+     }
+ 
+     const exportToastError = (mess) => {
+         let a = 'error';
+         setmessageToast({ message: mess, variant: a })
+     }
+
+     const exportToastInfo = (mess) => {
+        let a = 'info';
+        setmessageToast({ message: mess, variant: a })
+    }
+ 
+     const exportToastWarning = (mess) => {
+         let a = 'Warning';
+         setmessageToast({ message: mess, variant: a })
+     }
+ 
+     // toast  enddddddddddddddd
 
     const { register, handleSubmit, watch, errors } = useForm();
 
@@ -83,6 +123,10 @@ export default function Login(props) {
         }
     }
 
+    const forgetPassWordHandler = () => {
+        exportToastInfo("Let's notification for Your Manager ! ");
+    }
+
     return (
         <Container >
             <Typography component="div"
@@ -115,7 +159,7 @@ export default function Login(props) {
                                     {errors.Password && < p className="container--removespace add--space-margin--left aler--error"> Password is required </p>}
                                 </div>
                                 <div className="form--mod form--mod__forgetpassword">
-                                    <a href="https://www.w3schools.com">Forget password</a>
+                                    <a href="#" onClick={forgetPassWordHandler}>Forget password</a>
                                 </div>
                                 <Grid>
                                     <button type="submit" className="btn--quanlikhachsan btn--quanlikhachsan__green__login" > Login </button>

@@ -33,3 +33,15 @@ export const getAllStaff = async (idticket) => {
       return error.response;
     }
   }
+
+  export const resetPass = async (value) => {
+    try {
+      let { data } = await axiosInstance.put('/resetPass', value);
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error.response);
+      return error.response;
+    }
+  }
+  

@@ -9,7 +9,7 @@ import NavigationAppContext from '../../stores/NavigationAppContext'
 import '../layout/Body.css'
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import { STAFF_MANAGER_ADMIN } from '../../constants/ConstApp';
-import { newStaff, editStaff } from '../../core/staff'
+import { newStaff, editStaff, resetPass } from '../../core/staff'
 import { useSnackbar } from 'notistack';
 
 const styles = (theme) => ({
@@ -123,9 +123,9 @@ export default function DialogStaffAction(props) {
     }
 
     const onSubmitEditStaff = async (data) => {
-         console.log(refSelectEdit.current.firstChild.value);
+        console.log(refSelectEdit.current.firstChild.value);
 
-         console.log(JSON.stringify(data));
+        console.log(JSON.stringify(data));
 
         let dataresult = {
             idstaff: staffState.data.idstaff
@@ -140,12 +140,12 @@ export default function DialogStaffAction(props) {
         let result = await editStaff(dataresult);
 
         if (result) {
-            exportToastSuccess("Create Staff Success")
+            exportToastSuccess("Edit Staff Success")
         } else {
             exportToastError("Not Edit Staff Success")
         }
 
-      
+
         reset();
         handleClose();
         setTimeout(() => {
@@ -159,6 +159,16 @@ export default function DialogStaffAction(props) {
     const handleClose = () => {
         setstaffState({ ...staffState, openDialogStaff: false });
         reset();
+    }
+
+    const resetPassHandler = async () => {
+        console.log(" Reset pass " + staffState.data.idstaff);
+        let result = await resetPass(staffState.data.idstaff);
+        if (result) {
+            exportToastSuccess("Reset Pass Staff Success")
+        } else {
+            exportToastError("Not Reset Pass Staff Success")
+        }
     }
 
     return (
@@ -219,7 +229,7 @@ export default function DialogStaffAction(props) {
                             </div>
                             <div className="btn-saveupdate--group">
                                 <Grid>
-                                    <button onClick={handleClose} className="btn--quanlikhachsan btn--quanlikhachsan__cancel" > Cancel </button>
+                                    <button type="button" onClick={handleClose} className="btn--quanlikhachsan btn--quanlikhachsan__cancel" > Cancel </button>
                                     <button type="submit" className="btn--quanlikhachsan btn--quanlikhachsan--saveAddproduct" > Save </button>
                                 </Grid>
                             </div>
@@ -277,7 +287,8 @@ export default function DialogStaffAction(props) {
                             </div>
                             <div className="btn-saveupdate--group">
                                 <Grid>
-                                    <button onClick={handleClose} className="btn--quanlikhachsan btn--quanlikhachsan__cancel" > Cancel </button>
+                                    <button type="button" onClick={handleClose} className="btn--quanlikhachsan btn--quanlikhachsan__cancel" > Cancel </button>
+                                    <button type="button" onClick={resetPassHandler} className="btn--quanlikhachsan btn--quanlikhachsan--ResetPass" > ResetPass </button>
                                     <button type="submit" className="btn--quanlikhachsan btn--quanlikhachsan--saveAddproduct" > Save </button>
                                 </Grid>
                             </div>

@@ -88,5 +88,12 @@ public class StaffController {
     	return staffRepositoryServices.changePass(loginPojo);
     }
     
-
+    //update or insert 
+    //return 200
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/resetPass")
+    boolean resetPassWord(@RequestBody String idStaff) {
+    	staffRepositoryServices.resetPassword(idStaff);
+       return true;
+    }
 }
