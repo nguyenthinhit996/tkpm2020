@@ -77,6 +77,9 @@ export default function StaffManagementAdmin(props) {
     }
 
     const handlerCancelButton = () => {
+        // history.push({
+        //     pathname: '/staffmanager'
+        // });
         reset();
         history.goBack();
     }
@@ -188,7 +191,7 @@ export default function StaffManagementAdmin(props) {
                             </div>
                             <div className="btn-saveupdate--group">
                                 <Grid>
-                                    <button onClick={handlerCancelButton} className="btn--quanlikhachsan btn--quanlikhachsan__cancel" > Cancel </button>
+                                    <button type="button" onClick={handlerCancelButton} className="btn--quanlikhachsan btn--quanlikhachsan__cancel" > Cancel </button>
                                 </Grid>
                                 <Grid>
                                     {/* {disabled={value.status === "Shipping" ? true : false}} */}
