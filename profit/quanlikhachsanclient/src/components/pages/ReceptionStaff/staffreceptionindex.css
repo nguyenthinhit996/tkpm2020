@@ -1,0 +1,36 @@
+
+.staffreceptionindex .controlButtonOfReceptionUser {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin-top: 10px;
+}
+
+.staffreceptionindex .controlRoomOfReceptionUser {
+    margin: 5px 10px;
+}
+
+.staffreceptionindex .btn--quanlikhachsan--AllRoom {
+    border: 2px solid yellow ;
+}
+
+.staffreceptionindex .btn--quanlikhachsan--Empty {
+    border: 2px solid rgba(0, 0, 0, 0.23)
+}
+
+
+.staffreceptionindex .btn--quanlikhachsan--Full{
+    border:2px solid red;
+}
+
+.staffreceptionindex .btn--quanlikhachsan--Clean {
+    border:2px solid rgb(143, 8, 206);
+}
+
+.staffreceptionindex .controlSelectTypeRoom option{
+    background-color:#67D265 !important;
+}
+
+ 

@@ -1,0 +1,29 @@
+
+ .managerstaffindex .ManagerstaffindexHeader{
+     margin-top: 20px;
+ }
+
+
+.ManagerstaffindexHeader .btn--quanlikhachsan__green__ManagementStaff {
+    margin: 10px 0px 0px 10px;
+    background-color: rgba(15, 178, 32, 0.68);
+}
+
+.ManagerstaffindexHeader .btn--quanlikhachsan__green__ManagementProduct {
+    margin: 10px 0px 0px 40px;
+    background-color: rgba(15, 178, 32, 0.68);
+}
+
+
+.ManagerstaffindexHeader .btn--quanlikhachsan__green__Admin{
+    margin: 10px 0px 0px 40px;
+    background-color: rgba(15, 178, 32, 0.68);
+}
+
+.ManagerstaffindexHeader button:disabled {
+    opacity: 0.5;
+ }
+
+ .managerstaffindex .ManagerstaffindexBody {
+     margin: 20px 5px 20px 5px;
+ }

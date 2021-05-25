@@ -1,0 +1,31 @@
+
+.staffmanagementdailyworking .StaffmanagementdailyworkingHeader{
+    margin-top: 20px;
+}
+
+ 
+.StaffmanagementdailyworkingHeader .btn--quanlikhachsan__green__ManagementStaff {
+    margin: 10px 0px 0px 10px;
+    background-color: rgba(15, 178, 32, 0.68);
+}
+
+.StaffmanagementdailyworkingHeader .btn--quanlikhachsan__green__Salary{
+    margin: 10px 0px 0px 40px;
+    background-color: rgba(15, 178, 32, 0.68);
+}
+
+.StaffmanagementdailyworkingBody {
+    margin: 10px;
+}
+
+.staffmanagementdailyworking .form--mod--dailyWorking {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin: 5px 0px;
+}
+
+.StaffmanagementdailyworkingBodyFrom{
+    margin: 10px;
+}

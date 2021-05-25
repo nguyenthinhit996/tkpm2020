@@ -1,0 +1,65 @@
+
+@font-face {
+    font-family: "Risque";
+    src: url("../../comon/font/Risque/Risque-Regular.ttf");
+}
+
+.containerQuanliKhachSan {
+    background-color: #ACEDF2;
+    font-family: Risque, cursive !important;
+    font-style: normal;
+    font-weight: normal;
+    min-height: 100vh;
+    font-size:1rem;
+}
+
+.font--Quanlikhachsan {
+    font-family: Risque, cursive !important;
+    font-style: normal;
+    font-weight: normal;
+    color: black;
+}
+
+.aler--error{
+    color: red;
+}
+
+.display--none{
+    display: none;
+}
+
+.add--space-margin--left {
+    margin-left: 5px !important;
+}
+
+.btn--quanlikhachsan{
+    font-family: Risque, cursive !important;
+    font-size:1rem;
+    border: none;
+    color: black;
+}
+
+.btn--quanlikhachsan__green {
+    background-color: rgba(15, 178, 32, 0.68);
+}
+
+.link--tagA--mod{
+    text-decoration: none;
+    color: inherit;
+}
+
+.container--removespace {
+    margin: 0px;
+    padding: 0px;
+    margin-inline-start: unset;
+    margin-block-end: unset;
+    margin-inline-end: unset;
+}
+
+.btn--quanlikhachsan__cancel{
+    background-color: #E94141;
+}
+
+.btn--quanlikhachsan__green__MoreService{
+    background-color: rgba(15, 178, 32, 0.68);
+}

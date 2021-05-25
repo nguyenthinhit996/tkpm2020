@@ -1,0 +1,55 @@
+ 
+.chooseoptionuserchangepass div.MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiPaper-elevation24.MuiPaper-rounded{
+    background-color: #67D265;
+ }
+
+.chooseoptionuserchangepass .MuiTypography-h6 {
+     text-align: center;
+     font-family: Risque, cursive !important;
+ }
+
+.chooseoptionuserchangepass .MuiDialog-paperWidthSm{
+    min-width: 420px;
+}
+
+.chooseoptionuserchangepass span.MuiTypography-root.MuiListItemText-primary.MuiTypography-body1.MuiTypography-displayBlock{
+    font-family: Risque, cursive !important;
+}
+
+.chooseoptionuserchangepass li{
+    padding: 0px 16px !important;
+}
+
+.chooseoptionuserchangepass form.chooseoptionuserchangepassForm{
+    margin: 0px 5px;
+}
+
+.chooseoptionuserchangepass form.chooseoptionuserchangepassForm input {
+    background-color: #67D265;
+    border: none;
+    border-bottom: 2px ridge black;
+  }
+
+
+.chooseoptionuserchangepass form.chooseoptionuserchangepassForm .form--mod {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin: 5px 0px;
+}
+
+.chooseoptionuserchangepass .btn--quanlikhachsan__changePass{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.chooseoptionuserchangepass .btn--quanlikhachsan__changePass button{
+    background-color: #F1C6C6;
+}
+
+.chooseoptionuserchangepass p.container--removespace {
+    margin-left: 15px;
+}

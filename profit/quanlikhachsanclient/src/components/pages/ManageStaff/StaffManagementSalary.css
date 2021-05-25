@@ -1,0 +1,34 @@
+
+
+
+.StaffManagementSalary .StaffManagementSalaryHeader{
+    margin-top: 20px;
+}
+
+ 
+.StaffManagementSalaryHeader .btn--quanlikhachsan__green__ManagementStaff {
+    margin: 10px 0px 0px 10px;
+    background-color: rgba(15, 178, 32, 0.68);
+}
+
+.StaffManagementSalaryHeader .btn--quanlikhachsan__green__Salary{
+    margin: 10px 0px 0px 40px;
+    background-color: rgba(15, 178, 32, 0.68);
+}
+
+.StaffManagementSalaryBody {
+    margin: 10px;
+}
+
+.StaffManagementSalary .form--mod--dailyWorking {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin: 5px 0px;
+}
+
+.StaffManagementSalaryBodyFrom{
+    margin: 10px;
+}
+

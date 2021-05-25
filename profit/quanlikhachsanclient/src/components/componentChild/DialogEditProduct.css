@@ -1,0 +1,77 @@
+ 
+.DialogEditProduct div.MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiPaper-elevation24.MuiPaper-rounded{
+    background-color: #67D265;
+ }
+
+.DialogEditProduct .MuiTypography-h6 {
+     text-align: center;
+     font-family: Risque, cursive !important;
+ }
+
+.DialogEditProduct .MuiDialog-paperWidthSm{
+    min-width: 420px;
+}
+
+.DialogEditProduct span.MuiTypography-root.MuiListItemText-primary.MuiTypography-body1.MuiTypography-displayBlock{
+    font-family: Risque, cursive !important;
+}
+
+.DialogEditProduct li{
+    padding: 0px 16px !important;
+}
+
+.DialogEditProduct form.DialogEditProductForm{
+    margin: 0px 5px;
+   
+}
+
+.DialogEditProduct form.DialogEditProductForm input {
+    background-color: #67D265;
+    border: none;
+    border-bottom: 2px ridge black;
+  }
+
+
+.DialogEditProduct form.DialogEditProductForm .form--mod--editProduct {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin: 5px 0px;
+    font-family: Risque, cursive !important;
+}
+
+.DialogEditProduct form.DialogEditProductForm .form--mod--editProduct--img{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 5px 0px;
+    font-family: Risque, cursive !important;
+}
+
+.DialogEditProduct .btn--quanlikhachsan__changePass{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.DialogEditProduct .btn--quanlikhachsan__changePass{
+    background-color: #F1C6C6;
+}
+
+.DialogEditProduct p.container--removespace {
+    margin-left: 15px;
+}
+
+.btn--quanlikhachsan--saveAddproduct{
+    background-color: yellow;
+    width: 90px;
+    height: 30px;
+    margin-left: 50px;
+}
+
+.DialogEditProduct form.DialogEditProductForm .group-button-save-edit-product{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
