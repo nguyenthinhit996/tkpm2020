@@ -2,12 +2,13 @@ package com.minahotel.sourcebackend.pojo;
 
 import java.io.Serializable;
 
+
 public class LoginPojo implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1333L;
-	private String username;
+	private String iduser;
 	private String password;
 	private String accessToken;
 	private String refreshToken;
@@ -15,12 +16,12 @@ public class LoginPojo implements Serializable{
 	private String role;
 	private String fullName;
 
-	public String getUsername() {
-		return username;
+	public String getIduser() {
+		return iduser;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setIduser(String username) {
+		this.iduser = username;
 	}
 
 	public String getPassword() {
@@ -65,10 +66,10 @@ public class LoginPojo implements Serializable{
 
 	 
 
-	public LoginPojo(String username, String password, String accessToken, String refreshToken, Boolean authenticated,
+	public LoginPojo(String iduser, String password, String accessToken, String refreshToken, Boolean authenticated,
 			String role, String fullName) {
 		super();
-		this.username = username;
+		this.iduser = iduser;
 		this.password = password;
 		this.accessToken = accessToken;
 		this.refreshToken = refreshToken;

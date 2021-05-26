@@ -23,4 +23,8 @@ public interface StaffRepository extends CrudRepository<Staff, Long>{
 	@Query(value = queryFindStaffByName , nativeQuery = true )
 	public Optional<Staff> findStaffByName(@Param("username") String username);
 	
+	String queryfindStaffIdstaff = "select * from Staff c where c.idstaff = :idstaff";
+	@Query(value = queryfindStaffIdstaff , nativeQuery = true )
+	public Optional<Staff> findStaffIdstaff(@Param("idstaff") String idstaff);
+	
 }

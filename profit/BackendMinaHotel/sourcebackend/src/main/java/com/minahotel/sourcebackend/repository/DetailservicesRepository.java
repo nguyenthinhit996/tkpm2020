@@ -6,11 +6,12 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.minahotel.sourcebackend.pojo.Detailservices;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 
- 
+@Repository
 public interface DetailservicesRepository extends CrudRepository<Detailservices, Long>{
 
 	String queryFindObjectById = "select * from Detailservices c where c.idticketbooking like :idticketbooking and c.idproduct like :idproduct";

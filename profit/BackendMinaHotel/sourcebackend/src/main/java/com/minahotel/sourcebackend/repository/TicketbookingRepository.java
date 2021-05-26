@@ -6,10 +6,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.minahotel.sourcebackend.pojo.Ticketbooking;
 
-
+@Repository
 public interface TicketbookingRepository extends CrudRepository<Ticketbooking, Long>{
 
 	String queryFindObjectById = "select * from Ticketbooking c where c.idticketbooking = :idticketbooking ";

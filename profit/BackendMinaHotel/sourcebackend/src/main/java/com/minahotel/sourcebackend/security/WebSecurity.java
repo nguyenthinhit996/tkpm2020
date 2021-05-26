@@ -1,79 +1,85 @@
 package com.minahotel.sourcebackend.security;
 
-import java.util.Arrays;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
+import org.springframework.web.filter.CorsFilter;
 
+import com.minahotel.sourcebackend.security.filter.ErrorFilterCustome;
+import com.minahotel.sourcebackend.security.filter.JWTAuthenticationFilter;
+import com.minahotel.sourcebackend.security.filter.JWTAuthorizationFilter;
+import com.minahotel.sourcebackend.security.filter.JWTLogoutFilterFilter;
+import com.minahotel.sourcebackend.security.filter.LogoutHandlerCustomize;
 import com.minahotel.sourcebackend.services.StaffRepositoryServices;
 
-@EnableWebSecurity
+@Configuration
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
-    private StaffRepositoryServices userDetailsService;	
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+	@Autowired
+	private StaffRepositoryServices userDetailsService;
 
-    public WebSecurity(StaffRepositoryServices userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userDetailsService = userDetailsService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().authorizeRequests()
-        		.antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-//                 this disables session creation on Spring Security
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    	http.cors().and().csrf().disable();
-//    	//http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
-////    	http.authorizeRequests().antMatchers("/*").permitAll();
-    }
+		http.antMatcher("/**").authorizeRequests()
+				.antMatchers(SecurityConstants.LOG_IN_URL, SecurityConstants.LOG_OUT_URL,
+						SecurityConstants.REFRESH_TOKEN_URL)
+				.permitAll().anyRequest().authenticated()
+				.and()
+				.addFilter(new JWTLogoutFilterFilter(getLogoutSuccessHandler(), getLogoutHandlerArray()))
+				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+				.addFilter(new JWTAuthorizationFilter(authenticationManager()))
+				.addFilterBefore(new ErrorFilterCustome(), CorsFilter.class) // handled error all filter above
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-       auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
-    }
+				// this disables session creation on Spring Security
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-//        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//
-//        CorsConfiguration corsConfiguration = new CorsConfiguration().
-//        source.registerCorsConfiguration("/**", corsConfiguration);
-//
-//        return source;
-//    	 CorsConfiguration configuration = new CorsConfiguration();
-//         configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
-//         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
-//         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//         source.registerCorsConfiguration("/**", configuration);
-//         return source;
-    	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(false); //updated to false
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("PUT");
-        config.addAllowedMethod("POST");
-        source.registerCorsConfiguration("/**", config);
-        return source;
-    }
-    
+		http.cors().disable().csrf().disable();
+	}
+
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+	}
+
+//	@Bean
+//	CorsConfigurationSource corsConfigurationSource() {
+//		CorsConfiguration corsConfiguration = new CorsConfiguration();
+//		corsConfiguration.addAllowedOrigin("http://localhost:3000");
+//		corsConfiguration.applyPermitDefaultValues();
+//		// customize defaut
+//		corsConfiguration.addAllowedMethod(HttpMethod.PUT);
+//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//		source.registerCorsConfiguration("/**", corsConfiguration);
+//		return source;
+//	}
+
+	@Bean
+	PasswordEncoder passwordEncoder() {
+//		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		return new BCryptPasswordEncoder();
+	}
+
+	LogoutSuccessHandler getLogoutSuccessHandler() {
+		SimpleUrlLogoutSuccessHandler simpleLogoutSuccessHandler = new SimpleUrlLogoutSuccessHandler();
+		simpleLogoutSuccessHandler.setDefaultTargetUrl(SecurityConstants.LOG_IN_URL);
+		return simpleLogoutSuccessHandler;
+	}
+
+	LogoutHandler[] getLogoutHandlerArray() {
+
+		LogoutHandlerCustomize logoutHandler = new LogoutHandlerCustomize();
+		LogoutHandler[] handlers = new LogoutHandler[] { logoutHandler };
+		return handlers;
+	}
+
 }
