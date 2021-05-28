@@ -101,18 +101,82 @@ public class Staff extends MinaHoTelPojo{
 	public void setBonussalary(BigDecimal bonussalary) {
 		this.bonussalary = bonussalary;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		super.setIdHashCode(idstaff);
-		return super.hashCode();
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((bonussalary == null) ? 0 : bonussalary.hashCode());
+		result = prime * result + ((datework == null) ? 0 : datework.hashCode());
+		result = prime * result + ((idstaff == null) ? 0 : idstaff.hashCode());
+		result = prime * result + ((pass == null) ? 0 : pass.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((salarymonth == null) ? 0 : salarymonth.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		super.setIdHashCode(idstaff);
-		return super.equals(obj);
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Staff other = (Staff) obj;
+		if (bonussalary == null) {
+			if (other.bonussalary != null)
+				return false;
+		} else if (!bonussalary.equals(other.bonussalary))
+			return false;
+		if (datework == null) {
+			if (other.datework != null)
+				return false;
+		} else if (!datework.equals(other.datework))
+			return false;
+		if (idstaff == null) {
+			if (other.idstaff != null)
+				return false;
+		} else if (!idstaff.equals(other.idstaff))
+			return false;
+		if (pass == null) {
+			if (other.pass != null)
+				return false;
+		} else if (!pass.equals(other.pass))
+			return false;
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
+			return false;
+		if (salarymonth == null) {
+			if (other.salarymonth != null)
+				return false;
+		} else if (!salarymonth.equals(other.salarymonth))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Staff [idstaff=" + idstaff + ", username=" + username + ", pass=" + pass + ", role=" + role
+				+ ", datework=" + datework + ", salarymonth=" + salarymonth + ", bonussalary=" + bonussalary
+				+ ", status=" + status + "]";
+	}
+	
+	
 	
 	
 }

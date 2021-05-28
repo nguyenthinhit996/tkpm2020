@@ -6,10 +6,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.minahotel.sourcebackend.pojo.Staff;
 
- 
+@Repository
 public interface StaffRepository extends CrudRepository<Staff, Long>{
 
 	String queryFindStaffById = "select * from Staff c where c.idstaff like :idstaff";

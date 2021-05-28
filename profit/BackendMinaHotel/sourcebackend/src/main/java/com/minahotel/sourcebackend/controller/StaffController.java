@@ -3,6 +3,14 @@ package com.minahotel.sourcebackend.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.websocket.server.PathParam;
+
+import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,12 +27,15 @@ import com.minahotel.sourcebackend.pojo.ChangePassPojo;
 import com.minahotel.sourcebackend.pojo.LoginPojo;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.pojo.Staff;
+import com.minahotel.sourcebackend.repository.ComponetTestHibernate;
 import com.minahotel.sourcebackend.services.StaffRepositoryServices;
 
  
 @RestController
 public class StaffController {
 
+	private static final Logger LOG = LoggerFactory.getLogger(StaffController.class);
+	
 	@Autowired
 	StaffRepositoryServices staffRepositoryServices;
 	
@@ -95,5 +106,15 @@ public class StaffController {
     boolean resetPassWord(@RequestBody String idStaff) {
     	staffRepositoryServices.resetPassword(idStaff);
        return true;
+    }
+    
+    @Autowired
+    ComponetTestHibernate session;
+    
+    //test
+    @GetMapping("/testhibernate")
+    List<Staff> getAllStaffByHibernate(@RequestParam(name = "type") String type){
+    	LOG.info("request type: "+ type);
+    	return session.crudTest(type);
     }
 }

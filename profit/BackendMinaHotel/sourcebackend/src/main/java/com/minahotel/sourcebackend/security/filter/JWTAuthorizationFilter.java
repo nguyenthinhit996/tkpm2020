@@ -69,7 +69,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 			UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			chain.doFilter(req, res);
-			LOG.info(MessCodeUtils.TransferMessCode(Message.IN_003, Message.IN_004));
+			LOG.info(MessCodeUtils.TransferMessCode(Message.IN_002, Message.IN_004));
 		}
 	}
 
