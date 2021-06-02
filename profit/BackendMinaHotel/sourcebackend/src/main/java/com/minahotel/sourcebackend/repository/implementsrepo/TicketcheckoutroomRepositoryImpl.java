@@ -1,0 +1,7 @@
+package com.minahotel.sourcebackend.repository.implementsrepo;
+
+import com.minahotel.sourcebackend.repository.customizeinterface.TicketcheckoutroomRepositoryCustom;
+
+public class TicketcheckoutroomRepositoryImpl implements TicketcheckoutroomRepositoryCustom{
+
+}

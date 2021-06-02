@@ -1,22 +1,14 @@
 package com.minahotel.sourcebackend.repository;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.minahotel.sourcebackend.pojo.Room;
+import com.minahotel.sourcebackend.entities.RoomEntity;
+import com.minahotel.sourcebackend.repository.customizeinterface.RoomRepositoryCustom;
+import java.util.Optional;
 
 @Repository
-public interface RoomRepository extends CrudRepository<Room, Long>{
+public interface RoomRepository extends CrudRepository<RoomEntity, Long>, RoomRepositoryCustom {
 
-	String queryFindObjectById = "select * from Room c where c.idroom = :idroom";
-	@Query(value = queryFindObjectById, nativeQuery = true )
-	public List<Room> findObjectById(@Param("idroom") String idroom);
-	
-	@Query(value = queryFindObjectById, nativeQuery = true )
-	public Optional<Room> findObjectByIdOnlyOne(@Param("idroom") int idroom);
+	public Optional<RoomEntity> findByidRoom(Integer idRoom);
 }

@@ -1,5 +1,6 @@
 package com.minahotel.sourcebackend.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.minahotel.sourcebackend.pojo.Datework;
+import com.minahotel.sourcebackend.entities.DateWorkEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.services.DateworkRepositoryServices;
 
@@ -24,37 +25,33 @@ public class DateworkController {
 	DateworkRepositoryServices dateworkRepositoryServices;
 	
 
-	@GetMapping("/Datework")
+	@GetMapping("/datework")
 	List<? extends MinaHoTelPojo> getObjectById(@RequestParam(name = "id", defaultValue = "All") String id) {
 		if("All".equals(id)) {
 			return dateworkRepositoryServices.getAll();
 		}
-		 return dateworkRepositoryServices.getObjectById(id);
+		 return Arrays.asList(dateworkRepositoryServices.getObjectById(id));
 	}
 	
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/Datework")
-    boolean newObject(@RequestBody Datework object ) {
+    @PostMapping("/datework")
+    boolean newObject(@RequestBody DateWorkEntity object ) {
         return dateworkRepositoryServices.createObject(object);
     }
 	
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/Datework")
-    boolean saveOrUpdate(@RequestBody Datework object ) {
+    @PutMapping("/datework")
+    boolean saveOrUpdate(@RequestBody DateWorkEntity object ) {
         return dateworkRepositoryServices.saveOrUpdate(object);
     }
     
 
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/Datework")
-    void deleteObject(@RequestBody Datework object ) {
-    	dateworkRepositoryServices.deleteObject(object);
+    @DeleteMapping("/datework")
+    boolean deleteObject(@RequestBody String id ) {
+    	return dateworkRepositoryServices.deleteObjectById(id);
     }
     
-    @GetMapping("/Salary")
-	List<? extends MinaHoTelPojo> getSalaryAllStaffByMonth(@RequestParam(name = "month", defaultValue = "All") String id) {
-		 return dateworkRepositoryServices.getSalaryAllStaffByMonthYear(id);
-	}
 }

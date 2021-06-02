@@ -3,29 +3,17 @@ package com.minahotel.sourcebackend.repository;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.minahotel.sourcebackend.pojo.Staff;
+import com.minahotel.sourcebackend.entities.StaffEntity;
+import com.minahotel.sourcebackend.repository.customizeinterface.StaffRepositoryCustom;
 
 @Repository
-public interface StaffRepository extends CrudRepository<Staff, Long>{
+public interface StaffRepository extends CrudRepository<StaffEntity, Long>, StaffRepositoryCustom{
 
-	String queryFindStaffById = "select * from Staff c where c.idstaff like :idstaff";
-	@Query(value = queryFindStaffById, nativeQuery = true )
-	public List<Staff> findStaffById(@Param("idstaff") String id);
+	  List<StaffEntity> findAll();
 	
-	@Query(value = queryFindStaffById, nativeQuery = true )
-	public Optional<Staff> findStaffByIdOnlyOne(@Param("idstaff") String id);
-	
-	String queryFindStaffByName = "select * from Staff c where c.username like :username";
-	@Query(value = queryFindStaffByName , nativeQuery = true )
-	public Optional<Staff> findStaffByName(@Param("username") String username);
-	
-	String queryfindStaffIdstaff = "select * from Staff c where c.idstaff = :idstaff";
-	@Query(value = queryfindStaffIdstaff , nativeQuery = true )
-	public Optional<Staff> findStaffIdstaff(@Param("idstaff") String idstaff);
+	 Optional<StaffEntity> findByidStaff(String idStaff);
 	
 }

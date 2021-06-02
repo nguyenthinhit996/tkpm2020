@@ -1,5 +1,6 @@
 package com.minahotel.sourcebackend.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,44 +14,43 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.minahotel.sourcebackend.entities.TypeOfRoomEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
-import com.minahotel.sourcebackend.pojo.TypeOfRoomAll;
-import com.minahotel.sourcebackend.pojo.Typeofroom;
 import com.minahotel.sourcebackend.services.TypeofroomRepositoryServies;
 
 @RestController
 public class TypeofroomController {
 
 	@Autowired
-	TypeofroomRepositoryServies TypeofroomRepositoryServies;
+	TypeofroomRepositoryServies typeofroomRepositoryServies;
 	
 
-	@GetMapping("/Typeofroom")
+	@GetMapping("/typeofroom")
 	List<? extends MinaHoTelPojo> getObjectById(@RequestParam(name = "id", defaultValue = "All") String id) {
 		if("All".equals(id)) {
-			return TypeofroomRepositoryServies.getAll();
+			return typeofroomRepositoryServies.getAll();
 		}
-		 return TypeofroomRepositoryServies.getObjectById(id);
+		 return Arrays.asList(typeofroomRepositoryServies.getObjectById(id));
 	}
 	
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/Typeofroom")
-    boolean newObject(@RequestBody Typeofroom object ) {
-        return TypeofroomRepositoryServies.createObject(object);
+    @PostMapping("/typeofroom")
+    boolean newObject(@RequestBody TypeOfRoomEntity object ) {
+        return typeofroomRepositoryServies.createObject(object);
     }
 	
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/Typeofroom")
-    boolean saveOrUpdate(@RequestBody TypeOfRoomAll object ) {
-        return TypeofroomRepositoryServies.saveOrUpdateAll(object);
+    @PutMapping("/typeofroom")
+    boolean saveOrUpdate(@RequestBody TypeOfRoomEntity object ) {
+        return typeofroomRepositoryServies.saveOrUpdate(object);
     }
     
 
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/Typeofroom")
-    void deleteObject(@RequestBody Typeofroom object ) {
-    	TypeofroomRepositoryServies.deleteObject(object);
+    @DeleteMapping("/typeofroom")
+    boolean deleteObject(@RequestBody TypeOfRoomEntity object ) {
+    	return typeofroomRepositoryServies.deleteObjectById(object);
     }
 }

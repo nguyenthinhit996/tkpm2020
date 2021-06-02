@@ -1,6 +1,7 @@
 package com.minahotel.sourcebackend.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.minahotel.sourcebackend.entities.ProductionEntity;
 import com.minahotel.sourcebackend.enums.EnumTicketAndRoom;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
-import com.minahotel.sourcebackend.pojo.Production;
 import com.minahotel.sourcebackend.services.ProductionRepositoryServices;
 
 @RestController
@@ -26,12 +27,12 @@ public class ProductionController {
 	ProductionRepositoryServices productionRepositoryServices;
 	
 
-	@GetMapping("/Production")
+	@GetMapping("/production")
 	List<? extends MinaHoTelPojo> getObjectById(@RequestParam(name = "id", defaultValue = "All") String id) {
 		if("All".equals(id)) {
 			
-			List<Production>  ds = (List<Production>) productionRepositoryServices.getAll();
-			List<Production>  dsreturn = new ArrayList<Production>();
+			List<ProductionEntity>  ds = (List<ProductionEntity>) productionRepositoryServices.getAll();
+			List<ProductionEntity>  dsreturn = new ArrayList<ProductionEntity>();
 			for(int i=0;i<ds.size();i++) {
 				if(EnumTicketAndRoom.ON.getName().equals(ds.get(i).getStatus())) {
 					dsreturn.add(ds.get(i));
@@ -39,27 +40,27 @@ public class ProductionController {
 			}
 			return dsreturn;
 		}
-		 return productionRepositoryServices.getObjectById(id);
+		 return Arrays.asList(productionRepositoryServices.getObjectById(id));
 	}
 	
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/Production")
-    boolean newObject(@RequestBody Production object ) {
+    @PostMapping("/production")
+    boolean newObject(@RequestBody ProductionEntity object ) {
         return productionRepositoryServices.createObject(object);
     }
 	
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/Production")
-    boolean saveOrUpdate(@RequestBody Production object ) {
+    @PutMapping("/production")
+    boolean saveOrUpdate(@RequestBody ProductionEntity object ) {
         return productionRepositoryServices.saveOrUpdate(object);
     }
     
 
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/Production")
-    void deleteObject(@RequestBody Production object ) {
-    	productionRepositoryServices.deleteObject(object);
+    @DeleteMapping("/production")
+    boolean deleteObject(@RequestBody ProductionEntity object ) {
+    	return productionRepositoryServices.deleteObjectById(object);
     }
 }

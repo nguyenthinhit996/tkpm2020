@@ -8,12 +8,12 @@ public interface MinaHotelServices {
 
 	public List<? extends MinaHoTelPojo> getAll();
 
-	public List<? extends MinaHoTelPojo> getObjectById(String ...id) ;
+	public MinaHoTelPojo getObjectById(Object ...id) ;
 	
 	public boolean createObject(MinaHoTelPojo minapojo);
 	
 	public boolean saveOrUpdate(MinaHoTelPojo minapojo);
 	
-	public void deleteObject(MinaHoTelPojo minapojo);
+	public boolean deleteObjectById(Object ...id);
 	
 }

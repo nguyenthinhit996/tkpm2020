@@ -1,14 +1,9 @@
 package com.minahotel.sourcebackend.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.websocket.server.PathParam;
-
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.minahotel.sourcebackend.entities.StaffEntity;
 import com.minahotel.sourcebackend.enums.EnumTicketAndRoom;
 import com.minahotel.sourcebackend.pojo.ChangePassPojo;
-import com.minahotel.sourcebackend.pojo.LoginPojo;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
-import com.minahotel.sourcebackend.pojo.Staff;
-import com.minahotel.sourcebackend.repository.ComponetTestHibernate;
 import com.minahotel.sourcebackend.services.StaffRepositoryServices;
 
  
@@ -43,10 +36,10 @@ public class StaffController {
 	@GetMapping("/staff")
 	List<? extends MinaHoTelPojo> getStaffById(@RequestParam(name = "id", defaultValue = "All") String idStaff) {
 		if("All".equals(idStaff)) {
-			List<Staff> getListOnLyOnStatus = new ArrayList<Staff>();
+			List<StaffEntity> getListOnLyOnStatus = new ArrayList<StaffEntity>();
 			
 			 for (MinaHoTelPojo in: staffRepositoryServices.getAll()) {
-				 Staff staffObject = (Staff) in;
+				 StaffEntity staffObject = (StaffEntity) in;
 				 if(EnumTicketAndRoom.ON.getName().equals(staffObject.getStatus())) {
 					 getListOnLyOnStatus.add(staffObject);
 				 }
@@ -54,14 +47,14 @@ public class StaffController {
 			 
 			 return getListOnLyOnStatus;
 		}
-		 return staffRepositoryServices.getObjectById(idStaff);
+		 return Arrays.asList(staffRepositoryServices.getObjectById(idStaff));
 	}
 	
 	//Save
     //return 201 instead of 200
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/staff")
-    boolean newObject(@RequestBody Staff staff ) {
+    boolean newObject(@RequestBody StaffEntity staff ) {
         return staffRepositoryServices.createObject(staff);
     }
 	
@@ -69,7 +62,7 @@ public class StaffController {
     //return 200
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/staff")
-    boolean saveOrUpdate(@RequestBody Staff staff ) {
+    boolean saveOrUpdate(@RequestBody StaffEntity staff ) {
         return staffRepositoryServices.saveOrUpdate(staff);
     }
     
@@ -77,44 +70,10 @@ public class StaffController {
     //return 200
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/staff")
-    void deleteStaff(@RequestBody Staff staff ) {
-        staffRepositoryServices.deleteObject(staff);
+    boolean deleteStaff(@RequestBody StaffEntity staff ) {
+        return staffRepositoryServices.deleteObjectById(staff);
     }
     
-    // Auth
-    //return 200
-    @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/auth")
-    LoginPojo authStaff(@RequestBody LoginPojo loginPojo) {
-    	//System.out.println(username+" --------------- "+pass);    	
-    	staffRepositoryServices.checkLogin(loginPojo);
-    	return loginPojo;
-    }
     
-    //return 200
-    @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/changepass")
-    public String changePass(@RequestBody ChangePassPojo loginPojo) {
-    	//System.out.println(username+" --------------- "+pass);    	
-    	return staffRepositoryServices.changePass(loginPojo);
-    }
-    
-    //update or insert 
-    //return 200
-    @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/resetPass")
-    boolean resetPassWord(@RequestBody String idStaff) {
-    	staffRepositoryServices.resetPassword(idStaff);
-       return true;
-    }
-    
-    @Autowired
-    ComponetTestHibernate session;
-    
-    //test
-    @GetMapping("/testhibernate")
-    List<Staff> getAllStaffByHibernate(@RequestParam(name = "type") String type){
-    	LOG.info("request type: "+ type);
-    	return session.crudTest(type);
-    }
+
 }

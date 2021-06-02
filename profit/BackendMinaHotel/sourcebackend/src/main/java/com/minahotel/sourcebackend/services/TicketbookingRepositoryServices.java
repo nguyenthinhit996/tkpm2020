@@ -1,14 +1,18 @@
 package com.minahotel.sourcebackend.services;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.minahotel.sourcebackend.common.customizeexception.CodeErrorException;
+import com.minahotel.sourcebackend.common.customizeexception.exception.BusinessException;
+import com.minahotel.sourcebackend.common.customizeexception.exception.CRUDExceptionCustomize;
+import com.minahotel.sourcebackend.common.customizeexception.exception.NotFoundItemException;
+import com.minahotel.sourcebackend.entities.TicketBookingEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
-import com.minahotel.sourcebackend.pojo.Ticketbooking;
 import com.minahotel.sourcebackend.repository.TicketbookingRepository;
 
 @Service
@@ -18,56 +22,77 @@ public class TicketbookingRepositoryServices implements MinaHotelServices{
 	TicketbookingRepository ticketbookingRepository;
 	
 	@Override
-	public List<? extends MinaHoTelPojo> getAll() {
-		return (List<Ticketbooking>) ticketbookingRepository.findAll();
+	public List<? extends MinaHoTelPojo> getAll() throws NotFoundItemException{		
+		List<TicketBookingEntity> dsAll = new ArrayList<TicketBookingEntity>();
+		ticketbookingRepository.findAll().forEach(dsAll::add);
+		if(dsAll.size() == 0 ) {
+			throw new NotFoundItemException(CodeErrorException.EN_001);
+		}
+		return dsAll;
 	}
 
 	@Override
-	public List<? extends MinaHoTelPojo> getObjectById(String... id) {
-		List<Ticketbooking> ds = (List<Ticketbooking>) ticketbookingRepository.findObjectById(id[0]);
-		LocalDateTime localDateNow = LocalDateTime.now();
-		Duration timeRent = Duration.between(ds.get(0).getTimestamprent(), localDateNow);
-		String time = timeRent.toDaysPart() +":"+ timeRent.toHoursPart() + ":" + timeRent.toMinutesPart();
-		ds.get(0).setIdstaffreception(time); // thay the tam thoi
-		return ds;
+	public MinaHoTelPojo getObjectById(Object ...id) {
+		Optional<TicketBookingEntity> option = ticketbookingRepository.findByidTicketBooking(String.valueOf(id[0]));
+		if(option.isPresent()) {
+			return option.get();
+		}else {
+			throw new NotFoundItemException(CodeErrorException.EN_001);
+		}
 	}
 
 	@Override
 	public boolean createObject(MinaHoTelPojo minapojo) {
-		try {
-			Ticketbooking objectConvertFromMina = (Ticketbooking) minapojo;
-			LocalDateTime localDateNow = LocalDateTime.now();
-			String idCheckingTiket = localDateNow.toString();
-			objectConvertFromMina.setIdticketbooking(idCheckingTiket);
-			objectConvertFromMina.setTimestamprent(localDateNow);
-			ticketbookingRepository.save(objectConvertFromMina);
-		}catch(Exception e) {
-			return false;
+		 try {
+			 TicketBookingEntity dateWorkEntity =  (TicketBookingEntity) minapojo;
+			 ticketbookingRepository.save(dateWorkEntity);
+		 }catch (Exception e) {
+			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_002);
 		}
 		return true;
 	}
 
 	@Override
 	public boolean saveOrUpdate(MinaHoTelPojo minapojo) {
-		Ticketbooking objectConvertFromMina = (Ticketbooking) minapojo;
-		Ticketbooking result = ticketbookingRepository.findObjectByIdOnlyOne(
-				objectConvertFromMina.getIdticketbooking()).map( x ->{
-			 x.setIdstaffreception(objectConvertFromMina.getIdstaffreception());
-			 x.setIduserrentroom(objectConvertFromMina.getIduserrentroom());
-			 x.setNumberroom(objectConvertFromMina.getNumberroom());
-			 x.setTimestamprent(objectConvertFromMina.getTimestamprent());
-			 x.setUsernamerentroom(objectConvertFromMina.getUsernamerentroom());
-			 x.setNumberinroom(objectConvertFromMina.getNumberinroom());
-			return ticketbookingRepository.save(x);
-		}).orElseGet(()->{
-			return ticketbookingRepository.save(objectConvertFromMina);
-		});
-		return result != null ? true : false;
+		try {
+			TicketBookingEntity ticketBookingEntityNeedUpdate =  (TicketBookingEntity) minapojo;
+			Optional<TicketBookingEntity> option = ticketbookingRepository.findByidTicketBooking(ticketBookingEntityNeedUpdate.getIdTicketBooking());
+			if(option.isPresent()) {
+				TicketBookingEntity objectGeted = option.get();
+				if(!ticketBookingEntityNeedUpdate.equals(objectGeted)) {
+					objectGeted.setIdUserRentRoom(ticketBookingEntityNeedUpdate.getIdUserRentRoom());
+					objectGeted.setNumberPeopleInRoom(ticketBookingEntityNeedUpdate.getNumberPeopleInRoom());
+					objectGeted.setRoomRent(ticketBookingEntityNeedUpdate.getRoomRent());
+					objectGeted.setStaffReception(ticketBookingEntityNeedUpdate.getStaffReception());
+					objectGeted.setStatus(ticketBookingEntityNeedUpdate.getStatus());
+					objectGeted.setTimeStartRentRoom(ticketBookingEntityNeedUpdate.getTimeStartRentRoom());
+					objectGeted.setUserNameRentRoom(ticketBookingEntityNeedUpdate.getUserNameRentRoom());
+					ticketbookingRepository.save(objectGeted);
+				}
+			}else {
+				ticketbookingRepository.save(ticketBookingEntityNeedUpdate);
+			}
+		}catch(IllegalArgumentException  e) {
+			throw new BusinessException(CodeErrorException.ES_003);
+		}catch (Exception e) {
+			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_002);
+		}
+		return true;
 	}
 
 	@Override
-	public void deleteObject(MinaHoTelPojo minapojo) {
-		Ticketbooking objectConvertFromMina = (Ticketbooking) minapojo;
-		ticketbookingRepository.delete(objectConvertFromMina);
+	public boolean deleteObjectById(Object... id) {
+		try {
+			 Optional<TicketBookingEntity> optionGeted = ticketbookingRepository.findByidTicketBooking(String.valueOf(id[0]));
+			 if(optionGeted.isPresent()) {
+				 ticketbookingRepository.delete(optionGeted.get());
+					return true;
+			 }
+		}catch (Exception e) {
+			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_004);
+		}
+		return false;
+
 	}
+
 }

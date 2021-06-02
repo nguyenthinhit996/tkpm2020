@@ -1,7 +1,6 @@
 package com.minahotel.sourcebackend.repository;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +17,7 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.minahotel.sourcebackend.pojo.Staff;
-
-import net.bytebuddy.utility.RandomString;
+import com.minahotel.sourcebackend.entities.StaffEntity;
 
 @Repository
 public class ComponetTestHibernate {
@@ -31,13 +28,14 @@ public class ComponetTestHibernate {
 	@Autowired
 	private EntityTransaction entityTransaction;
 
+	 
 	// test
-	public List<Staff> crudTest(String type) {
+	public List<StaffEntity> crudTest(String type) {
 
-		List<Staff> resultList = new ArrayList<Staff>();
+		List<StaffEntity> resultList = new ArrayList<StaffEntity>();
 		CriteriaBuilder builder = session.getCriteriaBuilder();
-		CriteriaQuery<Staff> query = builder.createQuery(Staff.class);
-		Root<Staff> contactRoot = query.from(Staff.class);
+		CriteriaQuery<StaffEntity> query = builder.createQuery(StaffEntity.class);
+		Root<StaffEntity> contactRoot = query.from(StaffEntity.class);
 		if(!entityTransaction.isActive()) {
 			entityTransaction.begin();
 		}		
@@ -52,16 +50,16 @@ public class ComponetTestHibernate {
 			
 		} else if ("create".equals(type)) {
 			
-			RandomString random = new RandomString(5);			
-			Staff staff = new Staff(random.nextString(), "test", "test","test" , LocalDate.now(),
-					BigDecimal.valueOf(43534), BigDecimal.valueOf(43534), "one");			 
-			session.save(staff);		
+//			RandomString random = new RandomString(5);			
+//			StaffEntity staff = new StaffEntity(random.nextString(), "test", "test","test" , LocalDate.now(),
+//					BigDecimal.valueOf(43534), BigDecimal.valueOf(43534), "one");			 
+//			session.save(staff);		
 			
 		} else if ("update".equals(type)) {
 			
 			// where
-			CriteriaUpdate<Staff> creap =	builder.createCriteriaUpdate(Staff.class);
-			Root<Staff> rootUpdate = creap.from(Staff.class);
+			CriteriaUpdate<StaffEntity> creap =	builder.createCriteriaUpdate(StaffEntity.class);
+			Root<StaffEntity> rootUpdate = creap.from(StaffEntity.class);
 			Predicate per2 = builder.equal(rootUpdate.get("idstaff"), "staff_02");
 			creap.set("salarymonth", BigDecimal.valueOf(999999));
 			creap.where(per2);
@@ -71,8 +69,8 @@ public class ComponetTestHibernate {
 			
 		} else if ("delete".equals(type)) {
 			
-			CriteriaDelete<Staff> createDe = builder.createCriteriaDelete(Staff.class);
-			Root<Staff> rootDetele = createDe.from(Staff.class);
+			CriteriaDelete<StaffEntity> createDe = builder.createCriteriaDelete(StaffEntity.class);
+			Root<StaffEntity> rootDetele = createDe.from(StaffEntity.class);
 			createDe.where(builder.equal(rootDetele.get("idstaff"), "IEHdf"));
 			int resultCount = session.createQuery(createDe).executeUpdate();
 			System.out.println("Result Count: "+ resultCount);

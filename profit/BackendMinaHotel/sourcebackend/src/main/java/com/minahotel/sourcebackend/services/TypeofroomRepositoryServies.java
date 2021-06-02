@@ -1,15 +1,18 @@
 package com.minahotel.sourcebackend.services;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.minahotel.sourcebackend.common.customizeexception.CodeErrorException;
+import com.minahotel.sourcebackend.common.customizeexception.exception.BusinessException;
+import com.minahotel.sourcebackend.common.customizeexception.exception.CRUDExceptionCustomize;
+import com.minahotel.sourcebackend.common.customizeexception.exception.NotFoundItemException;
+import com.minahotel.sourcebackend.entities.TypeOfRoomEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
-import com.minahotel.sourcebackend.pojo.TypeOfRoomAll;
-import com.minahotel.sourcebackend.pojo.Typeofroom;
 import com.minahotel.sourcebackend.repository.TypeofroomRepository;
 
 @Service
@@ -19,79 +22,77 @@ public class TypeofroomRepositoryServies implements MinaHotelServices{
 	TypeofroomRepository typeofroomRepository;
 	
 	@Override
-	public List<? extends MinaHoTelPojo> getAll() {
-		return (List<Typeofroom>) typeofroomRepository.findAll();
+	public List<? extends MinaHoTelPojo> getAll() {		
+		List<TypeOfRoomEntity> dsAll = new ArrayList<TypeOfRoomEntity>();
+		typeofroomRepository.findAll().forEach(dsAll::add);
+		if(dsAll.size() == 0 ) {
+			throw new NotFoundItemException(CodeErrorException.EN_001);
+		}
+		return dsAll;
 	}
 
 	@Override
-	public List<? extends MinaHoTelPojo> getObjectById(String... id) {
-		return (List<Typeofroom>) typeofroomRepository.findObjectById(id[0]);
+	public MinaHoTelPojo getObjectById(Object ...id) {
+		Optional<TypeOfRoomEntity> option = typeofroomRepository.findByidNameTypeOfRoom(String.valueOf(id[0]));
+		if(option.isPresent()) {
+			return option.get();
+		}else {
+			throw new NotFoundItemException(CodeErrorException.EN_001);
+		}
 	}
 
 	@Override
 	public boolean createObject(MinaHoTelPojo minapojo) {
-		try {
-			Typeofroom objectConvertFromMina = (Typeofroom) minapojo;
-			typeofroomRepository.save(objectConvertFromMina);
-		}catch(Exception e) {
-			return false;
+		 try {
+			 TypeOfRoomEntity dateWorkEntity =  (TypeOfRoomEntity) minapojo;
+			 typeofroomRepository.save(dateWorkEntity);
+		 }catch (Exception e) {
+			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_002);
 		}
 		return true;
 	}
 
 	@Override
 	public boolean saveOrUpdate(MinaHoTelPojo minapojo) {
-		Typeofroom objectConvertFromMina = (Typeofroom) minapojo;
-		Typeofroom result = typeofroomRepository.findObjectByIdOnlyOne(
-				objectConvertFromMina.getNametypeofroom()).map( x ->{
-			 x.setNumberinroom(objectConvertFromMina.getNumberinroom());
-			 x.setRoomratescharge(objectConvertFromMina.getRoomratescharge());
-			 x.setRoomratesdates(objectConvertFromMina.getRoomratesdates());
-			 x.setRoomrateshours(objectConvertFromMina.getRoomrateshours());
-			return typeofroomRepository.save(x);
-		}).orElseGet(()->{
-			return typeofroomRepository.save(objectConvertFromMina);
-		});
-		return result != null ? true : false;
-	}
-	
-
-	public boolean saveOrUpdateAll(TypeOfRoomAll minapojo) {
-		 try {
-			 Optional<Typeofroom> opSingle = typeofroomRepository.findObjectByIdOnlyOne("single");
-			 Typeofroom single = opSingle.get();
-			 single.setNumberinroom(Integer.valueOf(minapojo.getSingleNumberInRoom()));
-			 single.setRoomratescharge(BigDecimal.valueOf(Double.valueOf(minapojo.getSingleSubcharged())));
-			 single.setRoomratesdates(BigDecimal.valueOf(Double.valueOf(minapojo.getSingleRoomRatesDay())));
-			 single.setRoomrateshours(BigDecimal.valueOf(Double.valueOf(minapojo.getSingleRoomRatesHours())));
-			 typeofroomRepository.save(single);
-			 
-			 Optional<Typeofroom> opDouble = typeofroomRepository.findObjectByIdOnlyOne("double");
-			 Typeofroom doubles= opDouble.get();
-			 doubles.setNumberinroom(Integer.valueOf(minapojo.getDoubleNumberInRoom()));
-			 doubles.setRoomratescharge(BigDecimal.valueOf(Double.valueOf(minapojo.getDoubleSubcharged())));
-			 doubles.setRoomratesdates(BigDecimal.valueOf(Double.valueOf(minapojo.getDoubleRoomRatesDay())));
-			 doubles.setRoomrateshours(BigDecimal.valueOf(Double.valueOf(minapojo.getDoubleRoomRatesHours())));
-			 typeofroomRepository.save(doubles);
-			 
-			 Optional<Typeofroom> opVip = typeofroomRepository.findObjectByIdOnlyOne("vip");
-			 Typeofroom vip= opVip.get();
-			 vip.setNumberinroom(Integer.valueOf(minapojo.getVipNumberInRoom()));
-			 vip.setRoomratescharge(BigDecimal.valueOf(Double.valueOf(minapojo.getVipSubcharged())));
-			 vip.setRoomratesdates(BigDecimal.valueOf(Double.valueOf(minapojo.getVipRoomRatesDay())));
-			 vip.setRoomrateshours(BigDecimal.valueOf(Double.valueOf(minapojo.getVipRoomRatesHours())));
-			 typeofroomRepository.save(vip);
-			 
-		 }catch(Exception x) {
-			 return false;
-		 }
-		 return true;
+		try {
+			TypeOfRoomEntity productionEntity =  (TypeOfRoomEntity) minapojo;
+			Optional<TypeOfRoomEntity> option = typeofroomRepository.findByidNameTypeOfRoom(productionEntity.getIdNameTypeOfRoom());
+			if(option.isPresent()) {
+				TypeOfRoomEntity objectGeted = option.get();
+				if(!productionEntity.equals(objectGeted)) {
+					 
+					objectGeted.setIdNameTypeOfRoom(productionEntity.getIdNameTypeOfRoom());
+					objectGeted.setNumberInRoom(productionEntity.getNumberInRoom());
+					objectGeted.setRoomRateDate(productionEntity.getRoomRateDate());
+					objectGeted.setRoomRatesCharge(productionEntity.getRoomRatesCharge());
+					objectGeted.setRoomRatesHour(productionEntity.getRoomRatesCharge());
+					
+					typeofroomRepository.save(objectGeted);
+				}
+			}else {
+				typeofroomRepository.save(productionEntity);
+			}
+		}catch(IllegalArgumentException  e) {
+			throw new BusinessException(CodeErrorException.ES_003);
+		}catch (Exception e) {
+			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_002);
+		}
+		return true;
 	}
 
 	@Override
-	public void deleteObject(MinaHoTelPojo minapojo) {
-		// TODO Auto-generated method stub
-		
-	}
+	public boolean deleteObjectById(Object... id) {
+		try {
+			 Optional<TypeOfRoomEntity> optionGeted = typeofroomRepository.findByidNameTypeOfRoom(String.valueOf(id[0]));
+			 if(optionGeted.isPresent()) {
+				 typeofroomRepository.delete(optionGeted.get());
+					return true;
+			 }
+		}catch (Exception e) {
+			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_004);
+		}
+		return false;
 
+	}
+	 
 }

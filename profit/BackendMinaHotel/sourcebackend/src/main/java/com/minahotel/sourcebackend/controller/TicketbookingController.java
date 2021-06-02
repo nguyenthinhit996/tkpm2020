@@ -1,5 +1,6 @@
 package com.minahotel.sourcebackend.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.minahotel.sourcebackend.entities.TicketBookingEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
-import com.minahotel.sourcebackend.pojo.Ticketbooking;
 import com.minahotel.sourcebackend.services.TicketbookingRepositoryServices;
 
 @RestController
@@ -24,32 +25,32 @@ public class TicketbookingController {
 	TicketbookingRepositoryServices ticketbookingRepositoryServices;
 	
 
-	@GetMapping("/Ticketbooking")
+	@GetMapping("/ticketbooking")
 	List<? extends MinaHoTelPojo> getObjectById(@RequestParam(name = "id", defaultValue = "All") String id) {
 		if("All".equals(id)) {
 			return ticketbookingRepositoryServices.getAll();
 		}
-		 return ticketbookingRepositoryServices.getObjectById(id);
+		 return Arrays.asList(ticketbookingRepositoryServices.getObjectById(id));
 	}
 	
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/Ticketbooking")
-    boolean newObject(@RequestBody Ticketbooking object ) {
+    @PostMapping("/ticketbooking")
+    boolean newObject(@RequestBody TicketBookingEntity object ) {
         return ticketbookingRepositoryServices.createObject(object);
     }
 	
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/Ticketbooking")
-    boolean saveOrUpdate(@RequestBody Ticketbooking object ) {
+    @PutMapping("/ticketbooking")
+    boolean saveOrUpdate(@RequestBody TicketBookingEntity object ) {
         return ticketbookingRepositoryServices.saveOrUpdate(object);
     }
     
 
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/Ticketbooking")
-    void deleteObject(@RequestBody Ticketbooking object ) {
-    	ticketbookingRepositoryServices.deleteObject(object);
+    @DeleteMapping("/ticketbooking")
+    boolean deleteObject(@RequestBody TicketBookingEntity object ) {
+    	return ticketbookingRepositoryServices.deleteObjectById(object);
     }
 }

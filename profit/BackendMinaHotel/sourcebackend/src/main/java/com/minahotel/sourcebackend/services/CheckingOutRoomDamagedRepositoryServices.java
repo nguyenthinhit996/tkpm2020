@@ -1,85 +1,100 @@
 package com.minahotel.sourcebackend.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.minahotel.sourcebackend.pojo.CheckingOutRoomDamaged;
-import com.minahotel.sourcebackend.pojo.Dailyworking;
+import com.minahotel.sourcebackend.common.customizeexception.CodeErrorException;
+import com.minahotel.sourcebackend.common.customizeexception.exception.BusinessException;
+import com.minahotel.sourcebackend.common.customizeexception.exception.CRUDExceptionCustomize;
+import com.minahotel.sourcebackend.common.customizeexception.exception.NotFoundItemException;
+import com.minahotel.sourcebackend.entities.CheckingOutRoomDamagedEntity;
+import com.minahotel.sourcebackend.entities.TypeOfRoomEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.repository.CheckingOutRoomDamagedRepository;
+import com.minahotel.sourcebackend.repository.TypeofroomRepository;
  
 @Service
 public class CheckingOutRoomDamagedRepositoryServices implements MinaHotelServices{
 
 	@Autowired
 	CheckingOutRoomDamagedRepository checkingOutRoomDamagedRepository;
-
-	public CheckingOutRoomDamagedRepositoryServices() {
-		super();
-	}
- 
-	public boolean createObject(MinaHoTelPojo minapojo) {
-		try {
-			CheckingOutRoomDamaged objectConvertFromMina = (CheckingOutRoomDamaged) minapojo;
-			checkingOutRoomDamagedRepository.save(objectConvertFromMina);
-		}catch(Exception e) {
-			return false;
-		}
-		return true;
-	}
 	
-	public boolean saveOrUpdate(MinaHoTelPojo minapojo) {
-		CheckingOutRoomDamaged objectConvertFromMina = (CheckingOutRoomDamaged) minapojo;
-		CheckingOutRoomDamaged result = checkingOutRoomDamagedRepository.findObjectByIdOnlyOne(
-				objectConvertFromMina.getIdcheckingoutroomdamaded()).map( x ->{
-			 x.setIdcheckingoutroomdamaded(objectConvertFromMina.getIdcheckingoutroomdamaded());
-			 x.setIdcheckoutroom(objectConvertFromMina.getIdcheckoutroom());
-			 x.setIdstaffchecking(objectConvertFromMina.getIdstaffchecking());
-			 x.setListproductdamaded(objectConvertFromMina.getListproductdamaded());
-			 x.setSumaryindemnify(objectConvertFromMina.getSumaryindemnify());
-			return checkingOutRoomDamagedRepository.save(x);
-		}).orElseGet(()->{
-			return checkingOutRoomDamagedRepository.save(objectConvertFromMina);
-		});
-		return result != null ? true : false;
-	}
-	
-	public void deleteObject(MinaHoTelPojo minapojo) {
-		CheckingOutRoomDamaged objectConvertFromMina = (CheckingOutRoomDamaged) minapojo;
-		checkingOutRoomDamagedRepository.delete(objectConvertFromMina);
-	}
-
-
 	@Override
-	public List<? extends MinaHoTelPojo> getAll() {
-		return (List<CheckingOutRoomDamaged>) checkingOutRoomDamagedRepository.findAll();
-	}
-
-
-	@Override
-	public List<? extends MinaHoTelPojo> getObjectById(String ...id) {
-		return checkingOutRoomDamagedRepository.findObjectById(id[0]);
-	}
-	
-	public Optional<CheckingOutRoomDamaged> getObjectByIdCheckOut(String ...id) {
-		return checkingOutRoomDamagedRepository.getObjectByIdCheckOut(id[0]);
-	}
-	
-	public Boolean updateObject(CheckingOutRoomDamaged object){
+	public List<? extends MinaHoTelPojo> getAll() {	
+		List<CheckingOutRoomDamagedEntity> dsAll = new ArrayList<CheckingOutRoomDamagedEntity>();
 		try {
-			Optional<CheckingOutRoomDamaged> checkingOutRoomDamaged = checkingOutRoomDamagedRepository.findObjectByIdOnlyOne(object.getIdcheckingoutroomdamaded());
-			if(checkingOutRoomDamaged.isPresent()) {
-				CheckingOutRoomDamaged checkingOutRoomDamagedObject = checkingOutRoomDamaged.get();
-				checkingOutRoomDamagedObject.setListproductdamaded(object.getListproductdamaded());
-				checkingOutRoomDamagedObject.setSumaryindemnify(object.getSumaryindemnify());
-				checkingOutRoomDamagedRepository.save(checkingOutRoomDamagedObject);
+			checkingOutRoomDamagedRepository.findAll().forEach(dsAll::add);
+			if(dsAll.size() == 0 ) {
+				throw new NotFoundItemException(CodeErrorException.EN_001);
 			}
-		}catch( Exception e) {
-			return false;
+		}catch (Exception e) {
+			throw new BusinessException(e);
+		}
+		return dsAll;
+	}
+
+	@Override
+	public MinaHoTelPojo getObjectById(Object ...id) {
+		Optional<CheckingOutRoomDamagedEntity> option = checkingOutRoomDamagedRepository.findByidCheckoutRoomDamaged(String.valueOf(id[0]));
+		if(option.isPresent()) {
+			return option.get();
+		}else {
+			throw new NotFoundItemException(CodeErrorException.EN_001);
+		}
+	}
+
+	@Override
+	public boolean createObject(MinaHoTelPojo minapojo) {
+		 try {
+			 CheckingOutRoomDamagedEntity dateWorkEntity =  (CheckingOutRoomDamagedEntity) minapojo;
+			 checkingOutRoomDamagedRepository.save(dateWorkEntity);
+		 }catch (Exception e) {
+			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_002);
 		}
 		return true;
+	}
+
+	@Override
+	public boolean saveOrUpdate(MinaHoTelPojo minapojo) {
+		try {
+			CheckingOutRoomDamagedEntity damaged =  (CheckingOutRoomDamagedEntity) minapojo;
+			Optional<CheckingOutRoomDamagedEntity> option = checkingOutRoomDamagedRepository.findByidCheckoutRoomDamaged(damaged.getIdCheckoutRoomDamaged());
+			if(option.isPresent()) {
+				CheckingOutRoomDamagedEntity objectGeted = option.get();
+				if(!damaged.equals(objectGeted)) {					 
+					objectGeted.setIdTicketBooking(damaged.getIdTicketBooking());
+					objectGeted.setListProductDamaded(damaged.getListProductDamaded());
+					objectGeted.setStatus(damaged.getStatus());
+					objectGeted.setSumaryIndemnify(damaged.getSumaryIndemnify());					
+					checkingOutRoomDamagedRepository.save(objectGeted);
+				}
+			}else {
+				checkingOutRoomDamagedRepository.save(damaged);
+			}
+		}catch(IllegalArgumentException  e) {
+			throw new BusinessException(CodeErrorException.ES_003);
+		}catch (Exception e) {
+			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_002);
+		}
+		return true;
+	}
+
+	@Override
+	public boolean deleteObjectById(Object... id) {
+		try {
+			 Optional<CheckingOutRoomDamagedEntity> optionGeted = checkingOutRoomDamagedRepository.findByidCheckoutRoomDamaged(String.valueOf(id[0]));
+			 if(optionGeted.isPresent()) {
+				 checkingOutRoomDamagedRepository.delete(optionGeted.get());
+					return true;
+			 }
+		}catch (Exception e) {
+			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_004);
+		}
+		return false;
+
 	}
 }
