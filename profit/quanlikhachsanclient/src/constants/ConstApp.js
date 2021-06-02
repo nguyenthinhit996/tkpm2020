@@ -27,3 +27,5 @@ export const getHomePage = () => {
         return '/staffservice';
     }
 }
+
+export const ES_001 ="ES_001";

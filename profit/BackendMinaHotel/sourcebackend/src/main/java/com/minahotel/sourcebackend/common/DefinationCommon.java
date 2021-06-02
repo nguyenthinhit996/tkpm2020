@@ -9,5 +9,9 @@ public class DefinationCommon {
 	public static final String EXPIRED_AT ="expired_at";
 	public static final String SUBJECT ="sub";
 
+	public static final String TIME_ERROR = "time";
+	public static final String CODE_ERROR = "code_error";
+	public static final String CONTENT_ERORR ="content_error";
 	
+	public static final String EXCEPTION_FROM_CONTROLLER = "ExceptionFromController";
 }

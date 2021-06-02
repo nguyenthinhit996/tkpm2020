@@ -3,6 +3,7 @@ package com.minahotel.sourcebackend.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,6 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import com.minahotel.sourcebackend.security.filter.ErrorFilterCustome;
@@ -43,7 +47,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				// this disables session creation on Spring Security
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-		http.cors().disable().csrf().disable();
+		http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable();
 	}
 
 	@Override
@@ -51,17 +55,17 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 
-//	@Bean
-//	CorsConfigurationSource corsConfigurationSource() {
-//		CorsConfiguration corsConfiguration = new CorsConfiguration();
-//		corsConfiguration.addAllowedOrigin("http://localhost:3000");
-//		corsConfiguration.applyPermitDefaultValues();
-//		// customize defaut
-//		corsConfiguration.addAllowedMethod(HttpMethod.PUT);
-//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//		source.registerCorsConfiguration("/**", corsConfiguration);
-//		return source;
-//	}
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.addAllowedOrigin("*"); // spectify ,"http://localhost:3000"
+		corsConfiguration.applyPermitDefaultValues();
+		// customize defaut
+		corsConfiguration.addAllowedMethod(HttpMethod.PUT);
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", corsConfiguration);
+		return source;
+	}
 
 	@Bean
 	PasswordEncoder passwordEncoder() {
@@ -76,7 +80,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	}
 
 	LogoutHandler[] getLogoutHandlerArray() {
-
 		LogoutHandlerCustomize logoutHandler = new LogoutHandlerCustomize();
 		LogoutHandler[] handlers = new LogoutHandler[] { logoutHandler };
 		return handlers;

@@ -117,9 +117,16 @@ export default function Login(props) {
             }
 
         } else {
-            // alertMessage({ type: 'error', message: 'Tài khoản hoặc mật khẩu không đúng!' });
-            const messageLogin = "User or password incorrect !";
-            setloginState(messageLogin);
+
+            if(res.messerror.length != 0){
+                // message from server return 
+                setloginState(res.messerror);
+            }else{
+                // alertMessage({ type: 'error', message: 'Tài khoản hoặc mật khẩu không đúng!' });
+                const messageLogin = "User or password incorrect !";
+                setloginState(messageLogin);
+            }
+            
         }
     }
 

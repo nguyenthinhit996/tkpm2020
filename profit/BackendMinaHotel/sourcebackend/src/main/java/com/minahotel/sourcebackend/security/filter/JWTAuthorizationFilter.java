@@ -1,7 +1,6 @@
 package com.minahotel.sourcebackend.security.filter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,7 +27,7 @@ import com.auth0.jwt.interfaces.Claim;
 import com.minahotel.sourcebackend.common.DefinationCommon;
 import com.minahotel.sourcebackend.common.ObjectJsonUtils;
 import com.minahotel.sourcebackend.common.customizeexception.CodeErrorException;
-import com.minahotel.sourcebackend.common.customizeexception.JWTExceptionCustomize;
+import com.minahotel.sourcebackend.common.customizeexception.exception.JWTExceptionCustomize;
 import com.minahotel.sourcebackend.common.logs.MessCodeUtils;
 import com.minahotel.sourcebackend.common.logs.Message;
 import com.minahotel.sourcebackend.security.JwtUtilsCustomize;

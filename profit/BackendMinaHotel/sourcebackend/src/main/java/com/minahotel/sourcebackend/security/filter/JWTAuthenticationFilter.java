@@ -16,23 +16,19 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.minahotel.sourcebackend.common.customizeexception.CodeErrorException;
-import com.minahotel.sourcebackend.common.customizeexception.JWTExceptionCustomize;
+import com.minahotel.sourcebackend.common.DefinationCommon;
+import com.minahotel.sourcebackend.common.ObjectJsonUtils;
+import com.minahotel.sourcebackend.common.customizeexception.exception.JWTExceptionCustomize;
 import com.minahotel.sourcebackend.common.logs.MessCodeUtils;
 import com.minahotel.sourcebackend.common.logs.Message;
 import com.minahotel.sourcebackend.pojo.LoginPojo;
 import com.minahotel.sourcebackend.pojo.UserCustomize;
 import com.minahotel.sourcebackend.security.SecurityConstants;
-import com.minahotel.sourcebackend.common.DefinationCommon;
-import com.minahotel.sourcebackend.common.ObjectJsonUtils;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	
@@ -63,7 +59,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         } catch (IOException e) {
         	e.printStackTrace();
         	LOG.error(e.getLocalizedMessage());
-            throw new JWTExceptionCustomize(CodeErrorException.EJ_001);
+            throw new JWTExceptionCustomize(e);
+        }catch(Exception e) {
+        	e.printStackTrace();
+        	LOG.error(e.getLocalizedMessage());
+            throw new JWTExceptionCustomize(e);
         }
         
     }
