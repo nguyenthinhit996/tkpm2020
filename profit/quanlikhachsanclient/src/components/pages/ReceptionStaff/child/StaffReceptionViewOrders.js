@@ -1,15 +1,12 @@
-import { Container, Grid, IconButton, Typography } from '@material-ui/core'
+import {IconButton, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
-import Navigation from '../../layout/Navigation'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useHistory } from 'react-router-dom';
-import '../../../components/layout/Body.css'
 import './StaffReceptionViewOrders.css'
-import Serviceview from '../../componentChild/ServiceView';
+import Serviceview from '../../../plugins/ServiceView';
 // test image
-import images from '../../../asset/images/2.JPG'
 import { useSnackbar } from 'notistack';
-import { getAllServices, putAddProductToCart } from '../../../core/product';
+import { getAllServices, putAddProductToCart } from '../../../../core/product';
 
 export default function StaffReceptionViewOrders(props) {
 
@@ -103,7 +100,7 @@ export default function StaffReceptionViewOrders(props) {
         const datas = {
             idticketbooking: idticketbooking,
             idproduct: idProduct,
-            idstaffservicesrepo: localStorage.onlineAcademy_userName,
+            idstaffservicesrepo: localStorage.quanlikhachsan_iduser,
             amount: 1,
             startrent: "2021-02-21T15:33:43.814891800",
             endrent: "2021-02-21T15:33:43.814891800",
@@ -144,34 +141,33 @@ export default function StaffReceptionViewOrders(props) {
         // }, 2000);
 
         history.push({
-            pathname: '/StaffReceptionViewServices',
-            state: { numberRoom: numberRoom,
-                idticketbooking:idticketbooking
+            pathname: '/rect/staffReceptionViewServices',
+            state: {
+                numberRoom: numberRoom,
+                idticketbooking: idticketbooking
             }
         });
     }
 
     return (
-        <Container>
-            <Typography component="div" className="containerQuanliKhachSan staffReceptionViewOrders">
-                <Navigation />
-                <div className="btn-group-control">
-                    <IconButton onClick={backViewRoomHandler} color="primary" aria-label="upload picture" component="span" className="btn-group-control__SytleColorText">
-                        <ArrowBackIosIcon fontSize="small" />
-                        <p className="container--removespace"> Back</p>
-                    </IconButton>
-                    <h2 className="container--removespace">Choose services for room {numberRoom}</h2>
-                    <button onClick={handlerViewDetailServicesRoom} className="btn--quanlikhachsan btn--quanlikhachsan__green__MoreService" > View Orders </button>
-                </div>
-                <Typography component="div" className="group--chooseOrder">
 
-                    {
-                        stateData.map(value => {
-                            return <Serviceview key={value.idproduction} value={value} addProductHandler={addProductHandler} />
-                        })
-                    }
-                </Typography>
+        <div className="staffReceptionViewOrders">
+            <div className="btn-group-control">
+                <IconButton onClick={backViewRoomHandler} color="primary" aria-label="upload picture" component="span" className="btn-group-control__SytleColorText">
+                    <ArrowBackIosIcon fontSize="small" />
+                    <p className="container--removespace"> Back</p>
+                </IconButton>
+                <h2 className="container--removespace">Choose services for room {numberRoom}</h2>
+                <button onClick={handlerViewDetailServicesRoom} className="btn--quanlikhachsan btn--quanlikhachsan__green__MoreService" > View Orders </button>
+            </div>
+            <Typography component="div" className="group--chooseOrder">
+
+                {
+                    stateData.map(value => {
+                        return <Serviceview key={value.idproduction} value={value} addProductHandler={addProductHandler} />
+                    })
+                }
             </Typography>
-        </Container>
+        </div>
     )
 }

@@ -15,13 +15,15 @@ export const STAFF_MANAGER_ADMIN = 'admin'
 
 export const STAFF_SERVICE = 'dichvu'
 
+export const LOGIN_SUCCESS = 'login_success'
+
 export const getHomePage = () => {
-    let role =  localStorage.onlineAcademy_role;
+    let role =  localStorage.quanlikhachsan_role;
     if(role === STAFF_RECEPTION){
-        return '/staffreception';
+        return '/rect/staffreception';
     }
     if(role === STAFF_MANAGER || role === STAFF_MANAGER_ADMIN){
-        return '/staffmanager';
+        return '/admin/staffmanager';
     }
     if(role === STAFF_SERVICE){
         return '/staffservice';

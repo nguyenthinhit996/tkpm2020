@@ -15,6 +15,7 @@ import NavigationAppContext from '../../stores/NavigationAppContext'
 import { List, ListItem, ListItemText } from '@material-ui/core';
 import { axiosInstance } from '../../reducers/makeAPI';
 import { getInfoUser } from '../../core/auth';
+import { useSnackbar } from 'notistack';
 
 const styles = (theme) => ({
     root: {
@@ -58,20 +59,30 @@ export default function Chooseoptionuserviewinfo(pros) {
 
     const modalTitle = "View information of User";
 
-    // var value = {
-    //     idstaff: "222",
-    //     username: "default",
-    //     role: "tieptan",
-    //     datework: "2020-12-12",
-    //     salarymonth: "123456",
-    //     bonussalary: "0"
-    // };
+     //-----------------toast start
+
+    const { enqueueSnackbar } = useSnackbar();
+
+    const handlerMessageToast = (mess, variant) => {
+        // variant could be success, error, warning, info, or default
+        enqueueSnackbar(mess, { variant });
+    };
+
+    const handlerMessageToastError = (mess) => {
+        // variant could be success, error, warning, info, or default
+        enqueueSnackbar(mess, {variant :'error'} );
+    };
+
+    //--------------------toast end
 
     const [stateValue, setstateValue] = useState({});
     useEffect( async () => {
        await getInfoUser().then(res => {
+        if(res.code_error !== undefined){
+            handlerMessageToastError(res.content_error);
+        }
         setstateValue(res);
-       }) 
+       })
     }, [])
 
     const { openViewInfor, setopenViewInfor } = useContext(NavigationAppContext);
@@ -79,24 +90,6 @@ export default function Chooseoptionuserviewinfo(pros) {
     const handleClose = () => {
         setopenViewInfor(false);
     };
-
-    const getInforUser = async () => {
-        try {
-            let idStaff = localStorage.onlineAcademy_userName;
-            console.log("idStaff" + idStaff);
-            let { data } = await axiosInstance.get('/staff', {
-                params: {
-                    id: idStaff
-                }
-            });
-            console.log("sdfadsfdasfdasfdasfdasfas" + data);
-            return data;
-
-        } catch (error) {
-            console.log(error.response.data);
-            return error.response.data;
-        }
-    }
 
     return (
         <div>
@@ -108,24 +101,24 @@ export default function Chooseoptionuserviewinfo(pros) {
                     <List dense={false}>
                         {
                             <div>
-                                <ListItem key={stateValue.username}>
+                                <ListItem key={stateValue.nameStaff}>
                                     <ListItemText primary="Full Name:" />
-                                    <ListItemText primary={stateValue.username} />
+                                    <ListItemText primary={stateValue.nameStaff} />
                                 </ListItem>
 
-                                <ListItem key={stateValue.role}>
+                                <ListItem key={stateValue.roleOfStaff}>
                                     <ListItemText primary="Role :" />
-                                    <ListItemText primary={stateValue.role} />
+                                    <ListItemText primary={stateValue.roleOfStaff} />
                                 </ListItem>
 
-                                <ListItem key={stateValue.datework}>
+                                <ListItem key={stateValue.dateStartWork}>
                                     <ListItemText primary="Start Work:" />
-                                    <ListItemText primary={stateValue.datework} />
+                                    <ListItemText primary={stateValue.dateStartWork} />
                                 </ListItem>
 
-                                <ListItem key={stateValue.SalaryMonth}>
+                                <ListItem key={stateValue.salaryStaffByMonth}>
                                     <ListItemText primary="Salary Month:" />
-                                    <ListItemText primary={stateValue.salarymonth} />
+                                    <ListItemText primary={stateValue.salaryStaffByMonth} />
                                 </ListItem>
 
                                 <ListItem key={stateValue.bonussalary}>

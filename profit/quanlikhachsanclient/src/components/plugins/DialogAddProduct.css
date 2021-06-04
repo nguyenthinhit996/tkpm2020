@@ -1,0 +1,79 @@
+ 
+.DialogAddProduct div.MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiPaper-elevation24.MuiPaper-rounded{
+    background-color: #67D265;
+ }
+
+.DialogAddProduct .MuiTypography-h6 {
+     text-align: center;
+     font-family: Risque, cursive !important;
+ }
+
+.DialogAddProduct .MuiDialog-paperWidthSm{
+    min-width: 420px;
+}
+
+.DialogAddProduct span.MuiTypography-root.MuiListItemText-primary.MuiTypography-body1.MuiTypography-displayBlock{
+    font-family: Risque, cursive !important;
+}
+
+.DialogAddProduct li{
+    padding: 0px 16px !important;
+}
+
+.DialogAddProduct form.DialogAddProductForm{
+    margin: 0px 5px;
+}
+
+.DialogAddProduct form.DialogAddProductForm input {
+    background-color: #67D265;
+    border: none;
+    border-bottom: 2px ridge black;
+  }
+
+
+.DialogAddProduct form.DialogAddProductForm .form--mod--addProduct {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin: 5px 0px;
+    font-family: Risque, cursive !important;
+}
+
+.DialogAddProduct .btn--quanlikhachsan__changePass{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: #F1C6C6;
+}
+
+.DialogAddProduct .btn--quanlikhachsan__SaveAddProduct{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.DialogAddProduct p.container--removespace {
+    margin-left: 15px;
+}
+
+.btn--quanlikhachsan--saveAddproduct{
+    background-color: yellow;
+    width: 90px;
+    height: 30px;
+    margin-left: 50px;
+}
+
+.form--mod--image-create-product {
+    margin:5px;
+}
+
+.form--mod--image-create-product form input{
+    background-color: #67D265;
+ 
+}
+
+.form--mod--image-create-product form button{
+    background-color: #F1C6C6;
+}

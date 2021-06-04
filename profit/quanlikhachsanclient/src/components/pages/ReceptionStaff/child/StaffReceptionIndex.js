@@ -1,16 +1,11 @@
-import { Button, Container, InputLabel, makeStyles, NativeSelect, Paper, TextField, Typography } from '@material-ui/core'
+import { Button, InputLabel, makeStyles, NativeSelect, TextField } from '@material-ui/core'
 import React, { useEffect, useRef, useState } from 'react'
-import Navigation from '../../../components/layout/Navigation'
-import { SEVERITY_INFO, SEVERITY_WARNING } from '../../../constants/ConstApp'
-import reactDom from 'react-dom'
-import App from '../../../App'
-import NavigationAppContext from '../../../stores/NavigationAppContext'
 import { useSnackbar } from 'notistack';
 import './staffreceptionindex.css'
-import '../../../components/layout/Body.css'
-import Roomview from '../../../components/componentChild/RoomView'
+import Roomview from '../../../plugins/RoomView'
 import { useHistory } from 'react-router-dom'
-import { detailAllRoom } from '../../../core/room'
+import { detailAllRoom } from '../../../../core/room'
+import { HandleError } from '../../../../core/handleDataFromDB'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,17 +39,23 @@ export default function Staffreceptionindex(props) {
     }, [messageToast])
 
     const [countRoomState, setcountRoomState] = useState({
-        countALl : 0,
-        countEmplty : 0,
-        countFull : 0,
-        countClean : 0
+        countALl: 0,
+        countEmplty: 0,
+        countFull: 0,
+        countClean: 0
     })
 
     const [dataFetchIsServer, setdataFetchIsServer] = useState([]);
     useEffect(async () => {
-        await detailAllRoom().then(data => {
+        let data = await detailAllRoom();
+        if (HandleError(data)) {
+            let mess = data.data.content_error;
+            let variant = 'error';
+            setmessageToast({ message: mess, variant: variant })
+            history.push("/");
+        }else{
             setdataFetchIsServer(data);
-        })
+        }
     }, [])
 
     const { enqueueSnackbar } = useSnackbar();
@@ -106,22 +107,24 @@ export default function Staffreceptionindex(props) {
     }
     // contron button end
 
-    const clickRoom = (numberRoom,idticketbooking) => {
+    const clickRoom = (numberRoom, idticketbooking) => {
 
         var getStatusOfRoom = dataFetchIsServer.find(value => value.numberRoom === numberRoom);
 
         console.log(getStatusOfRoom)
         if (getStatusOfRoom.isEmpty) {
             history.push({
-                pathname: '/StaffReceptionBookingRoom',
+                pathname: '/rect/staffReceptionBookingRoom',
                 state: { numberRoom: numberRoom }
             });
         }
         else if (getStatusOfRoom.isFull) {
             history.push({
-                pathname: '/Staffreceptionviewroom',
-                state: { numberRoom: numberRoom,
-                    idticketbooking:idticketbooking }
+                pathname: '/rect/staffreceptionviewroom',
+                state: {
+                    numberRoom: numberRoom,
+                    idticketbooking: idticketbooking
+                }
             });
         }
 
@@ -251,11 +254,12 @@ export default function Staffreceptionindex(props) {
 
     useEffect(() => {
         setlistDataIsFilter(dataFetchIsServer);
-        setcountRoomState({...countRoomState,
-            countALl:dataFetchIsServer.length
-            ,countEmplty:dataFetchIsServer.filter(value => value.isEmpty).length
-            ,countFull : dataFetchIsServer.filter(value => value.isFull).length
-            ,countClean : dataFetchIsServer.filter(value => value.isClean).length
+        setcountRoomState({
+            ...countRoomState,
+            countALl: dataFetchIsServer.length
+            , countEmplty: dataFetchIsServer.filter(value => value.isEmpty).length
+            , countFull: dataFetchIsServer.filter(value => value.isFull).length
+            , countClean: dataFetchIsServer.filter(value => value.isClean).length
         })
     }, [dataFetchIsServer])
 
@@ -269,7 +273,7 @@ export default function Staffreceptionindex(props) {
         if (event.target.value !== undefined && event.target.value != 0) {
             var isListFilter = dataFetchIsServer.filter(value => value.numberRoom == event.target.value)
             setlistDataIsFilter([...isListFilter]);
-        }else{
+        } else {
             setlistDataIsFilter([...dataFetchIsServer]);
         }
     }
@@ -283,7 +287,7 @@ export default function Staffreceptionindex(props) {
             if ("all".includes(event.target.value)) {
                 setlistDataIsFilter([...dataFetchIsServer]);
             } else {
-                var isListFilter = dataFetchIsServer.filter(value => 
+                var isListFilter = dataFetchIsServer.filter(value =>
                     value.typeRoom.toLowerCase().includes(event.target.value.toLowerCase()))
                 setlistDataIsFilter([...isListFilter]);
             }
@@ -304,54 +308,48 @@ export default function Staffreceptionindex(props) {
         }
     }
 
-
-
     return (
-        <Container>
-            <Typography component="div" className="containerQuanliKhachSan staffreceptionindex">
-                <Navigation />
-                <div className="controlRoomOfReceptionUser">
-                    <div>
-                        <label> Filter Number Room:  </label>
-                        <TextField ref={cleanText} onChange={handlerInputNumberRoom} name="filterRoomByNumber" type="number" />
-                    </div>
-                    <div className="controlButtonOfReceptionUser">
-                        <Button onClick={() => handlerButtonControl("AllRoom")} className="btn--quanlikhachsan btn--quanlikhachsan--AllRoom"
-                            variant={buttonControl.all ? "contained" : "outlined"}  >All({countRoomState.countALl})</Button>
-                        <Button onClick={() => handlerButtonControl("Empty")} className="btn--quanlikhachsan btn--quanlikhachsan--Empty"
-                            variant={buttonControl.empty ? "contained" : "outlined"} >Empty ({countRoomState.countEmplty})</Button>
-                        <Button onClick={() => handlerButtonControl("Full")} className="btn--quanlikhachsan btn--quanlikhachsan--Full"
-                            variant={buttonControl.full ? "contained" : "outlined"} >Full ({countRoomState.countFull})</Button>
-                        <Button onClick={() => handlerButtonControl("Clean")} className="btn--quanlikhachsan btn--quanlikhachsan--Clean"
-                            variant={buttonControl.clean ? "contained" : "outlined"} >Cleaning ({countRoomState.countClean})</Button>
-                        <div className="controlSelectTypeRoom">
-                            <InputLabel >Type Room</InputLabel>
-                            <NativeSelect
-                                ref={defaultAllSelect}
-                                onChange={handleChangeTypeRoomFilter}
-                                inputProps={{
-                                    name: 'age',
-                                    id: 'age-native-helper',
-                                }}
-                            >
-                                <option value={"all"}  >all</option>
-                                <option value={"single"} >single</option>
-                                <option value={"double"}>double</option>
-                                <option value={"vip"}>vip</option>
-                            </NativeSelect>
-                        </div>
+        <div className="staffreceptionindex">
+            <div className="controlRoomOfReceptionUser">
+                <div>
+                    <label> Filter Number Room:  </label>
+                    <TextField ref={cleanText} onChange={handlerInputNumberRoom} name="filterRoomByNumber" type="number" />
+                </div>
+                <div className="controlButtonOfReceptionUser">
+                    <Button onClick={() => handlerButtonControl("AllRoom")} className="btn--quanlikhachsan btn--quanlikhachsan--AllRoom"
+                        variant={buttonControl.all ? "contained" : "outlined"}  >All({countRoomState.countALl})</Button>
+                    <Button onClick={() => handlerButtonControl("Empty")} className="btn--quanlikhachsan btn--quanlikhachsan--Empty"
+                        variant={buttonControl.empty ? "contained" : "outlined"} >Empty ({countRoomState.countEmplty})</Button>
+                    <Button onClick={() => handlerButtonControl("Full")} className="btn--quanlikhachsan btn--quanlikhachsan--Full"
+                        variant={buttonControl.full ? "contained" : "outlined"} >Full ({countRoomState.countFull})</Button>
+                    <Button onClick={() => handlerButtonControl("Clean")} className="btn--quanlikhachsan btn--quanlikhachsan--Clean"
+                        variant={buttonControl.clean ? "contained" : "outlined"} >Cleaning ({countRoomState.countClean})</Button>
+                    <div className="controlSelectTypeRoom">
+                        <InputLabel >Type Room</InputLabel>
+                        <NativeSelect
+                            ref={defaultAllSelect}
+                            onChange={handleChangeTypeRoomFilter}
+                            inputProps={{
+                                name: 'age',
+                                id: 'age-native-helper',
+                            }}
+                        >
+                            <option value={"all"}  >all</option>
+                            <option value={"single"} >single</option>
+                            <option value={"double"}>double</option>
+                            <option value={"vip"}>vip</option>
+                        </NativeSelect>
                     </div>
                 </div>
+            </div>
 
-                <div className={classes.root}>
-                    {
-                        listDataIsFilter.map(value => {
-                            return <Roomview key={value.numberRoom} data={value} clickRoom={clickRoom} />
-                        })
-                    }
-                </div>
-            </Typography>
-
-        </Container>
+            <div className={classes.root}>
+                {
+                    listDataIsFilter.map(value => {
+                        return <Roomview key={value.numberRoom} data={value} clickRoom={clickRoom} />
+                    })
+                }
+            </div>
+        </div>
     )
 }

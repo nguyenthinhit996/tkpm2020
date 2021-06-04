@@ -1,15 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
-import '../../../components/layout/Body.css'
-import { Button, Container, InputLabel, makeStyles, NativeSelect, Paper, TextField, Typography } from '@material-ui/core'
-import Navigation from '../../layout/Navigation'
 import './StaffManagementDailyWorking.css'
-import TableViewCheckingDaily from '../../componentChild/TableViewCheckingDaily'
+import TableViewCheckingDaily from '../../../plugins/TableViewCheckingDaily'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
-import { getDailyWorking, updateDailyworking } from '../../../core/workstaff'
-import NavigationAppContext from '../../../stores/NavigationAppContext'
-import DialogCheckingEdit from '../../componentChild/DialogCheckingEdit'
+import { getDailyWorking, updateDailyworking } from '../../../../core/workstaff'
+import NavigationAppContext from '../../../../stores/NavigationAppContext'
+import DialogCheckingEdit from '../../../plugins/DialogCheckingEdit'
 
 export default function Staffmanagementdailyworking(props) {
 
@@ -59,13 +56,13 @@ export default function Staffmanagementdailyworking(props) {
 
     const handlerManagementButton = () => {
         history.push({
-            pathname: '/StaffManagementManageStaff'
+            pathname: '/admin/staffManagementManageStaff'
         });
     }
 
     const handlerSalaryButton = () => {
         history.push({
-            pathname: '/StaffManagementSalary'
+            pathname: '/admin/staffManagementSalary'
         });
     }
 
@@ -132,7 +129,7 @@ export default function Staffmanagementdailyworking(props) {
             timestart: data.timeStart,
             timeend: data.endStart,
             note: refNote.current.value,
-            idstaffmanagement: localStorage.onlineAcademy_userName,
+            idstaffmanagement: localStorage.quanlikhachsan_iduser,
             usernamestaff: staffState.data.usernamework,
         }
 
@@ -170,28 +167,24 @@ export default function Staffmanagementdailyworking(props) {
     }
 
     return (
-        <Container>
-            <Typography component="div" className="containerQuanliKhachSan staffmanagementdailyworking">
-                <Navigation />
-                <div className="StaffmanagementdailyworkingHeader">
-                    <button onClick={handlerManagementButton} className="btn--quanlikhachsan btn--quanlikhachsan__green__ManagementStaff" > Management Staff </button>
-                    <button onClick={handlerSalaryButton} className="btn--quanlikhachsan btn--quanlikhachsan__green__Salary" > Salary </button>
+        <div className="staffmanagementdailyworking">
+            <div className="StaffmanagementdailyworkingHeader">
+                <button onClick={handlerManagementButton} className="btn--quanlikhachsan btn--quanlikhachsan__green__ManagementStaff" > Management Staff </button>
+                <button onClick={handlerSalaryButton} className="btn--quanlikhachsan btn--quanlikhachsan__green__Salary" > Salary </button>
+            </div>
+            <div className="StaffmanagementdailyworkingBody">
+                <h2>Checking and Checkout Staff in work day</h2>
+                <div className="form--mod--dailyWorking" >
+                    <label > Daily Working:  </label>
+                    <input name="dailywork" type="date" onChange={handlerChangeDate} ref={refDayChecking}
+                    />
                 </div>
-                <div className="StaffmanagementdailyworkingBody">
-                    <h2>Checking and Checkout Staff in work day</h2>
-                    <div className="form--mod--dailyWorking" >
-                        <label > Daily Working:  </label>
-                        <input name="dailywork" type="date" onChange={handlerChangeDate} ref={refDayChecking}
-                        />
-                    </div>
 
-                    <NavigationAppContext.Provider value={{ listRowData, setlistRowData, staffState, setstaffState, handlerEditUpdate }}>
-                        <TableViewCheckingDaily />
-                        {staffState.status && <DialogCheckingEdit />}
-                    </NavigationAppContext.Provider>
-                </div>
-            </Typography>
-
-        </Container>
+                <NavigationAppContext.Provider value={{ listRowData, setlistRowData, staffState, setstaffState, handlerEditUpdate }}>
+                    <TableViewCheckingDaily />
+                    {staffState.status && <DialogCheckingEdit />}
+                </NavigationAppContext.Provider>
+            </div>
+        </div>
     )
 }

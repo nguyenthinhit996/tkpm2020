@@ -1,12 +1,14 @@
 import { Container, Grid, makeStyles, Paper, Typography } from '@material-ui/core'
 import { useForm } from "react-hook-form";
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import '../layout/Body.css'
 import './Login.css'
 import { useHistory, useLocation } from 'react-router-dom';
 import { login } from '../../core/auth';
-import { STAFF_RECEPTION, STAFF_SERVICE ,STAFF_MANAGER, STAFF_MANAGER_ADMIN} from '../../constants/ConstApp';
+import { STAFF_RECEPTION, STAFF_SERVICE, STAFF_MANAGER, STAFF_MANAGER_ADMIN } from '../../constants/ConstApp';
 import { useSnackbar } from 'notistack';
+import {LOGIN_SUCCESS} from '../../constants/ConstApp'
+import Appcontext from '../../AppContext';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,109 +26,83 @@ export default function Login(props) {
 
     const [loginState, setloginState] = useState('');
 
+    const {dispatch} = useContext(Appcontext);
+
     const classes = useStyles();
 
-     // toast  start
-     const [messageToast, setmessageToast] = useState({ message: '', variant: '' });
+    // toast  start
+    const [messageToast, setmessageToast] = useState({ message: '', variant: '' });
 
-     useEffect(() => {
-         if (messageToast.message.length !== 0) {
-             handlerMessageToast(messageToast.message, messageToast.variant);
-         }
-     }, [messageToast])
- 
-     const { enqueueSnackbar } = useSnackbar();
- 
- 
-     const handlerMessageToast = (mess, variant) => {
-         // variant could be success, error, warning, info, or default
-         enqueueSnackbar(mess, { variant });
-     };
- 
-     const exportToastSuccess = (mess) => {
-         let a = 'success';
-         setmessageToast({ message: mess, variant: a })
-     }
- 
-     const exportToastError = (mess) => {
-         let a = 'error';
-         setmessageToast({ message: mess, variant: a })
-     }
+    useEffect(() => {
+        if (messageToast.message.length !== 0) {
+            handlerMessageToast(messageToast.message, messageToast.variant);
+        }
+    }, [messageToast])
 
-     const exportToastInfo = (mess) => {
+    const { enqueueSnackbar } = useSnackbar();
+
+
+    const handlerMessageToast = (mess, variant) => {
+        // variant could be success, error, warning, info, or default
+        enqueueSnackbar(mess, { variant });
+    };
+
+    const exportToastSuccess = (mess) => {
+        let a = 'success';
+        setmessageToast({ message: mess, variant: a })
+    }
+
+    const exportToastError = (mess) => {
+        let a = 'error';
+        setmessageToast({ message: mess, variant: a })
+    }
+
+    const exportToastInfo = (mess) => {
         let a = 'info';
         setmessageToast({ message: mess, variant: a })
     }
- 
-     const exportToastWarning = (mess) => {
-         let a = 'Warning';
-         setmessageToast({ message: mess, variant: a })
-     }
- 
-     // toast  enddddddddddddddd
+
+    const exportToastWarning = (mess) => {
+        let a = 'Warning';
+        setmessageToast({ message: mess, variant: a })
+    }
+
+    // toast  enddddddddddddddd
 
     const { register, handleSubmit, watch, errors } = useForm();
 
-    // const onSubmit = data => {
-    //     if (data.UserName !== "admin") {
-    //         const messageLogin = "User or password incorrect !";
-    //         setloginState(messageLogin);
-    //     } else {
-    //         const messageLogin = "ok !";
-    //         setloginState(messageLogin);
-    //     }
-    // }
-
-    // console.log(watch("example")); // watch input value by passing the name of it
-
-    // const { dispatch, store } = useContext(AppContext);
     const location = useLocation();
     const history = useHistory();
-
-    // const { from } = location.state || { from: { pathname: '/' } };
-
 
     const onSubmit = async (data) => {
         console.log(data);
         let res = await login(data);
         if (res.authenticated !== undefined && res.authenticated) {
-            // dispatch({
-            //     type: LOGIN_SUCCESS,
-            //     payload: {
-            //         isLogged: res.authenticated
-            //     }
-            // });
-            // dispatch({
-            //     type: SEARCH_ACTION,
-            //     payload: {
-            //         isSearchAction: false
-            //     }
-            // });
-            // alertMessage({ type: 'success', message: 'Đăng nhập thành công.' });
-            // const messageLogin = "Login Success !";
-            //         setloginState(messageLogin);
-            
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: {
+                    role: res.role,
+                    isLogged: res.authenticated
+                }
+            })
+
             if (res.role === STAFF_RECEPTION) {
-                history.push('/staffreception');  
+                history.push('/rect/staffreception');
             }
             if (res.role === STAFF_SERVICE) {
-                history.push('/staffservice');  
+                history.push('/staffservice');
             }
             if (res.role === STAFF_MANAGER || res.role === STAFF_MANAGER_ADMIN) {
-                history.push('/staffmanager');  
+                history.push('/admin/staffmanager');
             }
 
         } else {
-
             if(res.messerror.length != 0){
-                // message from server return 
                 setloginState(res.messerror);
             }else{
-                // alertMessage({ type: 'error', message: 'Tài khoản hoặc mật khẩu không đúng!' });
                 const messageLogin = "User or password incorrect !";
                 setloginState(messageLogin);
             }
-            
         }
     }
 

@@ -1,14 +1,12 @@
 import { Container, Grid, IconButton, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
-import Navigation from '../../layout/Navigation'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useHistory } from 'react-router-dom';
-import '../../../components/layout/Body.css'
 import './StaffReceptionViewServices.css'
 import { useSnackbar } from 'notistack';
-import TableViewOrder from '../../componentChild/TableViewOrder';
-import NavigationAppContext from '../../../stores/NavigationAppContext'
-import { detailServicesByChecking, DetailservicesUpdate } from '../../../core/product';
+import TableViewOrder from '../../../plugins/TableViewOrder';
+import NavigationAppContext from '../../../../stores/NavigationAppContext'
+import { detailServicesByChecking } from '../../../../core/product';
 
 
 export default function StaffReceptionViewServices(props) {
@@ -74,7 +72,7 @@ export default function StaffReceptionViewServices(props) {
     // ];
 
     const [listRowData, setlistRowData] = useState([]);
-    
+
     useEffect(() => {
         detailServicesByChecking(idticketbooking).then(data => {
             setlistRowData(data);
@@ -82,32 +80,30 @@ export default function StaffReceptionViewServices(props) {
         })
     }, [])
 
-    useEffect( async () => {
+    useEffect(async () => {
         console.log("update list to server");
 
     }, [listRowData])
 
     return (
-        <Container>
-            <Typography component="div" className="containerQuanliKhachSan staffReceptionViewServices">
-                <Navigation />
-                <div className="btn-group-control">
-                    <IconButton onClick={backViewRoomHandler} color="primary" aria-label="upload picture" component="span" className="btn-group-control__SytleColorText">
-                        <ArrowBackIosIcon fontSize="small" />
-                        <p className="container--removespace"> Back</p>
-                    </IconButton>
-                    <h2 className="container--removespace">View Order services of room {numberRoom}</h2>
-                    <div>
-                        <span style={{ visibility: 'hidden' }}>hiddenColumn</span>
-                    </div>
-                </div>
-                <Typography component="div" className="group--chooseOrder">
-                    <NavigationAppContext.Provider value={{ listRowData, setlistRowData }}>
-                        <TableViewOrder />
-                    </NavigationAppContext.Provider>
 
-                </Typography>
+        <div className="staffReceptionViewServices" >
+            <div className="btn-group-control">
+                <IconButton onClick={backViewRoomHandler} color="primary" aria-label="upload picture" component="span" className="btn-group-control__SytleColorText">
+                    <ArrowBackIosIcon fontSize="small" />
+                    <p className="container--removespace"> Back</p>
+                </IconButton>
+                <h2 className="container--removespace">View Order services of room {numberRoom}</h2>
+                <div>
+                    <span style={{ visibility: 'hidden' }}>hiddenColumn</span>
+                </div>
+            </div>
+            <Typography component="div" className="group--chooseOrder">
+                <NavigationAppContext.Provider value={{ listRowData, setlistRowData }}>
+                    <TableViewOrder />
+                </NavigationAppContext.Provider>
+
             </Typography>
-        </Container>
+        </div>
     )
 }

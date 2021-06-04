@@ -8,7 +8,7 @@ import NavigationAppContext from '../../../stores/NavigationAppContext'
 import { useSnackbar } from 'notistack';
 import './StaffServicesIndex.css'
 import '../../../components/layout/Body.css'
-import Roomview from '../../componentChild/RoomView'
+import Roomview from '../../plugins/RoomView'
 import { useHistory } from 'react-router-dom'
 import { detailAllRoom } from '../../../core/room'
 import Table from '@material-ui/core/Table';
@@ -98,8 +98,8 @@ export default function StaffServicesIndex(props) {
             && x.username === row.username);
         console.log(foundIndex);
         var item = dataFetchIsServer[foundIndex];
-        item.username = localStorage.onlineAcademy_fullName;
-        dataFetchIsServer[foundIndex] = { ...item, status: event.target.value, idstaff: localStorage.onlineAcademy_userName }
+        item.username = localStorage.quanlikhachsan_fullName;
+        dataFetchIsServer[foundIndex] = { ...item, status: event.target.value, idstaff: localStorage.quanlikhachsan_iduser }
         setdataFetchIsServer([...dataFetchIsServer]);
 
         var dataSendUPdate = dataFetchIsServer[foundIndex];

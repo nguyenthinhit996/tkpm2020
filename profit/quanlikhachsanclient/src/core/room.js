@@ -1,10 +1,11 @@
 import { axiosInstance } from "../reducers/makeAPI";
-
+import { HeaderAccessToken } from '../core/header'
 
 
 export const detailAllRoom = async (value) => {
   try {
-    let { data } = await axiosInstance.get('/detailAllRoom');
+    console.log(HeaderAccessToken());
+    let { data } = await axiosInstance.get('/detailAllRoom', { headers: HeaderAccessToken() });
     console.log(data);
     return data;
   } catch (error) {

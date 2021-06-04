@@ -73,7 +73,7 @@ export default function Chooseoptionuserlogout(props) {
         // localStorage.onlineAcademy_role = data.role;
         // localStorage.onlineAcademy_userName = data.username;
         localStorage.clear();
-        console.log("localStorage.onlineAcademy_userName "+ localStorage.onlineAcademy_userName);
+        console.log("localStorage.onlineAcademy_userName "+ localStorage.quanlikhachsan_iduser);
         history.push("/");
     }
 
