@@ -5,7 +5,7 @@ import './staffreceptionindex.css'
 import Roomview from '../../../plugins/RoomView'
 import { useHistory } from 'react-router-dom'
 import { detailAllRoom } from '../../../../core/room'
-import { HandleError } from '../../../../core/handleDataFromDB'
+import { HandleGetError, HandleErrorSystem } from '../../../../core/handleDataFromDB'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,12 +48,12 @@ export default function Staffreceptionindex(props) {
     const [dataFetchIsServer, setdataFetchIsServer] = useState([]);
     useEffect(async () => {
         let data = await detailAllRoom();
-        if (HandleError(data)) {
-            let mess = data.data.content_error;
+        let messError = HandleGetError(data);
+        if (messError.length !== 0) {
             let variant = 'error';
-            setmessageToast({ message: mess, variant: variant })
-            history.push("/");
-        }else{
+            setmessageToast({ message: messError, variant: variant })
+            HandleErrorSystem(data, history);
+        } else {
             setdataFetchIsServer(data);
         }
     }, [])

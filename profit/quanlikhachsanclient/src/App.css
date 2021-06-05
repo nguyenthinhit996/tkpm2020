@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+.AppContainer--displayNone{
+  display: none !important;
+}
+
+.AppContainer .AppContainer__loading{
+  z-index: 9999;
+  position: fixed;
+  inset: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ 
+
+.AppContainer .AppContainer__loading .AppContainer__loading--shadow{
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  z-index: -1;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}

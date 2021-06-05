@@ -55,7 +55,7 @@ export const getInfoUser = async () => {
     let { data } = await axiosInstance.get('/staff', { headers: HeaderAccessToken(), params: {id: idstaff} } );
     return data[0];
   } catch (error) {
-    return error.response.data;
+    return error.response;
   }
 }
 
@@ -73,7 +73,7 @@ export const changePassWithServer = async (passOld, passNew) => {
     console.log(data);
     return data;
   } catch (error) {
-    console.log(error.response.data);
-    return error.response.data;
+    console.log(error.response);
+    return error.response;
   }
 }

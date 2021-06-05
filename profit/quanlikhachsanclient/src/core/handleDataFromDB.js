@@ -1,12 +1,17 @@
 
 
-export const HandleError = (res) => {
-    if(undefined !== res.data)
-    {
-        if(res.data.code_error == "ES_001") // error system return page login.
-        {
-           return true;
-        } 
+export const HandleGetError = (res) => {
+    if (undefined !== res.data) {
+        return res.data.content_error;
     }
-    return false;
+    return "";
+}
+
+export const HandleErrorSystem = (res, history) => {
+    if (undefined !== res.data) {
+        if (res.data.code_error !== undefined && res.data.code_error.includes("ES")) // error system return page login.
+        {
+            history.push("/"); // return login with error system
+        }
+    }
 }

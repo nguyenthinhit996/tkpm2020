@@ -92,13 +92,6 @@ export default function Chooseoptionuserchangepass(props) {
 
     const { register, handleSubmit, watch, errors } = useForm();
 
-    // useEffect(() => {
-    //     if(errors === null){
-    //         const messageLogin = "";
-    //         setchangePass(messageLogin);
-    //     }
-    // }, [errors])
-
     const onSubmit = async (data) => {
 
         if (data.inpPasswordNew !== data.inpPasswordAgain) {

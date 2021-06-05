@@ -31,3 +31,7 @@ export const getHomePage = () => {
 }
 
 export const ES_001 ="ES_001";
+
+export const ON_LOADING="on_loading";
+
+export const OFF_LOADING="off_loading";

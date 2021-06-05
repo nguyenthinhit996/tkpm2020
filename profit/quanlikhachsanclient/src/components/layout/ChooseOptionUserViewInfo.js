@@ -1,21 +1,21 @@
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import React, { useContext, useEffect, useState } from 'react'
 import './ChooseOptionUserViewInfo.css'
-import { red } from '@material-ui/core/colors';
 import './Body.css'
 import NavigationAppContext from '../../stores/NavigationAppContext'
-import { List, ListItem, ListItemText } from '@material-ui/core';
-import { axiosInstance } from '../../reducers/makeAPI';
+import { Hidden, List, ListItem, ListItemText } from '@material-ui/core';
 import { getInfoUser } from '../../core/auth';
 import { useSnackbar } from 'notistack';
+import { HandleGetError, HandleErrorSystem } from '../../core/handleDataFromDB'
+import { useHistory } from 'react-router-dom'
+import {OpenLoadding, OffLoadding} from '../../core/Utils'
+import Appcontext from '../../AppContext';
 
 const styles = (theme) => ({
     root: {
@@ -55,6 +55,10 @@ const DialogContent = withStyles((theme) => ({
 export default function Chooseoptionuserviewinfo(pros) {
 
 
+    const {dispatch} = useContext(Appcontext);
+
+    const history = useHistory();
+
     const content = "Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.";
 
     const modalTitle = "View information of User";
@@ -77,12 +81,17 @@ export default function Chooseoptionuserviewinfo(pros) {
 
     const [stateValue, setstateValue] = useState({});
     useEffect( async () => {
-       await getInfoUser().then(res => {
-        if(res.code_error !== undefined){
-            handlerMessageToastError(res.content_error);
-        }
-        setstateValue(res);
-       })
+    OpenLoadding(dispatch);
+       let data = await getInfoUser();
+       let messError = HandleGetError(data);
+       if (messError.length !== 0) {
+            OffLoadding(dispatch);
+           handlerMessageToastError(messError);
+           HandleErrorSystem(data, history);
+       } else {
+        setstateValue(data);
+        OffLoadding(dispatch);
+       }
     }, [])
 
     const { openViewInfor, setopenViewInfor } = useContext(NavigationAppContext);

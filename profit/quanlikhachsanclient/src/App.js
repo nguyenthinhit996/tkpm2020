@@ -8,18 +8,22 @@ import Login from './components/pages/Login';
 import ChooseOptionUserViewInfo from './components/layout/ChooseOptionUserViewInfo';
 import Chooseoptionuserchangepass from './components/layout/ChooseOptionUserChangePass';
 import { SnackbarProvider, useSnackbar } from 'notistack';
-import React, {useReducer} from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import { IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { Fragment } from 'react';
 import PrivateRoute from './core/PrivateRoute';
 import StaffServicesIndex from './components/pages/ServicesStaff/StaffServicesIndex';
-import {initialState} from './AppState';
+import { initialState } from './AppState';
 import Appcontext from './AppContext';
 import reducer from './AppReducer';
 
 import Managerstaffroot from './components/pages/ManageStaff/root/ManagerStaffRoot';
 import Staffreceptionroot from './components/pages/ReceptionStaff/root/StaffReceptionRoot'
+import CircularProgress from '@material-ui/core/CircularProgress';
+ 
+
+ 
 
 function App() {
 
@@ -38,42 +42,58 @@ function App() {
     )
   }
 
+  const [statLoading, setLoading] = useState(false);
+
   const [store, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    setLoading(store.flagLoadding);
+  }, [store])
 
   return (
 
     <SnackbarProvider maxSnack={5} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} autoHideDuration={5000}
       action={key => <DismissAction id={key} />}>
 
-      <Appcontext.Provider value={{store,dispatch}}>
+      <Appcontext.Provider value={{ store, dispatch }}>
+
+      <div className="AppContainer">
+
+      <div className={statLoading === true ? "AppContainer__loading" : "AppContainer--displayNone"}>
+        <div className="AppContainer__loading AppContainer__loading--shadow">
+        </div>
+          <CircularProgress thickness={4} size="100px" variant="indeterminate" color="primary" />
+        </div>
+
+        <div className="AppContainer__content">
         <Router>
-          <div>
-            <Switch> 
-              <PrivateRoute path="/admin">
-                <Managerstaffroot/>
-              </PrivateRoute>
+          <Switch>
+            <PrivateRoute path="/admin">
+              <Managerstaffroot />
+            </PrivateRoute>
 
-              <PrivateRoute path="/rect">
-                <Staffreceptionroot/>
-              </PrivateRoute>
+            <PrivateRoute path="/rect">
+              <Staffreceptionroot />
+            </PrivateRoute>
 
-              <PrivateRoute path="/staffservice">
-                <StaffServicesIndex />
-              </PrivateRoute>
+            <PrivateRoute path="/staffservice">
+              <StaffServicesIndex />
+            </PrivateRoute>
 
-              <PrivateRoute path="/Chooseoptionuserchangepass">
-                <Chooseoptionuserchangepass />
-              </PrivateRoute>
-              <PrivateRoute path="/ChooseOptionUserViewInfo">
-                <ChooseOptionUserViewInfo />
-              </PrivateRoute>
+            <PrivateRoute path="/Chooseoptionuserchangepass">
+              <Chooseoptionuserchangepass />
+            </PrivateRoute>
+            <PrivateRoute path="/ChooseOptionUserViewInfo">
+              <ChooseOptionUserViewInfo />
+            </PrivateRoute>
 
-              <Route exact path="/">
-                <Login />
-              </Route>
-            </Switch>
-          </div>
+            <Route exact path="/">
+              <Login />
+            </Route>
+          </Switch>
         </Router>
+        </div>
+      </div>
       </Appcontext.Provider>
     </SnackbarProvider>
   );
