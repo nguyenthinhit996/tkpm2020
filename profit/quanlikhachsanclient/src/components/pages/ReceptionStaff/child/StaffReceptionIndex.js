@@ -1,11 +1,15 @@
 import { Button, InputLabel, makeStyles, NativeSelect, TextField } from '@material-ui/core'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useSnackbar } from 'notistack';
 import './staffreceptionindex.css'
 import Roomview from '../../../plugins/RoomView'
 import { useHistory } from 'react-router-dom'
 import { detailAllRoom } from '../../../../core/room'
+
+// handle error and set loading process
 import { HandleGetError, HandleErrorSystem } from '../../../../core/handleDataFromDB'
+import {OpenLoadding, OffLoadding} from '../../../../core/Utils'
+import Appcontext from '../../../../AppContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,6 +33,8 @@ export default function Staffreceptionindex(props) {
 
     const classes = useStyles();
 
+    const {dispatch} = useContext(Appcontext);
+
     //-----------------toast start
     const [messageToast, setmessageToast] = useState({ message: '', variant: '' });
 
@@ -47,14 +53,17 @@ export default function Staffreceptionindex(props) {
 
     const [dataFetchIsServer, setdataFetchIsServer] = useState([]);
     useEffect(async () => {
+        OpenLoadding(dispatch);
         let data = await detailAllRoom();
         let messError = HandleGetError(data);
         if (messError.length !== 0) {
+            OffLoadding(dispatch);
             let variant = 'error';
             setmessageToast({ message: messError, variant: variant })
             HandleErrorSystem(data, history);
         } else {
             setdataFetchIsServer(data);
+            OffLoadding(dispatch);
         }
     }, [])
 

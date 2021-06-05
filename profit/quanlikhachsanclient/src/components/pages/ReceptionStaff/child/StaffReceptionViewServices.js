@@ -1,5 +1,5 @@
 import { Container, Grid, IconButton, Typography } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useHistory } from 'react-router-dom';
 import './StaffReceptionViewServices.css'
@@ -8,10 +8,16 @@ import TableViewOrder from '../../../plugins/TableViewOrder';
 import NavigationAppContext from '../../../../stores/NavigationAppContext'
 import { detailServicesByChecking } from '../../../../core/product';
 
+// handle error and set loading process
+import { HandleGetError, HandleErrorSystem } from '../../../../core/handleDataFromDB'
+import {OpenLoadding, OffLoadding} from '../../../../core/Utils'
+import Appcontext from '../../../../AppContext';
 
 export default function StaffReceptionViewServices(props) {
 
     const history = useHistory();
+
+    const {dispatch} = useContext(Appcontext);
 
     const numberRoom = history.location.state.numberRoom;
     const idticketbooking = history.location.state.idticketbooking;
@@ -73,11 +79,18 @@ export default function StaffReceptionViewServices(props) {
 
     const [listRowData, setlistRowData] = useState([]);
 
-    useEffect(() => {
-        detailServicesByChecking(idticketbooking).then(data => {
+    useEffect( async() => {
+        OpenLoadding(dispatch);
+        let data = await detailServicesByChecking(idticketbooking);
+        let messError = HandleGetError(data);
+        if(messError.length !== 0){
+            OffLoadding(dispatch);
+            setmessageToast(messError,"error");
+            HandleErrorSystem(data,history);
+        }else{
+            OffLoadding(dispatch);
             setlistRowData(data);
-            console.log(data);
-        })
+        }
     }, [])
 
     useEffect(async () => {

@@ -55,13 +55,13 @@ export default function TableViewOrder(pros) {
 
     const changeInputAmountHandler = (nameProduct, event) => {
         console.log(nameProduct + " " + event.target.value);
-        var foundIndex = listRowData.findIndex(x => x.production.nameproduct === nameProduct);
+        var foundIndex = listRowData.findIndex(x => x.productDetail.nameProduct === nameProduct);
         var item = listRowData[foundIndex];
-        item.detailservices.amount = event.target.value;
+        item.amount = event.target.value;
         listRowData[foundIndex] = {...item}
         setlistRowData([...listRowData]);
         console.log(listRowData);
-        let dataSendServer = item.detailservices;
+        let dataSendServer = item;
         console.log(" data send server: "+ dataSendServer);
         updateRowTable(dataSendServer);
     }
@@ -71,16 +71,16 @@ export default function TableViewOrder(pros) {
         console.log(nameProduct + " " + event.target.value);
 
         // if done not change status
-        var foundIndex = listRowData.findIndex(x => x.production.nameproduct === nameProduct);
+        var foundIndex = listRowData.findIndex(x => x.productDetail.nameProduct === nameProduct);
         var item = listRowData[foundIndex];
-        item.detailservices.status=event.target.value;
-        if(item.detailservices.status === "Cancel"){
-            item.detailservices.amount=0;
+        item.status=event.target.value;
+        if(item.status === "Cancel"){
+            item.amount=0;
         }
         listRowData[foundIndex] = { ...item}
         setlistRowData([...listRowData]);
         console.log(listRowData);
-        let dataSendServer = item.detailservices;
+        let dataSendServer = item;
         console.log(" data send server: "+ dataSendServer);
         updateRowTable(dataSendServer);
     }
@@ -112,37 +112,37 @@ export default function TableViewOrder(pros) {
                 </TableHead>
                 <TableBody className="group--body-table-viewer">
                     {listRowData.map((row) => (
-                        <TableRow key={row.production.nameproduct} >
+                        <TableRow key={row.productDetail.nameProduct} >
                             <TableCell align="justify" component="th" scope="row">
-                                {row.production.nameproduct}
+                                {row.productDetail.nameProduct}
                             </TableCell>
                             <TableCell align="justify">
-                                <input disabled={row.detailservices.status === "Done" || row.detailservices.status === "Cancel" ? true : false} defaultValue={row.detailservices.amount} onChange={(event) => { changeInputAmountHandler(row.production.nameproduct, event) }} className="group--body-table-viewer--inputAmount" type="number" name="quantity" min="1" ></input>
+                                <input disabled={row.status === "Done" || row.status === "Cancel" ? true : false} defaultValue={row.amount} onChange={(event) => { changeInputAmountHandler(row.productDetail.nameProduct, event) }} className="group--body-table-viewer--inputAmount" type="number" name="quantity" min="1" ></input>
                             </TableCell>
                             <TableCell align="justify">
-                                <CurrencyFormat value={row.production.productrates} displayType={'text'} thousandSeparator={true} suffix={'đ'} renderText={value => <div>{value}</div>} />
+                                <CurrencyFormat value={row.productDetail.productRate} displayType={'text'} thousandSeparator={true} suffix={'đ'} renderText={value => <div>{value}</div>} />
                             </TableCell>
                             <TableCell align="justify">
-                                {row.production.extention}
+                                {row.productDetail.extention}
                             </TableCell>
                             <TableCell align="justify">
-                                <CurrencyFormat value={row.detailservices.sumaryservices = row.detailservices.amount * row.production.productrates} displayType={'text'} thousandSeparator={true} suffix={'đ'} renderText={value => <div>{value}</div>} />
-                                <span style={{ visibility: 'hidden' }}>{valueSumPrice += row.detailservices.sumaryservices}</span>
+                                <CurrencyFormat value={row.bigdesumaryMoneySerives = row.amount * row.productDetail.productRate} displayType={'text'} thousandSeparator={true} suffix={'đ'} renderText={value => <div>{value}</div>} />
+                                <span style={{ visibility: 'hidden' }}>{valueSumPrice += row.bigdesumaryMoneySerives}</span>
                             </TableCell>
                             <TableCell align="justify">
                                 <NativeSelect
-                                    disabled={row.detailservices.status === "Done" || row.detailservices.status === "Cancel" ? true : false}
+                                    disabled={row.status === "Done" || row.status === "Cancel" ? true : false}
                                     className="select--status--service"
-                                    defaultValue={row.detailservices.status}
-                                    onChange={(event) => { changeSelectStatusHandler(row.production.nameproduct, event) }}
+                                    defaultValue={row.status}
+                                    onChange={(event) => { changeSelectStatusHandler(row.productDetail.nameProduct, event) }}
                                     inputProps={{
                                         name: 'status',
                                         id: 'age-native-helper',
                                     }}>
-                                    <option disabled={row.detailservices.status === "Shipping" ? true : false} value={"Prepare"} >Prepare</option>
+                                    <option disabled={row.status === "Shipping" ? true : false} value={"Prepare"} >Prepare</option>
                                     <option value={"Shipping"} >Shipping</option>
                                     <option value={"Done"}>Done</option>
-                                    <option disabled={row.detailservices.status === "Shipping" ? true : false} value={"Cancel"}>Cancel</option>
+                                    <option disabled={row.status === "Shipping" ? true : false} value={"Cancel"}>Cancel</option>
                                 </NativeSelect>
                             </TableCell>
                         </TableRow>

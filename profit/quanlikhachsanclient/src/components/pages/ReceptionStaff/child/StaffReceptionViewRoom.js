@@ -1,23 +1,37 @@
 import { Grid, List, ListItem, ListItemText } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import './Staffreceptionviewroom.css'
 import { useSnackbar } from 'notistack';
 import { getRoomByNumber } from '../../../../core/room';
 
+// handle error and set loading process
+import { HandleGetError, HandleErrorSystem } from '../../../../core/handleDataFromDB'
+import {OpenLoadding, OffLoadding} from '../../../../core/Utils'
+import Appcontext from '../../../../AppContext';
+
 export default function Staffreceptionviewroom(props) {
 
     const history = useHistory();
+    const {dispatch} = useContext(Appcontext);
 
     const numberRoom = history.location.state.numberRoom;
     const idticketbooking = history.location.state.idticketbooking;
 
     const [value, setvalue] = useState({})
 
-    useEffect(() => {
-        getRoomByNumber(idticketbooking).then(data => {
+    useEffect(async () => {
+        OpenLoadding(dispatch);
+        let data = await getRoomByNumber(idticketbooking);
+        let messError = HandleGetError(data);
+        if(messError.length !== 0){
+            OffLoadding(dispatch);
+            handlerMessageToast(messError,"error");
+            HandleErrorSystem(data,history);
+        }else{
             setvalue(data);
-        })
+            OffLoadding(dispatch);
+        }
     }, [])
 
     // const value = {
@@ -95,24 +109,24 @@ export default function Staffreceptionviewroom(props) {
                     <List dense={false}>
                         {
                             <div>
-                                <ListItem key={value.name}>
+                                <ListItem key={value.userNameRentRoom}>
                                     <ListItemText primary="Full Name:" />
-                                    <ListItemText primary={value.usernamerentroom} />
+                                    <ListItemText primary={value.userNameRentRoom} />
                                 </ListItem>
 
-                                <ListItem key={value.Identity}>
+                                <ListItem key={value.idUserRentRoom}>
                                     <ListItemText primary="Identity :" />
-                                    <ListItemText primary={value.iduserrentroom} />
+                                    <ListItemText primary={value.idUserRentRoom} />
                                 </ListItem>
 
-                                <ListItem key={value.numberInRoom}>
+                                <ListItem key={value.numberPeopleInRoom}>
                                     <ListItemText primary="Number in room:" />
-                                    <ListItemText primary={value.numberinroom} />
+                                    <ListItemText primary={value.numberPeopleInRoom} />
                                 </ListItem>
 
-                                <ListItem key={value.timerenting}>
-                                    <ListItemText primary="Time rent:" />
-                                    <ListItemText primary={value.idstaffreception} />
+                                <ListItem key={value.timeStartRentRoom}>
+                                    <ListItemText primary="Time start:" />
+                                    <ListItemText primary={value.timeStartRentRoom} />
                                 </ListItem>
 
                             </div>

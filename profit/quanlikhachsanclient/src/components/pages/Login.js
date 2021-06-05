@@ -9,6 +9,8 @@ import { STAFF_RECEPTION, STAFF_SERVICE, STAFF_MANAGER, STAFF_MANAGER_ADMIN } fr
 import { useSnackbar } from 'notistack';
 import {LOGIN_SUCCESS} from '../../constants/ConstApp'
 import Appcontext from '../../AppContext';
+import {OpenLoadding, OffLoadding } from '../../core/Utils'
+import { HandleGetError, HandleErrorSystem } from '../../core/handleDataFromDB'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -74,36 +76,45 @@ export default function Login(props) {
     const location = useLocation();
     const history = useHistory();
 
-    const onSubmit = async (data) => {
-        console.log(data);
-        let res = await login(data);
-        if (res.authenticated !== undefined && res.authenticated) {
+    const onSubmit = async (dataSendToDB) => {
+        console.log(dataSendToDB);
+        OpenLoadding(dispatch);
+        let data = await login(dataSendToDB);
+        let messError = HandleGetError(data);
+        if (messError.length !== 0) {
+           OffLoadding(dispatch);
+           exportToastError(messError);
+           HandleErrorSystem(data, history);
+       } else {
+        if (data.authenticated !== undefined && data.authenticated) {
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: {
-                    role: res.role,
-                    isLogged: res.authenticated
+                    role: data.role,
+                    isLogged: data.authenticated
                 }
             })
 
-            if (res.role === STAFF_RECEPTION) {
+            if (data.role === STAFF_RECEPTION) {
                 history.push('/rect/staffreception');
             }
-            if (res.role === STAFF_SERVICE) {
+            if (data.role === STAFF_SERVICE) {
                 history.push('/staffservice');
             }
-            if (res.role === STAFF_MANAGER || res.role === STAFF_MANAGER_ADMIN) {
+            if (data.role === STAFF_MANAGER || data.role === STAFF_MANAGER_ADMIN) {
                 history.push('/admin/staffmanager');
             }
 
         } else {
-            if(res.messerror.length != 0){
-                setloginState(res.messerror);
+            if(data.messerror.length != 0){
+                setloginState(data.messerror);
             }else{
                 const messageLogin = "User or password incorrect !";
                 setloginState(messageLogin);
             }
         }
+       }
+    OffLoadding(dispatch);
     }
 
     const forgetPassWordHandler = () => {

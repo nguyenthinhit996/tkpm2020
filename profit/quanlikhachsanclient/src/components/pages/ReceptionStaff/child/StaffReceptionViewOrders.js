@@ -1,5 +1,5 @@
 import {IconButton, Typography } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useHistory } from 'react-router-dom';
 import './StaffReceptionViewOrders.css'
@@ -8,19 +8,34 @@ import Serviceview from '../../../plugins/ServiceView';
 import { useSnackbar } from 'notistack';
 import { getAllServices, putAddProductToCart } from '../../../../core/product';
 
+// handle error and set loading process
+import { HandleGetError, HandleErrorSystem } from '../../../../core/handleDataFromDB'
+import {OpenLoadding, OffLoadding} from '../../../../core/Utils'
+import Appcontext from '../../../../AppContext';
+
 export default function StaffReceptionViewOrders(props) {
 
     const history = useHistory();
+
+    const {dispatch} = useContext(Appcontext);
 
     const numberRoom = history.location.state.numberRoom;
     const idticketbooking = history.location.state.idticketbooking;
 
     const [stateData, setstateData] = useState([]);
 
-    useEffect(() => {
-        getAllServices().then(value => {
-            setstateData(value);
-        })
+    useEffect( async () => {
+        OpenLoadding(dispatch);
+        let data = await getAllServices();
+        let messError = HandleGetError(data);
+        if(messError.length !== 0){
+            OffLoadding(dispatch);
+            handlerMessageToast(messError, "error");
+            HandleErrorSystem(data,history);
+        }else{
+            setstateData(data);
+            OffLoadding(dispatch);
+        }
     }, [])
 
     // data fetch from server
@@ -83,51 +98,50 @@ export default function StaffReceptionViewOrders(props) {
     };
 
     const exportToastSuccess = (mess) => {
-        let a = 'success';
-        setmessageToast({ message: mess, variant: a })
+        setmessageToast({ message: mess, variant: "success" })
     }
 
     const exportToastError = (mess) => {
-        let a = 'error';
-        setmessageToast({ message: mess, variant: a })
+        setmessageToast({...messageToast,message:mess,variant: "error"});
     }
 
     // toast  enddddddddddddddd
 
-    const addProductHandler = async (idProduct, namePro) => {
+    const addProductHandler = async (value) => {
         // post detail services 
 
         const datas = {
-            idticketbooking: idticketbooking,
-            idproduct: idProduct,
-            idstaffservicesrepo: localStorage.quanlikhachsan_iduser,
+            idDetailsServicesEntity: {
+                idTicketBooking: idticketbooking,
+                idProduct: value.idProduct
+            }
+            ,
+            staffService: {
+                idStaff : localStorage.quanlikhachsan_iduser
+            },
             amount: 1,
-            startrent: "2021-02-21T15:33:43.814891800",
-            endrent: "2021-02-21T15:33:43.814891800",
+            startRent: "2021-02-21T15:33:43.814891800",
             status: "Prepare",
-            sumaryservices: 0
+            BigdesumaryMoneySerives: 0 
         }
 
-        // const datas = {  
-        //     "amount": 1,
-        //     "endrent": "2021-02-21T15:33:43.814891800",
-        //     "idproduct": "11",
-        //     "idstaffservicesrepo": "222",
-        //     "idticketbooking": "2021-02-21T16:31:01.102493100",
-        //     "startrent": "2021-02-21T15:33:43.814891800",
-        //     "status": "Prepare",
-        //     "sumaryservices": "0"
-        // }
-
-        let status = await putAddProductToCart(datas);
-
-        if (status) {
-            let mess = "Add Success Product (" + namePro + ")";
-            exportToastSuccess(mess);
-        } else {
-            let mess = "Error Not add Product (" + namePro + ")";
-            exportToastError(mess);
-        }
+        OpenLoadding(dispatch);
+        let data = await putAddProductToCart(datas);
+        let messError = HandleGetError(data); 
+        if(messError.length !== 0){
+            OffLoadding(dispatch);
+            handlerMessageToast(messError,"error");
+            HandleErrorSystem(data,history);
+        }else{
+            OffLoadding(dispatch);
+            if (data) {
+                let mess = "Add Success Product (" + value.nameProduct + ")";
+                exportToastSuccess(mess);
+            } else {
+                let mess = "Error Not add Product (" + value.nameProduct + ")";
+                exportToastError(mess);
+            }
+        } 
     }
 
     const backViewRoomHandler = () => {
@@ -136,10 +150,6 @@ export default function StaffReceptionViewOrders(props) {
 
 
     const handlerViewDetailServicesRoom = () => {
-        // setTimeout(() => {
-        //     history.push("/staff");
-        // }, 2000);
-
         history.push({
             pathname: '/rect/staffReceptionViewServices',
             state: {
@@ -164,7 +174,7 @@ export default function StaffReceptionViewOrders(props) {
 
                 {
                     stateData.map(value => {
-                        return <Serviceview key={value.idproduction} value={value} addProductHandler={addProductHandler} />
+                        return <Serviceview key={value.idProduct} value={value} addProductHandler={addProductHandler} />
                     })
                 }
             </Typography>

@@ -27,10 +27,11 @@ export const checkingTicket = async (value) => {
 
 export const getRoomByNumber = async (idticket) => {
   try {
-    let { data } = await axiosInstance.get('/Ticketbooking', {
+    let { data } = await axiosInstance.get('/ticketbooking', {
       params: {
         id: idticket
-      }
+      },
+      headers: HeaderAccessToken()
     });
     console.log(data);
     return data[0];

@@ -8,6 +8,11 @@ import Staffreceptionviewdetailsubcharge from './StaffReceptionViewdetailSubchar
 import StaffReceptionViewdetailDamaged from './StaffReceptionViewdetailDamaged';
 import { createCheckoutTicket, getInforCheckOutByIdTicket } from '../../../../core/room';
 import CurrencyFormat from 'react-currency-format';
+ 
+// handle error and set loading process
+import { HandleGetError, HandleErrorSystem } from '../../../../core/handleDataFromDB'
+import {OpenLoadding, OffLoadding} from '../../../../core/Utils'
+import Appcontext from '../../../../AppContext';
 
 export default function Staffreceptioncheckoutticket(props) {
 

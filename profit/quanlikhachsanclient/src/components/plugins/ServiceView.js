@@ -44,23 +44,23 @@ export default function Serviceview({value,addProductHandler}) {
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        image={value.img}
-                        title={value.nameproduct}
+                        image={value.imageProduct}
+                        title={value.nameProduct}
                     />
                     <CardContent className="group-content-services">
                         <Typography gutterBottom variant="h6" component="h3">
-                            {value.nameproduct}
+                            {value.nameProduct}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
-                            {value.extention}
+                            {value.extensionProduct}
                         </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions className="btn-controlAddServices">
                     <h3>
-                    <CurrencyFormat value={value.productrates} displayType={'text'} thousandSeparator={true} suffix={'đ'} renderText={value => <div>{value}</div>} />
+                    <CurrencyFormat value={value.productRate} displayType={'text'} thousandSeparator={true} suffix={'đ'} renderText={value => <div>{value}</div>} />
                     </h3>
-                    <IconButton onClick={() => addProductHandler(value.idproduction, value.nameproduct) } color="primary" aria-label="upload picture" component="span">
+                    <IconButton onClick={() => addProductHandler(value) } color="primary" aria-label="upload picture" component="span">
                         <AddIcon fontSize="large" />
                     </IconButton>
                 </CardActions>

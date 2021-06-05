@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Redirect } from 'react-router';
 import { HeaderRefreshToken,HeaderAccessToken } from '../core/header'
+
 
 export const axiosInstance = axios.create({
     baseURL: "http://localhost:8089/backendhotel",
@@ -40,7 +40,25 @@ axiosInstance.interceptors.response.use(
                     }
                     return Promise.reject(error);
                 });
+        }else if(error.response.status == 500){
+            delete localStorage.quanlikhachsan_accessToken;
+            delete localStorage.quanlikhachsan_refreshToken;
+            delete localStorage.quanlikhachsan_authen;
+            delete localStorage.quanlikhachsan_role;
+            delete localStorage.quanlikhachsan_iduser;
+            delete localStorage.quanlikhachsan_fullName;
+            // require login again
         }
         return Promise.reject(error);
     })
 )
+
+axiosInstance.interceptors.request.use((req => {
+    console.log("axiosInstance.interceptors.request request");
+    console.log(req);
+
+    return req;
+}),(error => {
+    console.log("axiosInstance.interceptors.request Error");
+    console.log(error);
+}))

@@ -10,6 +10,11 @@ import { useHistory } from 'react-router-dom';
 import {DialogContent , List, ListItem, ListItemText, withStyles } from '@material-ui/core';
 import './StaffReceptionViewdetailSubcharge.css'
 
+// handle error and set loading process
+import { HandleGetError, HandleErrorSystem } from '../../../../core/handleDataFromDB'
+import {OpenLoadding, OffLoadding} from '../../../../core/Utils'
+import Appcontext from '../../../../AppContext';
+
 const styles = (theme) => ({
     root: {
         margin: 0,
