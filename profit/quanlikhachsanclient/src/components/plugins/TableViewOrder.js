@@ -14,6 +14,12 @@ import CurrencyFormat from 'react-currency-format';
 import { DetailservicesUpdate } from '../../core/product';
 import { useSnackbar } from 'notistack';
 
+// handle error and set loading process
+import { HandleGetError, HandleErrorSystem } from '../../core/handleDataFromDB'
+import { OpenLoadding, OffLoadding } from '../../core/Utils'
+import { useHistory } from 'react-router-dom';
+import Appcontext from '../../AppContext';
+
 
 const useStyles = makeStyles({
     table: {
@@ -23,11 +29,21 @@ const useStyles = makeStyles({
 
 export default function TableViewOrder(pros) {
 
-    const { listRowData, setlistRowData } = useContext(NavigationAppContext);
+    const { listRowData } = useContext(NavigationAppContext);
 
     const classes = useStyles();
 
-    const refInputAmount = useRef();
+    const history = useHistory();
+
+    const { dispatch } = useContext(Appcontext);
+
+    const [stateListData, setListData] = useState([]);
+
+    useEffect(() => {
+        setListData([...listRowData])
+    }, [listRowData])
+
+    const inputAmount = useRef();
 
     // toast  start
     const [messageToast, setmessageToast] = useState({ message: '', variant: '' });
@@ -51,47 +67,79 @@ export default function TableViewOrder(pros) {
         setmessageToast({ message: mess, variant: a })
     }
 
-    // toast  enddddddddddddddd
-
-    const changeInputAmountHandler = (nameProduct, event) => {
-        console.log(nameProduct + " " + event.target.value);
-        var foundIndex = listRowData.findIndex(x => x.productDetail.nameProduct === nameProduct);
-        var item = listRowData[foundIndex];
-        item.amount = event.target.value;
-        listRowData[foundIndex] = {...item}
-        setlistRowData([...listRowData]);
-        console.log(listRowData);
-        let dataSendServer = item;
-        console.log(" data send server: "+ dataSendServer);
-        updateRowTable(dataSendServer);
+    const exportToastError = (mess) => {
+        let a = 'error';
+        setmessageToast({ message: mess, variant: a })
     }
 
-    const changeSelectStatusHandler = (nameProduct, event) => {
+    // toast  enddddddddddddddd
+
+    const changeInputAmountHandler = async (nameProduct, event) => {
+        let value = parseInt(event.target.value);
+        if (event.target.value === "" || value <= 0) {
+            return;
+        }
+        console.log(nameProduct + " " + event.target.value);
+        var foundIndex = stateListData.findIndex(x => x.productDetail.nameProduct === nameProduct);
+        var item = stateListData[foundIndex];
+        const amountAfterChange = item.amount;
+        item.amount = event.target.value;
+
+        let dataSendServer = item;
+        console.log(" data send server: " + dataSendServer);
+        let status = await updateRowTable(dataSendServer);
+        if (!status) {
+            item.amount = amountAfterChange
+            event.target.value = amountAfterChange;
+        }
+        stateListData[foundIndex] = { ...item }
+        setListData([...stateListData]);
+        console.log(stateListData);
+    }
+
+    const changeSelectStatusHandler = async (nameProduct, event) => {
         console.log(event);
         console.log(nameProduct + " " + event.target.value);
 
         // if done not change status
-        var foundIndex = listRowData.findIndex(x => x.productDetail.nameProduct === nameProduct);
-        var item = listRowData[foundIndex];
-        item.status=event.target.value;
-        if(item.status === "Cancel"){
-            item.amount=0;
+        var foundIndex = stateListData.findIndex(x => x.productDetail.nameProduct === nameProduct);
+        var item = stateListData[foundIndex];
+        const statusAfterChange = event.target.value;
+        const amountAfterChange = item.amount;
+        item.status = event.target.value;
+        if (item.status === "Cancel") {
+            item.amount = 0;
         }
-        listRowData[foundIndex] = { ...item}
-        setlistRowData([...listRowData]);
-        console.log(listRowData);
         let dataSendServer = item;
-        console.log(" data send server: "+ dataSendServer);
-        updateRowTable(dataSendServer);
+        console.log(" data send server: " + dataSendServer);
+        let status = await updateRowTable(dataSendServer);
+        if (!status) {
+            item.amount = amountAfterChange
+            event.target.value = statusAfterChange;
+        }
+        stateListData[foundIndex] = { ...item }
+        setListData([...stateListData]);
+        console.log(stateListData);
     }
 
     const updateRowTable = async (data) => {
-        let booleanStatus = false;
-        await DetailservicesUpdate(data).then(res => {
-            booleanStatus = res;
-        })
-        if(booleanStatus){
-            exportToastSuccess("Update success");
+        OpenLoadding(dispatch);
+        let dataResult = await DetailservicesUpdate(data);
+        let messError = HandleGetError(dataResult);
+        if (messError.length !== 0) {
+            OffLoadding(dispatch);
+            handlerMessageToast(messError, "error");
+            HandleErrorSystem(dataResult, history);
+            return false;
+        } else {
+            OffLoadding(dispatch);
+            if (dataResult) {
+                exportToastSuccess("Update success");
+                return true;
+            }
+            exportToastError("Not Update occur error");
+            return false;
+
         }
     }
 
@@ -111,13 +159,13 @@ export default function TableViewOrder(pros) {
                     </TableRow>
                 </TableHead>
                 <TableBody className="group--body-table-viewer">
-                    {listRowData.map((row) => (
+                    {stateListData.map((row) => (
                         <TableRow key={row.productDetail.nameProduct} >
                             <TableCell align="justify" component="th" scope="row">
                                 {row.productDetail.nameProduct}
                             </TableCell>
                             <TableCell align="justify">
-                                <input disabled={row.status === "Done" || row.status === "Cancel" ? true : false} defaultValue={row.amount} onChange={(event) => { changeInputAmountHandler(row.productDetail.nameProduct, event) }} className="group--body-table-viewer--inputAmount" type="number" name="quantity" min="1" ></input>
+                                <input ref={inputAmount} disabled={row.status === "Done" || row.status === "Cancel" ? true : false} defaultValue={row.amount} onChange={(event) => { changeInputAmountHandler(row.productDetail.nameProduct, event) }} className="group--body-table-viewer--inputAmount" type="number" name="quantity" min="1" ></input>
                             </TableCell>
                             <TableCell align="justify">
                                 <CurrencyFormat value={row.productDetail.productRate} displayType={'text'} thousandSeparator={true} suffix={'đ'} renderText={value => <div>{value}</div>} />

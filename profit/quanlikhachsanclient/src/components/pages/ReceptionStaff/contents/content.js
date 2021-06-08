@@ -11,6 +11,7 @@ import Staffreceptionviewroom from '../child/StaffReceptionViewRoom'
 import Staffreceptionbookingroom from '../child/StaffReceptionBookingRoom'
 import StaffReceptionViewServices from '../child/StaffReceptionViewServices'
 import Staffreceptionindex from '../child/StaffReceptionIndex'
+import NotFound from '../../../layout/NotFound'
  
 export default function Content(props) {
     
@@ -49,6 +50,8 @@ export default function Content(props) {
                     <PrivateRoute path="/rect/staffreception" exact>
                         <Staffreceptionindex />
                     </PrivateRoute>
+                    
+                    <PrivateRoute component={NotFound} />
 
                 </Switch>
             }

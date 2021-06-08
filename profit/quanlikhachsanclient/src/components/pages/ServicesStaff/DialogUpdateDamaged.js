@@ -14,6 +14,12 @@ import './DialogUpdateDamaged.css'
 import { useSnackbar } from 'notistack';
 import { updateDamagedListOfRoom } from '../../../core/workstaff';
 
+// handle error and set loading process
+import { HandleGetError, HandleErrorSystem } from '../../../core/handleDataFromDB'
+import {OpenLoadding, OffLoadding} from '../../../core/Utils'
+import Appcontext from '../../../AppContext';
+import { useHistory } from 'react-router-dom';
+
 
 const styles = (theme) => ({
     root: {
@@ -51,6 +57,10 @@ const DialogContent = withStyles((theme) => ({
 }))(MuiDialogContent);
 
 export default function DialogUpdateDamaged(pros) {
+
+    const {dispatch} = useContext(Appcontext);
+
+    const {history} = useHistory();
 
     const { stateInforDialog, setstateInforDialog } = useContext(NavigationAppContext);
 
@@ -95,22 +105,30 @@ export default function DialogUpdateDamaged(pros) {
         //update idDamaged
 
         var varData ={
-            idcheckingoutroomdamaded:stateInforDialog.idDamaged,
-            idcheckoutroom:null,
-            idticketbooking:null,
-            listproductdamaded:data.listDamged,
-            idstaffchecking:null,
-            sumaryindemnify:data.money,
+            idCheckoutRoomDamaged:stateInforDialog.idDamaged,
+            ticketCheckoutObject:null,
+            idTicketBooking:null,
+            listProductDamaded:data.listDamged,
+            staffCheckOutRoomDamaged:null,
+            sumaryIndemnify:data.money,
             status:""
         }
-
+        OpenLoadding(dispatch);
         let result =await updateDamagedListOfRoom(varData);
-        if(result){
-            exportToastSuccess("Updated List Damaged");
+        let messError = HandleGetError(result);
+        if(messError.length !== 0){
+            OffLoadding(dispatch);
+            handlerMessageToast(messError,"error");
+            HandleErrorSystem(result,history);
         }else{
-            exportToastError("Not updated List Damaged");
+            OffLoadding(dispatch);
+            if(result){
+                exportToastSuccess("Updated List Damaged");
+            }else{
+                exportToastError("Not updated List Damaged");
+            }
         }
-
+        
         console.log("Update ------------- DialogUpdateDamaged ");
         setstateInforDialog({ ...stateInforDialog, statusDamaged: false });
     }
@@ -127,7 +145,7 @@ export default function DialogUpdateDamaged(pros) {
                         <div className="form--mod" >
                             <label > List Damaged:  </label>
                             <input name="listDamged"
-                                ref={register({ required: true, maxLength: 10 })}
+                                ref={register({ required: true, maxLength: 500 })}
                             />
                             {errors.listDamged && < p className="container--removespace add--space-margin--left aler--error">* required </p>}
                         </div >

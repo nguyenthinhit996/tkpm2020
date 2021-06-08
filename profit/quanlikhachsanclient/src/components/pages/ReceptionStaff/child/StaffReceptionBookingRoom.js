@@ -8,7 +8,7 @@ import { checkingTicket } from '../../../../core/room'
 
 // handle error and set loading process
 import { HandleGetError, HandleErrorSystem } from '../../../../core/handleDataFromDB'
-import {OpenLoadding, OffLoadding} from '../../../../core/Utils'
+import { OpenLoadding, OffLoadding } from '../../../../core/Utils'
 import Appcontext from '../../../../AppContext';
 
 
@@ -50,13 +50,16 @@ export default function Staffreceptionbookingroom(props) {
     const onSubmit = async (data) => {
         console.log(data);
         var value = {
-            idticketbooking: "nono",
-            iduserrentroom: data.identity,
-            usernamerentroom: data.nameRent,
-            timestamprent: "2021-02-21T15:33:43.814891800",
-            idstaffreception: localStorage.quanlikhachsan_iduser,
-            numberroom: numberRoom,
-            numberinroom: data.numberinroom,
+            idTicketBooking: "nono",
+            idUserRentRoom: data.identity,
+            userNameRentRoom: data.nameRent,
+            staffReception: {
+                idStaff: localStorage.quanlikhachsan_iduser
+            },
+            roomRent: {
+                idRoom: numberRoom
+            },
+            numberPeopleInRoom: data.numberinroom,
             status: "On",
         }
         let result = await checkingTicket(value);
@@ -66,8 +69,6 @@ export default function Staffreceptionbookingroom(props) {
         } else {
             exportToastError("Not Complete Booking Room (" + numberRoom + ")");
         }
-
-
     }
 
     const handlerCancelBooking = () => {
@@ -107,17 +108,14 @@ export default function Staffreceptionbookingroom(props) {
 
                     <div className="btn-bookingRoom">
                         <Grid>
-                            <button onClick={handlerCancelBooking} className="btn--quanlikhachsan btn--quanlikhachsan__cancel" > Cancel </button>
+                            <button type="button" onClick={handlerCancelBooking} className="btn--quanlikhachsan btn--quanlikhachsan__cancel" > Cancel </button>
                         </Grid>
                         <Grid>
                             <button type="submit" className="btn--quanlikhachsan btn--quanlikhachsan__booking" > Booking </button>
                         </Grid>
                     </div>
-
                 </form >
-
             </div>
-
         </div>
     )
 }

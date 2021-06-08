@@ -85,7 +85,7 @@ export default function StaffReceptionViewServices(props) {
         let messError = HandleGetError(data);
         if(messError.length !== 0){
             OffLoadding(dispatch);
-            setmessageToast(messError,"error");
+            handlerMessageToast(messError,"error");
             HandleErrorSystem(data,history);
         }else{
             OffLoadding(dispatch);
@@ -95,7 +95,6 @@ export default function StaffReceptionViewServices(props) {
 
     useEffect(async () => {
         console.log("update list to server");
-
     }, [listRowData])
 
     return (

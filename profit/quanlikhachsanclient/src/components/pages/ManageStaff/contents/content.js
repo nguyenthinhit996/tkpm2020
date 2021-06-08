@@ -10,6 +10,7 @@ import StaffManagementSalary  from '../child/StaffManagementSalary'
 import StaffManagementManageStaff  from '../child/StaffManagementManageStaff'
 import Staffmanagementdailyworking  from '../child/StaffManagementDailyWorking'
 import {STAFF_MANAGER,STAFF_MANAGER_ADMIN} from '../../../../constants/ConstApp'
+import NotFound from "../../../layout/NotFound"
 
 export default function Content(props) {
     
@@ -46,6 +47,9 @@ export default function Content(props) {
               <PrivateRoute path="/admin/staffmanager" >
                 <Managerstaffindex />
               </PrivateRoute>
+
+              <PrivateRoute component={NotFound} />
+
             </Switch>
             }
         </>

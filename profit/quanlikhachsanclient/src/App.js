@@ -87,7 +87,7 @@ function App() {
               <ChooseOptionUserViewInfo />
             </PrivateRoute>
 
-            <Route exact path="/">
+            <Route>
               <Login />
             </Route>
           </Switch>

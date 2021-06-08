@@ -16,7 +16,7 @@ export const detailAllRoom = async (value) => {
 
 export const checkingTicket = async (value) => {
   try {
-    let { data } = await axiosInstance.post('/Ticketbooking', value);
+    let { data } = await axiosInstance.post('/ticketbooking', value, { headers: HeaderAccessToken() });
     console.log(data);
     return data;
   } catch (error) {
@@ -45,11 +45,12 @@ export const getInforCheckOutByIdTicket = async (idticket, numberroom) => {
   try {
     console.log(" Check out room : " + idticket);
 
-    let { data } = await axiosInstance.get('/TicketcheckoutroombyIdTicket', {
+    let { data } = await axiosInstance.get('/ticketcheckoutroombyIdTicketChecking', {
       params: {
         id: idticket,
         numberroom: numberroom
-      }
+      },
+      headers: HeaderAccessToken()
     });
     console.log(data);
     return data;
@@ -72,7 +73,7 @@ export const getInforCheckOutByIdTicket = async (idticket, numberroom) => {
 export const createCheckoutTicket = async (value) => {
   try {
     console.log(value);
-    let { data } = await axiosInstance.post('/Ticketcheckoutroom', value);
+    let { data } = await axiosInstance.post('/ticketcheckoutroom', value, { headers: HeaderAccessToken() });
     console.log(data);
     return data;
   } catch (error) {

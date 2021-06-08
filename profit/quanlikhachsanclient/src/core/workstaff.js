@@ -4,7 +4,7 @@ import { HeaderAccessToken } from '../core/header'
 
 export const getWorkAllStaff = async () => {
   try {
-    let { data } = await axiosInstance.get('/getWorkAllStaffStatusServices');
+    let { data } = await axiosInstance.get('/getAllDetailsServicesEntity', { headers: HeaderAccessToken() });
     console.log(data);
     return data;
   } catch (error) {
@@ -16,7 +16,7 @@ export const getWorkAllStaff = async () => {
 
 export const updateStatusWorkAllStaff = async (value) => {
   try {
-    let { data } = await axiosInstance.post('/UpdateStatusServicesByUserServices', value);
+    let { data } = await axiosInstance.post('/updateStatusServicesByUserServices', value, { headers: HeaderAccessToken() });
     console.log(data);
     return data;
   } catch (error) {
@@ -32,7 +32,8 @@ export const detailservicesInforDrinkAndFood = async (idticketbooking, idproduct
       params: {
         idticketbooking: idticketbooking,
         idproduct: idproduct
-      }
+      },
+      headers : HeaderAccessToken()
     });
     console.log(data);
     return data;
@@ -44,7 +45,7 @@ export const detailservicesInforDrinkAndFood = async (idticketbooking, idproduct
 
 export const updateDamagedListOfRoom = async (value) => {
   try {
-    let { data } = await axiosInstance.post('/UpdateCheckingOutRoomDamaged', value);
+    let { data } = await axiosInstance.put('/checkingOutRoomDamaged', value, {headers:HeaderAccessToken()});
     console.log(data);
     return data;
   } catch (error) {

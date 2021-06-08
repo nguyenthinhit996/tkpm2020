@@ -28,21 +28,21 @@ export const login = async (value) => {
     localStorage.quanlikhachsan_fullName = res.data.fullName;
     return res.data;
   }).catch(function (error) {
-    console.log(error.response);
-    let dataError;
-    if (error.response.data.code_error === ES_001) {
-      dataError = {
-        authenticated: false
-        , messerror: ""
-      }
+    console.log(error);
+    // let dataError;
+    // if (error.response.data.code_error === ES_001) {
+    //   dataError = {
+    //     authenticated: false
+    //     , messerror: ""
+    //   }
 
-    } else {
-      dataError = {
-        authenticated: false
-        , messerror: error.response.data.content_error
-      }
-    }
-    return dataError;
+    // } else {
+    //   dataError = {
+    //     authenticated: false
+    //     , messerror: error.response.data.content_error
+    //   }
+    // }
+    return error.response;
   });
   return data;
 }

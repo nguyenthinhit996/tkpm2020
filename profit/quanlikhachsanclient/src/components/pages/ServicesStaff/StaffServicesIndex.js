@@ -22,7 +22,10 @@ import { getWorkAllStaff, updateStatusWorkAllStaff, detailservicesInforDrinkAndF
 import DialogUpdateViewInfo from './DialogUpdateViewInfo'
 import DialogUpdateDamaged from './DialogUpdateDamaged'
 
-
+// handle error and set loading process
+import { HandleGetError, HandleErrorSystem } from '../../../core/handleDataFromDB'
+import {OpenLoadding, OffLoadding} from '../../../core/Utils'
+import Appcontext from '../../../AppContext';
 
 const useStyles = makeStyles({
     table: {
@@ -38,7 +41,7 @@ const useStyles = makeStyles({
 // StaffServicesIndex only view status Shipping Todo Done 
 export default function StaffServicesIndex(props) {
 
-    const { listRowData, setlistRowData } = useContext(NavigationAppContext);
+    const {dispatch} = useContext(Appcontext);
 
     const history = useHistory();
 
@@ -78,9 +81,17 @@ export default function StaffServicesIndex(props) {
 
     const [dataFetchIsServer, setdataFetchIsServer] = useState([]);
     useEffect(async () => {
-        await getWorkAllStaff().then(data => {
-            setdataFetchIsServer(data);
-        })
+        OpenLoadding(dispatch);
+        let data = await getWorkAllStaff();
+        let messError = HandleGetError(data);
+        if(messError.length !== 0){
+            OffLoadding(dispatch);
+            handlerMessageToast(messError,"error");
+            HandleErrorSystem(data,history);
+        }else{
+            OffLoadding(dispatch);
+            setdataFetchIsServer([...data]);
+        }
     }, [])
 
     const changeSelectStatusHandler = async (row, event) => {

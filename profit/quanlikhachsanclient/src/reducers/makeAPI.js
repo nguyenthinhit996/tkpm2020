@@ -17,6 +17,18 @@ axiosInstance.interceptors.response.use(
         return response;
     }),
     (error => {
+        if(error.isAxiosError && error.message === "Network Error"){
+            console.log(error);
+            let errorsystem = {
+                response:{
+                    data:{
+                        error:"ES_001",
+                        content_error:"Network Error"
+                    }
+                }
+            }
+            return Promise.reject(errorsystem);
+        }
         const code_error = error.response.data.code_error;
         const originalRequest = error.config;
         console.log(HeaderRefreshToken());

@@ -1,5 +1,5 @@
 import { Grid, List, ListItem, ListItemText } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import './StaffReceptionCheckOutTicket.css'
 import { useSnackbar } from 'notistack';
@@ -17,6 +17,8 @@ import Appcontext from '../../../../AppContext';
 export default function Staffreceptioncheckoutticket(props) {
 
     const history = useHistory();
+
+    const {dispatch} = useContext(Appcontext);
 
     const numberRoom = history.location.state.numberRoom;
 
@@ -65,14 +67,18 @@ export default function Staffreceptioncheckoutticket(props) {
     });
 
     useEffect(async () => {
-        await getInforCheckOutByIdTicket(idticketbooking, numberRoom).then(data => {
-            setValue(data);
-        })
+        OpenLoadding(dispatch);
+       let data = await getInforCheckOutByIdTicket(idticketbooking, numberRoom);
+       let messError = HandleGetError(data);
+       if(messError.length !== 0){
+            OffLoadding(dispatch);
+            handlerMessageToast(messError,"error");
+            HandleErrorSystem(data,history);
+       }else{
+        OffLoadding(dispatch);
+        setValue(data);
+       }
     }, []);
-
-
-
-
 
     //-----------------toast start
     const [messageToast, setmessageToast] = useState({ message: '', variant: '' });
@@ -110,16 +116,20 @@ export default function Staffreceptioncheckoutticket(props) {
         // 2) cap nhat trang thai cho checkking off
 
         const dataSendToServer = {
-            idticketcheckoutroom: "2021-02-21T15:33:43.814891800",
-            idticketbooking: idticketbooking,
-            timeendrent: value.timeendrent,
-            idstaffreceptionsupport: localStorage.quanlikhachsan_iduser,
-            numberroomrent: value.ticketbooking.numberroom,
-            sumaryratesandservices: value.sumaryratesandservices,
-            raterentroom: value.rateRent,
-            rateservices: value.rateservices,
-            roomSubCharge: value.roomSubCharge,
-            roomDamaged: value.roomDamaged,
+            idTicketCheckout: "now time",
+            ticketBooking:{
+                idTicketBooking: idticketbooking
+            }
+            ,timeEndRentRoom: value.timeendrent,
+            staffCheckoutRoom: {
+                idStaff:localStorage.quanlikhachsan_iduser
+            }
+            ,numberRoomRent: value.roomnumber,
+            totalRateAll: value.sumaryratesandservices,
+            rateRentRoom: value.rateRent,
+            rateSevices: value.rateservices,
+            rateRoomSubCharge: value.roomSubCharge,
+            rateRoomDamaged: value.roomDamaged,
             status: "Clean",  // Clean Off
             timeRent: value.timeRent
         }
@@ -166,26 +176,26 @@ export default function Staffreceptioncheckoutticket(props) {
                             {
                                 <div className="formViewInfoPaidRoom">
                                     <div>
-                                        <ListItem key={value.ticketbooking.usernamerentroom}>
+                                        <ListItem key={value.ticketbooking.userNameRentRoom}>
                                             <ListItemText primary="Name: " />
-                                            <ListItemText primary={value.ticketbooking.usernamerentroom} />
+                                            <ListItemText primary={value.ticketbooking.userNameRentRoom} />
                                         </ListItem>
 
-                                        <ListItem key={value.ticketbooking.iduserrentroom}>
+                                        <ListItem key={value.ticketbooking.idUserRentRoom}>
                                             <ListItemText primary="Identity: " />
-                                            <ListItemText primary={value.ticketbooking.iduserrentroom} />
+                                            <ListItemText primary={value.ticketbooking.idUserRentRoom} />
                                         </ListItem>
                                     </div>
 
                                     <div>
-                                        <ListItem key={value.ticketbooking.numberinroom}>
+                                        <ListItem key={value.ticketbooking.numberPeopleInRoom}>
                                             <ListItemText primary="Number in room: " />
-                                            <ListItemText primary={value.ticketbooking.numberinroom} />
+                                            <ListItemText primary={value.ticketbooking.numberPeopleInRoom} />
                                         </ListItem>
 
-                                        <ListItem key={value.timerenting}>
+                                        <ListItem key={value.timeStartRentRoom}>
                                             <ListItemText primary="Time Start Rent: " />
-                                            <ListItemText primary={value.ticketbooking.timestamprent} />
+                                            <ListItemText primary={value.ticketbooking.timeStartRentRoom} />
                                         </ListItem>
                                     </div>
                                 </div>
@@ -274,7 +284,7 @@ export default function Staffreceptioncheckoutticket(props) {
             </div>
 
             <NavigationAppContext.Provider value={{ openViewInforSubCharge, setopenViewInforSubCharge, openViewDamged, setopenViewDamged, }}>
-                {openViewInforSubCharge && <Staffreceptionviewdetailsubcharge numberInRoom={value.ticketbooking.numberinroom} rateSubCharge={value.rateSubChargeInRoom} maxRentNumberInRoom={value.maxRentNumberInRoom} />}
+                {openViewInforSubCharge && <Staffreceptionviewdetailsubcharge numberInRoom={value.ticketbooking.numberPeopleInRoom} rateSubCharge={value.rateSubChargeInRoom} maxRentNumberInRoom={value.maxRentNumberInRoom} />}
                 {openViewDamged && <StaffReceptionViewdetailDamaged listDamaged={value.listDamaged} roomDamaged={value.roomDamaged} />}
             </NavigationAppContext.Provider>
         </>

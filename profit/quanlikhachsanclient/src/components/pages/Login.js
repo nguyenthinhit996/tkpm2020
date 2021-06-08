@@ -30,6 +30,9 @@ export default function Login(props) {
 
     const {dispatch} = useContext(Appcontext);
 
+    const location = useLocation();
+    const history = useHistory();
+ 
     const classes = useStyles();
 
     // toast  start
@@ -73,8 +76,7 @@ export default function Login(props) {
 
     const { register, handleSubmit, watch, errors } = useForm();
 
-    const location = useLocation();
-    const history = useHistory();
+    const {from} = location.state || {from : {pathname:"/"}};
 
     const onSubmit = async (dataSendToDB) => {
         console.log(dataSendToDB);
@@ -83,7 +85,9 @@ export default function Login(props) {
         let messError = HandleGetError(data);
         if (messError.length !== 0) {
            OffLoadding(dispatch);
-           exportToastError(messError);
+           //exportToastError(messError);
+           const messageLogin = "User or password incorrect !";
+           setloginState(messageLogin);
            HandleErrorSystem(data, history);
        } else {
         if (data.authenticated !== undefined && data.authenticated) {
@@ -95,6 +99,7 @@ export default function Login(props) {
                 }
             })
 
+
             if (data.role === STAFF_RECEPTION) {
                 history.push('/rect/staffreception');
             }
@@ -103,14 +108,6 @@ export default function Login(props) {
             }
             if (data.role === STAFF_MANAGER || data.role === STAFF_MANAGER_ADMIN) {
                 history.push('/admin/staffmanager');
-            }
-
-        } else {
-            if(data.messerror.length != 0){
-                setloginState(data.messerror);
-            }else{
-                const messageLogin = "User or password incorrect !";
-                setloginState(messageLogin);
             }
         }
        }
