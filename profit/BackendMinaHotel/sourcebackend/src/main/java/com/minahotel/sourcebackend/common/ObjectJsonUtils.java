@@ -36,22 +36,14 @@ public class ObjectJsonUtils {
 		
 		ErrorMessage message = new ErrorMessage();
 		if(ex instanceof ExceptionAppCustomizeAstract) {	
-			ExceptionAppCustomizeAstract exJwt = (ExceptionAppCustomizeAstract) ex;			
-//			mappError.putAll(Collections.singletonMap(DefinationCommon.TIME_ERROR, timeCurrent));
-//			mappError.putAll(Collections.singletonMap(DefinationCommon.CODE_ERROR, exJwt.getCodeErrorException().getCodeError()));
-//			mappError.putAll(Collections.singletonMap(DefinationCommon.CONTENT_ERORR, exJwt.getMessageRealException()));
-			
+			ExceptionAppCustomizeAstract exJwt = (ExceptionAppCustomizeAstract) ex;						
 			message.setCode_error(exJwt.getCodeErrorException().getCodeError());
 			message.setTime(timeCurrent);
 			message.setContent_error(exJwt.getMessageRealException());
 			message.setHelp("Error from bussiness, contact admin ");
-			
-			
 		}else { // Exception remain		
-			String mess = ex.getMessage() != null ? ex.getMessage() : CodeErrorException.ES_001.getMessageError();	
-//			mappError.putAll(Collections.singletonMap(DefinationCommon.TIME_ERROR,timeCurrent));
-//			mappError.putAll(Collections.singletonMap(DefinationCommon.CODE_ERROR,  CodeErrorException.ES_001.getCodeError()));
-//			mappError.putAll(Collections.singletonMap(DefinationCommon.CONTENT_ERORR, mess));				
+//			String mess = ex.getMessage() != null ? ex.getMessage() : CodeErrorException.ES_001.getMessageError();	
+			String mess = CodeErrorException.ES_001.getMessageError();	
 			message.setCode_error(CodeErrorException.ES_001.getCodeError());
 			message.setTime(timeCurrent);
 			message.setContent_error(mess);

@@ -1,5 +1,6 @@
 package com.minahotel.sourcebackend.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
@@ -25,5 +26,5 @@ public interface DetailservicesRepository extends CrudRepository<DetailsServices
 			 @Param("idTicketBooking") String idTicketBooking
 			,@Param("idProduct") String idProduct);
 
-
+	public List<DetailsServicesEntity> findByidDetailsServicesEntityIdTicketBooking(String idTicketBooking);
 }

@@ -41,6 +41,7 @@ public class StaffController {
 			 for (MinaHoTelPojo in: staffRepositoryServices.getAll()) {
 				 StaffEntity staffObject = (StaffEntity) in;
 				 if(EnumTicketAndRoom.ON.getName().equals(staffObject.getStatus())) {
+					 System.out.println(staffObject.getDsTicketBooking());
 					 getListOnLyOnStatus.add(staffObject);
 				 }
 			 }

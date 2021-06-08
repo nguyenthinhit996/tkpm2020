@@ -14,13 +14,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 
 @Entity
 @Table(name = "ticketbooking")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idTicketBooking")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idTicketBooking")
 public class TicketBookingEntity extends MinaHoTelPojo {
 
 	@Id
@@ -44,18 +43,20 @@ public class TicketBookingEntity extends MinaHoTelPojo {
 
 	// FK Booking - Staff
 	@ManyToOne
-	@JoinColumn(name = "idstaffreception") // fk
+	@JoinColumn(name = "idstaffreception", insertable = true, updatable = true) // fk
 	private StaffEntity staffReception;
 
 	// FK Booking - Room
-	@ManyToOne
-	@JoinColumn(name = "numberroom")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "numberroom", insertable = true, updatable = false)
 	private RoomEntity roomRent;
 
+	@JsonIgnore
 	// Reference by DetailsServicesEntity - Booking
 	@OneToMany(mappedBy = "ticketBookingindetail", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = DetailsServicesEntity.class)
 	private List<DetailsServicesEntity> dsDetailsServices;
 
+	@JsonIgnore
 	// Reference TicketCheckOut - Booking
 	@OneToOne(mappedBy = "ticketBooking", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private TicketCheckOutRoomEntity ticketCheckOutRoom;
@@ -275,6 +276,14 @@ public class TicketBookingEntity extends MinaHoTelPojo {
 
 	public TicketBookingEntity() {
 		super();
+	}
+
+	@Override
+	public String toString() {
+		return "TicketBookingEntity [idTicketBooking=" + idTicketBooking + ", idUserRentRoom=" + idUserRentRoom
+				+ ", userNameRentRoom=" + userNameRentRoom + ", timeStartRentRoom=" + timeStartRentRoom
+				+ ", numberPeopleInRoom=" + numberPeopleInRoom + ", status=" + status + ", staffReception="
+				+ staffReception + "]";
 	}
 
 	

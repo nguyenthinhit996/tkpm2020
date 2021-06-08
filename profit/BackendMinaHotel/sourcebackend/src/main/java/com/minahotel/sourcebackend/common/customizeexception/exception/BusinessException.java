@@ -16,7 +16,9 @@ public class BusinessException extends ExceptionAppCustomizeAstract{
 	
 	public BusinessException(Throwable cause) {
 		super(cause);
-        this.messageRealException = cause.getMessage();
+//        this.messageRealException = cause.getMessage();
+		
+		 this.messageRealException = CodeErrorException.ES_002.getMessageError();
         this.codeErrorException = CodeErrorException.ES_002;
     }
 	

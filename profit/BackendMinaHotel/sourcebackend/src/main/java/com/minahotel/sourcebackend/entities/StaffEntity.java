@@ -12,13 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 
 @Entity
 @Table(name = "staff")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idStaff")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idStaff")
 public class StaffEntity extends MinaHoTelPojo {
 
 	@Id
@@ -48,29 +47,37 @@ public class StaffEntity extends MinaHoTelPojo {
 
 	// Reference
 	// staff checking room damaged wok
+	@JsonIgnore
 	@OneToMany(mappedBy = "staffCheckOutRoomDamaged", targetEntity = CheckingOutRoomDamagedEntity.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	List<CheckingOutRoomDamagedEntity> dsCheckRoomDamaged;
 
 	// staff managerment wok
+	@JsonIgnore
 	@OneToMany(mappedBy = "staffManagement", targetEntity = DailyWorkingEntity.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	List<DailyWorkingEntity> dsManagementStaffWorking;
 
 	// staff daily woking
+	@JsonIgnore
 	@OneToMany(mappedBy = "staffWoking", targetEntity = DailyWorkingEntity.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	List<DailyWorkingEntity> dsStaffwork;
 	
 	// staff service woking
+	@JsonIgnore
 	@OneToMany(mappedBy = "staffService", targetEntity = DetailsServicesEntity.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	List<DetailsServicesEntity> dsDetailsServices;
 	
 	// staff reception
+	@JsonIgnore
 	@OneToMany(mappedBy = "staffReception", targetEntity = TicketBookingEntity.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	List<TicketBookingEntity> dsTicketBooking;
 	
 	// staff checking room checkout
-	@OneToMany(mappedBy = "staffReceptionCheckoutRoom", targetEntity = TicketCheckOutRoomEntity.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	@OneToMany(mappedBy = "staffCheckoutRoom", targetEntity = TicketCheckOutRoomEntity.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	List<TicketCheckOutRoomEntity> dsRoomCheckout;
 
+	
+	
 	/**
 	 * @return the idStaff
 	 */
@@ -330,6 +337,13 @@ public class StaffEntity extends MinaHoTelPojo {
 
 	public StaffEntity() {
 		super();
+	}
+
+	@Override
+	public String toString() {
+		return "StaffEntity [idStaff=" + idStaff + ", nameStaff=" + nameStaff + ", passWordStaff=" + passWordStaff
+				+ ", roleOfStaff=" + roleOfStaff + ", dateStartWork=" + dateStartWork + ", salaryStaffByMonth="
+				+ salaryStaffByMonth + ", bonussalary=" + bonussalary + ", status=" + status + "]";
 	}
 
 	

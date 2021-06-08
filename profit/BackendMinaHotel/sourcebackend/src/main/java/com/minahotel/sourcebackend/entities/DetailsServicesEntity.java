@@ -7,10 +7,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -41,20 +45,21 @@ public class DetailsServicesEntity extends MinaHoTelPojo {
 	private BigDecimal BigdesumaryMoneySerives;
 
 	// FK DetailsServicesEntity to StaffEntity
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idstaffservicesrepo")
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JoinColumn(name = "idstaffservicesrepo", insertable = true, updatable = true)
 	private StaffEntity staffService; // fk
 
 	// PK FK DetailsServicesEntity to TicketBookingEntity
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@MapsId("idTicketBooking") // primary key and foriegn key
-	@JoinColumn(name = "idticketbooking")
+	@JoinColumn(name = "idticketbooking", insertable = false, updatable = false)
 	private TicketBookingEntity ticketBookingindetail;
 
+	
 	// PK FK DetailsServicesEntity to TicketBookingEntity
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@MapsId("idProduct")
-	@JoinColumn(name = "idproduct") // primary key and foriegn key
+	@JoinColumn(name = "idproduct",  insertable = false, updatable = false) // primary key and foriegn key
 	private ProductionEntity productDetail;
 
 	/**
@@ -259,4 +264,14 @@ public class DetailsServicesEntity extends MinaHoTelPojo {
 	public DetailsServicesEntity() {
 		super();
 	}
+
+	@Override
+	public String toString() {
+		return "DetailsServicesEntity [idDetailsServicesEntity=" + idDetailsServicesEntity + ", amount=" + amount
+				+ ", startRent=" + startRent + ", endRent=" + endRent + ", status=" + status
+				+ ", BigdesumaryMoneySerives=" + BigdesumaryMoneySerives + ", staffService=" + staffService
+				+ ", ticketBookingindetail=" + ticketBookingindetail + ", productDetail=" + productDetail + "]";
+	}
+	
+	
 }

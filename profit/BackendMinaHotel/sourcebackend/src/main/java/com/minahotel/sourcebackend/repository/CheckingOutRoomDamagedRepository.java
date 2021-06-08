@@ -13,4 +13,6 @@ public interface CheckingOutRoomDamagedRepository extends CrudRepository<Checkin
 
 	public Optional<CheckingOutRoomDamagedEntity> findByidCheckoutRoomDamaged(String idCheckoutRoomDamaged);
 	
+	public Optional<CheckingOutRoomDamagedEntity> findByidTicketBooking(String idTicketBooking);
+	
 }

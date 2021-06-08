@@ -26,7 +26,7 @@ public class RoomEntity extends MinaHoTelPojo {
 
 	// FK RoomEntity to TypeOfRoomEntity
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "nametyperoom")
+	@JoinColumn(name = "nametyperoom", insertable = false, updatable = false)
 	private TypeOfRoomEntity typeOfRoom;
 
 	/**

@@ -65,10 +65,8 @@ public class CheckingOutRoomDamagedRepositoryServices implements MinaHotelServic
 			Optional<CheckingOutRoomDamagedEntity> option = checkingOutRoomDamagedRepository.findByidCheckoutRoomDamaged(damaged.getIdCheckoutRoomDamaged());
 			if(option.isPresent()) {
 				CheckingOutRoomDamagedEntity objectGeted = option.get();
-				if(!damaged.equals(objectGeted)) {					 
-					objectGeted.setIdTicketBooking(damaged.getIdTicketBooking());
+				if(!damaged.equals(objectGeted)) {
 					objectGeted.setListProductDamaded(damaged.getListProductDamaded());
-					objectGeted.setStatus(damaged.getStatus());
 					objectGeted.setSumaryIndemnify(damaged.getSumaryIndemnify());					
 					checkingOutRoomDamagedRepository.save(objectGeted);
 				}

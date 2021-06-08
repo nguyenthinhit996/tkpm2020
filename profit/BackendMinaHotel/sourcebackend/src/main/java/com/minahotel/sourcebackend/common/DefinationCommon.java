@@ -14,4 +14,5 @@ public class DefinationCommon {
 	public static final String CONTENT_ERORR ="content_error";
 	
 	public static final String EXCEPTION_FROM_CONTROLLER = "ExceptionFromController";
+	public static final String HTTP_CODE_EXCEPTION_FROM_CONTROLLER = "http_code_exception_from_controller";
 }

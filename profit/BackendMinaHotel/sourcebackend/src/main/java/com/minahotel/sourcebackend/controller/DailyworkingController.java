@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.minahotel.sourcebackend.entities.DailyWorkingEntity;
+import com.minahotel.sourcebackend.entities.DetailsServicesEntity;
 import com.minahotel.sourcebackend.entities.compositekey.CompositeKeyDailyWorkingEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.services.DailyworkingRepositoryServices;
@@ -61,4 +62,5 @@ public class DailyworkingController {
 	void getStaffById() {
 		// dailyworkingRepositoryServices.autotime();
 	}
+	
 }

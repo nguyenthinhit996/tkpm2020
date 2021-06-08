@@ -1,6 +1,7 @@
 package com.minahotel.sourcebackend.security.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -91,7 +92,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		}
 
 		if (mapClaim != null && !mapClaim.isEmpty()) {
-			
 			Claim sub = mapClaim.get(DefinationCommon.SUBJECT);
 			Claim role = mapClaim.get(DefinationCommon.ROLE);
 			String[] asArray = role.asArray(String.class);
@@ -123,9 +123,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 			String iduser = mapClaim.get(DefinationCommon.SUBJECT).asString();
 			String accessToken = JwtUtilsCustomize.createAccessTokenByIdUser(iduser);			
 			res.setStatus(HttpStatus.CREATED.value());
-			Map<String,String> dataResponse = Collections.singletonMap("accesstoken", accessToken);
-			res.getWriter().write(ObjectJsonUtils.convertObjectToJson(dataResponse));
-			res.flushBuffer();
+			Map<String,String> dataResponse = Collections.singletonMap(SecurityConstants.ACCESS_TOKEN, accessToken);
+//			res.getWriter().write(ObjectJsonUtils.convertObjectToJson(dataResponse));
+//			res.flushBuffer();
+			PrintWriter printWriter = res.getWriter();
+	    	printWriter.write(ObjectJsonUtils.convertObjectToJson(dataResponse));
+	    	printWriter.flush();
+	    	printWriter.close();
 		}
 	}
 	

@@ -9,7 +9,9 @@ public enum EnumTicketcheckoutroom {
 	IDSTAFFRECEPTIONSUPPORT("idstaffreceptionsupport"),
 	NUMBERROOMRENT("numberroomrent"),
 	SUMARYRATESANDSERVICES("sumaryratesandservices"),
-	TABLENAME("ticketcheckoutroom");
+	TABLENAME("ticketcheckoutroom"),
+	CLEAN("Clean"),
+	OFF("Off");
 	
 	private String name;
 	

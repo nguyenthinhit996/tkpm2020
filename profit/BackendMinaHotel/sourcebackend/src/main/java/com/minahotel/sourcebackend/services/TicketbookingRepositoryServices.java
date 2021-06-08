@@ -1,9 +1,15 @@
 package com.minahotel.sourcebackend.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +17,8 @@ import com.minahotel.sourcebackend.common.customizeexception.CodeErrorException;
 import com.minahotel.sourcebackend.common.customizeexception.exception.BusinessException;
 import com.minahotel.sourcebackend.common.customizeexception.exception.CRUDExceptionCustomize;
 import com.minahotel.sourcebackend.common.customizeexception.exception.NotFoundItemException;
+import com.minahotel.sourcebackend.entities.RoomEntity;
+import com.minahotel.sourcebackend.entities.StaffEntity;
 import com.minahotel.sourcebackend.entities.TicketBookingEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.repository.TicketbookingRepository;
@@ -18,8 +26,13 @@ import com.minahotel.sourcebackend.repository.TicketbookingRepository;
 @Service
 public class TicketbookingRepositoryServices implements MinaHotelServices{
 
+	private static Logger LOG = LoggerFactory.getLogger(TicketbookingRepositoryServices.class);
+	
 	@Autowired
 	TicketbookingRepository ticketbookingRepository;
+	
+	@PersistenceContext
+	EntityManager entityManager;
 	
 	@Override
 	public List<? extends MinaHoTelPojo> getAll() throws NotFoundItemException{		
@@ -35,7 +48,7 @@ public class TicketbookingRepositoryServices implements MinaHotelServices{
 	public MinaHoTelPojo getObjectById(Object ...id) {
 		Optional<TicketBookingEntity> option = ticketbookingRepository.findByidTicketBooking(String.valueOf(id[0]));
 		if(option.isPresent()) {
-			return option.get();
+			 return option.get();
 		}else {
 			throw new NotFoundItemException(CodeErrorException.EN_001);
 		}
@@ -44,8 +57,14 @@ public class TicketbookingRepositoryServices implements MinaHotelServices{
 	@Override
 	public boolean createObject(MinaHoTelPojo minapojo) {
 		 try {
-			 TicketBookingEntity dateWorkEntity =  (TicketBookingEntity) minapojo;
-			 ticketbookingRepository.save(dateWorkEntity);
+			 TicketBookingEntity ticketBookingEntity =  (TicketBookingEntity) minapojo;
+			 StaffEntity staff = entityManager.getReference(StaffEntity.class, ticketBookingEntity.getStaffReception().getIdStaff());
+			 RoomEntity room = entityManager.getReference(RoomEntity.class, ticketBookingEntity.getRoomRent().getIdRoom());
+			 ticketBookingEntity.setStaffReception(staff);
+			 ticketBookingEntity.setRoomRent(room);
+			 ticketBookingEntity.setIdTicketBooking(String.valueOf(LocalDateTime.now()));
+			 ticketBookingEntity.setTimeStartRentRoom(LocalDateTime.now());
+			 ticketbookingRepository.save(ticketBookingEntity);
 		 }catch (Exception e) {
 			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_002);
 		}

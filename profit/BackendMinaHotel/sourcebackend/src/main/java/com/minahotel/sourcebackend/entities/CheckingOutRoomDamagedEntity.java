@@ -38,12 +38,12 @@ public class CheckingOutRoomDamagedEntity extends MinaHoTelPojo {
 
 	// FK TicketCheckOutRoomEntity
 	@OneToOne( cascade = CascadeType.ALL)
-	@JoinColumn(name = "idcheckoutroom")
+	@JoinColumn(name = "idcheckoutroom", insertable = true, updatable = true, nullable = true)
 	private TicketCheckOutRoomEntity ticketCheckoutObject;
 
 	// FK StaffEntity
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idstaffchecking") // idstaffchecking
+	@JoinColumn(name = "idstaffchecking" , insertable = true, updatable = true, nullable = true) // idstaffchecking
 	private StaffEntity staffCheckOutRoomDamaged;
 
 	/**

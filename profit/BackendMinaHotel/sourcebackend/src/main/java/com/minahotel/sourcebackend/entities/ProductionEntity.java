@@ -6,17 +6,17 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 
 @Entity
 @Table(name = "production")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idProduct")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idProduct")
 public class ProductionEntity extends MinaHoTelPojo {
 
 	@Id
@@ -41,8 +41,9 @@ public class ProductionEntity extends MinaHoTelPojo {
 	@Column(name = "status", length = 45)
 	private String status;
 
+	@JsonIgnore
 	// Reference by DetailsServicesEntity to ProductionEntity
-	@OneToMany(mappedBy = "productDetail", cascade = CascadeType.ALL, targetEntity = DetailsServicesEntity.class)
+	@OneToMany(mappedBy = "productDetail", cascade = CascadeType.MERGE, targetEntity = DetailsServicesEntity.class, fetch = FetchType.LAZY)
 	List<DetailsServicesEntity> dsDetailsServices;
 
 	/**

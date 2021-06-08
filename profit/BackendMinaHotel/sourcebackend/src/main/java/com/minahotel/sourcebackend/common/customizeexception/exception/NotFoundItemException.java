@@ -18,7 +18,7 @@ public class NotFoundItemException extends ExceptionAppCustomizeAstract{
 	public NotFoundItemException(Throwable cause) {
 		super(cause);
 		this.messageRealException = cause.getMessage();
-		this.codeErrorException = CodeErrorException.ES_001;
+		this.codeErrorException = CodeErrorException.EN_001;
 	}
 	
 	@Override

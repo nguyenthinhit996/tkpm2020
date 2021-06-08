@@ -38,19 +38,19 @@ public class DailyWorkingEntity extends MinaHoTelPojo {
 
 	// FK StaffEntity
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idstaffmanagement")
+	@JoinColumn(name = "idstaffmanagement" , insertable = true, updatable = true)
 	private StaffEntity staffManagement; // fk
 
-	// FK StaffEntity
+	//PK FK StaffEntity
 	@ManyToOne(cascade = CascadeType.ALL)
 	@MapsId(value = "idToDay") // chỉ rõ ra là copy vào key nào nếu chỉ có 1 key ko cần ghe tên ra
-	@JoinColumn(name = "idtoday")
+	@JoinColumn(name = "idtoday" , insertable = false, updatable = false)
 	private DateWorkEntity dateWorking; // pk
 
-	// FK StaffEntity
+	//PK FK StaffEntity
 	@ManyToOne(cascade = CascadeType.ALL)
-	@MapsId("idStaffWork")
-	@JoinColumn(name = "idstaffwork")
+	@MapsId("idStaffWork" )
+	@JoinColumn(name = "idstaffwork", insertable = false, updatable = false)
 	private StaffEntity staffWoking; // pk
 
 	/**

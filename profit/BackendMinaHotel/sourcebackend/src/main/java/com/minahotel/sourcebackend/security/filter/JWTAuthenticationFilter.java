@@ -1,6 +1,7 @@
 package com.minahotel.sourcebackend.security.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -101,8 +102,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     	loginPojo.setFullName(user.getUsername());
     	loginPojo.setAuthenticated(Boolean.TRUE);
 
-        res.getWriter().write(ObjectJsonUtils.convertObjectToJson(loginPojo));
-        res.getWriter().flush();
+    	//res.getWriter().write(ObjectJsonUtils.convertObjectToJson(loginPojo));
+    	//res.getWriter().flush();
+    	PrintWriter printWriter = res.getWriter();
+    	printWriter.write(ObjectJsonUtils.convertObjectToJson(loginPojo));
+    	printWriter.flush();
+    	printWriter.close();
     }
     
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.minahotel.sourcebackend.entities.DetailsServicesEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
+import com.minahotel.sourcebackend.pojo.StatusServiceTableFontEnd;
 import com.minahotel.sourcebackend.services.DetailservicesRepositoryServices;
 
 @RestController
@@ -54,6 +55,30 @@ public class DetailservicesController {
     	return detailservicesRepositoryServices.deleteObjectById(object);
     }
     
-
+    @GetMapping("/detailservicesByChecking")
+	List<? extends MinaHoTelPojo> detailservicesByChecking(@RequestParam(name = "idticketbooking", defaultValue = "All") String idticketbooking) {
+		 return detailservicesRepositoryServices.getDetailsServiceByIdTicketCheckingRoom(idticketbooking);
+	}
     
+    
+    @PostMapping("/detailservicesUpdateOneProduct")
+    Boolean updateFulldetailservices(@RequestBody DetailsServicesEntity detailservieUpdate) {
+    	return detailservicesRepositoryServices.onLyUpdateDetailsServicesEntity(detailservieUpdate);
+    }
+    
+    @GetMapping("/getAllDetailsServicesEntity")
+    public List<StatusServiceTableFontEnd> getAllDetailsServicesEntity(){
+    	return detailservicesRepositoryServices.getAllDetailsServicesEntity();
+    }
+    
+	@PostMapping("/updateStatusServicesByUserServices")
+	Boolean updateStatusServicesByUserServices(@RequestBody StatusServiceTableFontEnd detail) {
+		 return detailservicesRepositoryServices.updateStatusServicesByUserServices(detail);
+	}
+	
+	@GetMapping("/DetailservicesInforDrinkAndFood")
+	String getObjectByIdResponseString(@RequestParam(name = "idticketbooking", defaultValue = "All") String idticketbooking,
+			@RequestParam(name = "idproduct", defaultValue = "All") String idproduct) {
+		 return detailservicesRepositoryServices.getObjectByIdResponseString(idticketbooking,idproduct);
+	}
 }

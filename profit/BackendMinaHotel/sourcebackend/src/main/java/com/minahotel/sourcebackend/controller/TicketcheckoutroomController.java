@@ -3,6 +3,8 @@ package com.minahotel.sourcebackend.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.minahotel.sourcebackend.common.customizeexception.exception.NotFoundItemException;
 import com.minahotel.sourcebackend.entities.TicketCheckOutRoomEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
+import com.minahotel.sourcebackend.pojo.TicketcheckoutroomFontEnd;
 import com.minahotel.sourcebackend.services.TicketcheckoutroomRepositoryServices;
 
 @RestController
@@ -53,5 +56,8 @@ public class TicketcheckoutroomController {
     	return ticketcheckoutroomRepositoryServices.deleteObjectById(object);
     }
     
-    
+    @GetMapping("/ticketcheckoutroombyIdTicketChecking")
+    TicketcheckoutroomFontEnd getObjectTicketcheckoutroomFontEnd(@RequestParam(value = "id") String idTicketChecking, @RequestParam(value = "numberroom") Integer idRoom) {
+    	return ticketcheckoutroomRepositoryServices.getObjectTicketcheckoutroomFontEnd(idTicketChecking,idRoom);
+    }
 }

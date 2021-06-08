@@ -29,7 +29,7 @@ public class TicketCheckOutRoomEntity extends MinaHoTelPojo {
 	private LocalDateTime timeEndRentRoom;
 
 	@Column(name = "numberroomrent")
-	private Integer numberPeopleInRoom;
+	private Integer numberRoomRent;
 
 	@Column(name = "sumaryratesandservices")
 	private BigDecimal totalRateAll;
@@ -54,13 +54,13 @@ public class TicketCheckOutRoomEntity extends MinaHoTelPojo {
 
 	// FK CheckOut - Checking
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idticketbooking")
+	@JoinColumn(name = "idticketbooking", insertable = true, updatable = false)
 	private TicketBookingEntity ticketBooking;
 
 	// FK CheckOut - Staff Reception
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idstaffreceptionsupport")
-	private StaffEntity staffReceptionCheckoutRoom;
+	@JoinColumn(name = "idstaffreceptionsupport", insertable = true, updatable = true)
+	private StaffEntity staffCheckoutRoom;
 
 	// Reference RoomDamaged to CheckOut
 	 @OneToOne(mappedBy = "ticketCheckoutObject", cascade = CascadeType.ALL)
@@ -97,15 +97,15 @@ public class TicketCheckOutRoomEntity extends MinaHoTelPojo {
 	/**
 	 * @return the numberPeopleInRoom
 	 */
-	public Integer getNumberPeopleInRoom() {
-		return numberPeopleInRoom;
+	public Integer getnumberRoomRent() {
+		return numberRoomRent;
 	}
 
 	/**
 	 * @param numberPeopleInRoom the numberPeopleInRoom to set
 	 */
-	public void setNumberPeopleInRoom(Integer numberPeopleInRoom) {
-		this.numberPeopleInRoom = numberPeopleInRoom;
+	public void setnumberRoomRent(Integer numberPeopleInRoom) {
+		this.numberRoomRent = numberPeopleInRoom;
 	}
 
 	/**
@@ -223,15 +223,15 @@ public class TicketCheckOutRoomEntity extends MinaHoTelPojo {
 	/**
 	 * @return the staffReceptionCheckoutRoom
 	 */
-	public StaffEntity getStaffReceptionCheckoutRoom() {
-		return staffReceptionCheckoutRoom;
+	public StaffEntity getStaffCheckoutRoom() {
+		return staffCheckoutRoom;
 	}
 
 	/**
 	 * @param staffReceptionCheckoutRoom the staffReceptionCheckoutRoom to set
 	 */
-	public void setStaffReceptionCheckoutRoom(StaffEntity staffReceptionCheckoutRoom) {
-		this.staffReceptionCheckoutRoom = staffReceptionCheckoutRoom;
+	public void setStaffCheckoutRoom(StaffEntity staffReceptionCheckoutRoom) {
+		this.staffCheckoutRoom = staffReceptionCheckoutRoom;
 	}
 
 	/**
@@ -253,13 +253,13 @@ public class TicketCheckOutRoomEntity extends MinaHoTelPojo {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((idTicketCheckout == null) ? 0 : idTicketCheckout.hashCode());
-		result = prime * result + ((numberPeopleInRoom == null) ? 0 : numberPeopleInRoom.hashCode());
+		result = prime * result + ((numberRoomRent == null) ? 0 : numberRoomRent.hashCode());
 		result = prime * result + ((rateRentRoom == null) ? 0 : rateRentRoom.hashCode());
 		result = prime * result + ((rateRoomDamaged == null) ? 0 : rateRoomDamaged.hashCode());
 		result = prime * result + ((rateRoomSubCharge == null) ? 0 : rateRoomSubCharge.hashCode());
 		result = prime * result + ((rateSevices == null) ? 0 : rateSevices.hashCode());
 		result = prime * result + ((roomDamaged == null) ? 0 : roomDamaged.hashCode());
-		result = prime * result + ((staffReceptionCheckoutRoom == null) ? 0 : staffReceptionCheckoutRoom.hashCode());
+		result = prime * result + ((staffCheckoutRoom == null) ? 0 : staffCheckoutRoom.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((ticketBooking == null) ? 0 : ticketBooking.hashCode());
 		result = prime * result + ((timeEndRentRoom == null) ? 0 : timeEndRentRoom.hashCode());
@@ -282,10 +282,10 @@ public class TicketCheckOutRoomEntity extends MinaHoTelPojo {
 				return false;
 		} else if (!idTicketCheckout.equals(other.idTicketCheckout))
 			return false;
-		if (numberPeopleInRoom == null) {
-			if (other.numberPeopleInRoom != null)
+		if (numberRoomRent == null) {
+			if (other.numberRoomRent != null)
 				return false;
-		} else if (!numberPeopleInRoom.equals(other.numberPeopleInRoom))
+		} else if (!numberRoomRent.equals(other.numberRoomRent))
 			return false;
 		if (rateRentRoom == null) {
 			if (other.rateRentRoom != null)
@@ -312,10 +312,10 @@ public class TicketCheckOutRoomEntity extends MinaHoTelPojo {
 				return false;
 		} else if (!roomDamaged.equals(other.roomDamaged))
 			return false;
-		if (staffReceptionCheckoutRoom == null) {
-			if (other.staffReceptionCheckoutRoom != null)
+		if (staffCheckoutRoom == null) {
+			if (other.staffCheckoutRoom != null)
 				return false;
-		} else if (!staffReceptionCheckoutRoom.equals(other.staffReceptionCheckoutRoom))
+		} else if (!staffCheckoutRoom.equals(other.staffCheckoutRoom))
 			return false;
 		if (status == null) {
 			if (other.status != null)

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.minahotel.sourcebackend.entities.RoomEntity;
+import com.minahotel.sourcebackend.pojo.DetailRoom;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.services.RoomRepositoryServices;
 
@@ -52,6 +53,11 @@ public class RoomController {
     @DeleteMapping("/room")
     boolean deleteObject(@RequestBody RoomEntity object ) {
     	return roomRepositoryServices.deleteObjectById(object);
+    }
+    
+    @GetMapping("/detailAllRoom")
+    List<DetailRoom> getALlDetailAllRoom(){
+    	return roomRepositoryServices.getALlDetailAllRoom();
     }
     
 }

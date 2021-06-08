@@ -9,15 +9,28 @@ public enum EnumTicketbooking {
 	TIMESTAMPRENT("timestamprent"),
 	IDSTAFFRECEPTION("idstaffreception"),
 	NUMBERROOM("numberroom"),
+	STATUS("status"),
 	TABLENAME("ticketbooking");
 	
-	private String name;
+	private String value;
 	
 	private EnumTicketbooking(String name) {
-		 this.name = name;
+		 this.value = name;
+	}
+
+	/**
+	 * @return the value
+	 */
+	public String getValue() {
+		return value;
+	}
+
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue(String value) {
+		this.value = value;
 	}
 	
-	public String getName() {
-		return this.name;
-	}
+	 
 }
