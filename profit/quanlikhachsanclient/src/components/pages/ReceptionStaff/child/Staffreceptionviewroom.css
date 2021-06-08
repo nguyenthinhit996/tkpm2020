@@ -1,0 +1,44 @@
+
+.staffreceptionviewroom .gridViewBookingRoom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.staffreceptionviewroom .gridViewBookingRoom .formViewBooking .MuiTypography-h6 {
+    text-align: center;
+    font-family: Risque, cursive !important;
+
+}
+ 
+
+.formViewBooking span.MuiTypography-root.MuiListItemText-primary.MuiTypography-body1.MuiTypography-displayBlock{
+   font-family: Risque, cursive !important;
+   margin: 0px 10px;
+   font-weight: 550;
+}
+
+.staffreceptionviewroom .gridViewBookingRoom .btn-viewbookingRoom--group{
+     display: flex;
+     flex-grow: 1;
+     flex-direction: column;
+     justify-content: flex-start;
+     min-width: 210px;
+ }
+
+ .staffreceptionviewroom .gridViewBookingRoom .btn--quanlikhachsan__green__MoreService{
+    background-color: rgba(15, 178, 32, 0.68);
+ }
+
+.staffreceptionviewroom .gridViewBookingRoom .btn-CheckOutRoom--group {
+     margin-top: 10px;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+     align-items: center;
+ }
+
+ .staffreceptionviewroom .gridViewBookingRoom .btn--quanlikhachsan__checkOut{
+     padding: 5px;
+ }

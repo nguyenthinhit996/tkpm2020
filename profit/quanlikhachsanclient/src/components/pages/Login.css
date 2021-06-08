@@ -1,0 +1,44 @@
+
+
+.gridLogin{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+}
+
+form.loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 111px;
+}
+
+input {
+    background-color: #ACEDF2;
+    border: none;
+    border-bottom: 2px ridge black;
+  }
+
+
+.form--mod {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin: 5px 0px;
+}
+
+.form--mod__forgetpassword a{
+   margin-left: 80px;
+}
+
+label{
+    margin-right:5px ;
+}
+
+.btn--quanlikhachsan__green__login {
+    margin: 10px 0px 0px 40px;
+    background-color: rgba(15, 178, 32, 0.68);
+}

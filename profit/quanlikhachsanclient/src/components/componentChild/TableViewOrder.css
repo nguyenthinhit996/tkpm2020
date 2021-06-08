@@ -1,0 +1,25 @@
+
+
+.tableViewOrder .group--header-table-viewer .MuiTableCell-head{
+    font-weight: bold;
+}
+
+
+.tableViewOrder .group--body-table-viewer .MuiInput-underline:before{
+    left: unset;
+    right: unset;
+    bottom: unset;
+    content: unset;
+}
+
+
+.tableViewOrder .group--body-table-viewer .group--body-table-viewer--inputAmount {
+        background-color:inherit;
+        border: none;
+        border-bottom: unset;
+        max-width:80px ;
+}
+.tableViewOrder .group--footer-table-viewer .MuiTableRow-footer td{
+    font-weight: bold;
+    font-size: 1.5rem;
+}

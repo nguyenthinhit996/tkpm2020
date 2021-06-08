@@ -1,0 +1,65 @@
+
+
+
+.StaffManagementAdmin .StaffManagementAdminHeader{
+    margin-top: 20px;
+}
+
+ 
+.StaffManagementAdminHeader .btn--quanlikhachsan__green__ManagementStaff {
+    margin: 10px 0px 0px 10px;
+    background-color: rgba(15, 178, 32, 0.68);
+}
+
+.StaffManagementAdminHeader .btn--quanlikhachsan__green__Salary{
+    margin: 10px 0px 0px 40px;
+    background-color: rgba(15, 178, 32, 0.68);
+}
+
+.StaffManagementAdminBody {
+    margin: 10px;
+}
+
+.StaffManagementAdmin .form--mod--dailyWorking {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin: 5px 0px;
+}
+
+.StaffManagementAdminBodyFrom{
+    margin: 10px;
+}
+
+.StaffManagementAdmin .StaffManagementAdminBodyFrom .btn-saveupdate--group {
+   
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    min-width: 600px;
+    margin-bottom: 50px;
+}
+
+.StaffManagementAdmin .StaffManagementAdminBodyFrom .btn-saveupdate--group .btn--quanlikhachsan__UpdateRegulartion{
+    background-color: yellow;
+    width: 90px;
+    height: 30px;
+    margin-left: 50px;
+}
+
+.StaffManagementAdminContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 600px;
+}
+.StaffManagementAdminContainer .StaffManagementAdminBodyFrom{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 600px;
+}

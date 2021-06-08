@@ -1,0 +1,19 @@
+
+.NotFoundContainer {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.NotFoundContainer .NotFoundContainer__body{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.NotFoundContainer .NotFoundContainer__body .NotFoundContainer__Icon{
+    color: brown;
+    display: flex;
+    flex-direction: row;
+}

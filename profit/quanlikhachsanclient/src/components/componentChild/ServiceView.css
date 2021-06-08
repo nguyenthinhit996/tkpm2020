@@ -1,0 +1,17 @@
+
+
+.serviceview .group-content-services{
+    padding: 0px 5px !important;
+}
+
+
+.serviceview .btn-controlAddServices {
+    padding: 0px 5px !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.serviceview .btn-controlAddServices h3{
+   color: red;
+}

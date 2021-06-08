@@ -1,0 +1,21 @@
+
+
+.StaffManagementManageStaff .StaffManagementManageStaffHeader{
+    margin-top: 20px;
+}
+
+.StaffManagementManageStaffHeader .btn--quanlikhachsan__green__ManagementStaff {
+    margin: 10px 0px 0px 10px;
+    background-color: rgba(15, 178, 32, 0.68);
+}
+
+.StaffManagementManageStaffHeader .btn--quanlikhachsan__green__Salary{
+    margin: 10px 0px 0px 40px;
+    background-color: rgba(15, 178, 32, 0.68);
+}
+
+.StaffManagementManageStaffBody {
+    margin: 10px;
+}
+ 
+ 

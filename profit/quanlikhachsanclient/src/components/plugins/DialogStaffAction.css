@@ -1,0 +1,71 @@
+ 
+.DialogStaffAction div.MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiPaper-elevation24.MuiPaper-rounded{
+    background-color: #67D265;
+ }
+
+.DialogStaffAction .MuiTypography-h6 {
+     text-align: center;
+     font-family: Risque, cursive !important;
+ }
+
+.DialogStaffAction .MuiDialog-paperWidthSm{
+    min-width: 420px;
+}
+
+.DialogStaffAction span.MuiTypography-root.MuiListItemText-primary.MuiTypography-body1.MuiTypography-displayBlock{
+    font-family: Risque, cursive !important;
+}
+
+.DialogStaffAction li{
+    padding: 0px 16px !important;
+}
+
+.DialogStaffAction form.DialogStaffActionForm{
+    margin: 0px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.DialogStaffAction form.DialogStaffActionForm input {
+    background-color: #67D265;
+    border: none;
+    border-bottom: 2px ridge black;
+  }
+
+
+.DialogStaffAction form.DialogStaffActionForm .form--mod--dialogstaff {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin: 5px 0px;
+    font-family: Risque, cursive !important;
+}
+
+.DialogStaffAction .btn--quanlikhachsan__changePass{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.DialogStaffAction .btn--quanlikhachsan__changePass button{
+    background-color: #F1C6C6;
+}
+
+.DialogStaffAction p.container--removespace {
+    margin-left: 15px;
+}
+
+.DialogStaffAction form.DialogStaffActionForm .btn--quanlikhachsan--saveAddproduct{
+    background-color: yellow;
+    width: 60px;
+    height: 30px;
+    margin: 20px 0px 0px 50px;
+}
+
+.DialogStaffAction form.DialogStaffActionForm .btn--quanlikhachsan--ResetPass{
+    margin: 20px 0px 0px 50px;
+}

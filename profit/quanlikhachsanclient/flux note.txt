@@ -1,0 +1,26 @@
+
+
+**
+Context nơi dữ liệu dùng chung của các <Componet con>
+
+
+useState: dữ liệu thay đổi thì giao diện thay đổi.
+Lưu ý không sử dụng state ngay sau lệnh setState nó sẽ bọ chậm 1 nhịp
+
+useeffect: thì các câu lệnh bênh trong sẽ được thực thi khi mà có 1 hoặc nhiều biến thay đổi
+, nếu mà ko truyền biến gì vào nó sẽ load lúc đầu tiên thường dùng để loaddata inital
+
+
+Flux - useReducer
+
+const[state,dispatch] = useReducer(reducer, initial)
+
+cần 2 thứ
+reducer : là  nơi sẽ nhân lệnh thay đổi state của toàn ứng dụng
+initial : giá trị đầu tiên của app state là gì
+
+trả về 2 thứ
+state của ứng dụng 
+dispatch : là hàm mà được dùng ở component con để muốn yêu cầu đổi state thông qua dispatch
+
+state = initial
