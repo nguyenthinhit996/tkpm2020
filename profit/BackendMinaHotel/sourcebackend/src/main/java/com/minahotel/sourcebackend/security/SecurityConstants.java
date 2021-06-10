@@ -3,10 +3,10 @@ package com.minahotel.sourcebackend.security;
 public class SecurityConstants {
 
 	public static final String SECRET = "SECRET_KEY";
-	public static final long EXPIRATION_TIME_ACCESSTOKEN = 100000; // 10 phut 6
+	public static final long EXPIRATION_TIME_ACCESSTOKEN = 1000000; // 10 phut 6
 	
 	public static final String SECRET_REFRESH = "SECRET_KEY_REFRESH";
-	public static final long EXPIRATION_TIME_REFERSHTOKEN = 300000 ; // 30 phut19
+	public static final long EXPIRATION_TIME_REFERSHTOKEN = 3000000 ; // 30 phut19
 	
 	public static final String TOKEN_PREFIX = "Bearer ";
 	public static final String HEADER_STRING = "Authorization";
