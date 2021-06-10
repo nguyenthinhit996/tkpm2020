@@ -24,6 +24,11 @@ import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.services.StaffRepositoryServices;
 
  
+/**
+ * StaffController is class @RestController working on Entity {@link StaffEntity} 
+ * @author Peter
+ *
+ */
 @RestController
 public class StaffController {
 
@@ -37,7 +42,7 @@ public class StaffController {
 	List<? extends MinaHoTelPojo> getStaffById(@RequestParam(name = "id", defaultValue = "All") String idStaff) {
 		if("All".equals(idStaff)) {
 			List<StaffEntity> getListOnLyOnStatus = new ArrayList<StaffEntity>();
-			
+			LOG.info("getListOnLyOnStatus");
 			 for (MinaHoTelPojo in: staffRepositoryServices.getAll()) {
 				 StaffEntity staffObject = (StaffEntity) in;
 				 if(EnumTicketAndRoom.ON.getName().equals(staffObject.getStatus())) {
@@ -45,10 +50,9 @@ public class StaffController {
 					 getListOnLyOnStatus.add(staffObject);
 				 }
 			 }
-			 
 			 return getListOnLyOnStatus;
 		}
-		 return Arrays.asList(staffRepositoryServices.getObjectById(idStaff));
+		return Arrays.asList(staffRepositoryServices.getObjectById(idStaff));
 	}
 	
 	//Save
@@ -75,6 +79,9 @@ public class StaffController {
         return staffRepositoryServices.deleteObjectById(staff);
     }
     
-    
+    @PostMapping("/changepass")
+    Boolean changePassword(@RequestBody ChangePassPojo objectChangePass) {
+    	return staffRepositoryServices.changePassword(objectChangePass);
+    }
 
 }

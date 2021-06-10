@@ -1,5 +1,10 @@
 package com.minahotel.sourcebackend.enums;
 
+/**
+ * EnumTicketAndRoom is enum of table TicketAndRoom
+ * @author Peter
+ *
+ */
 public enum EnumTicketAndRoom {
 
 	CLEAN("Clean"),

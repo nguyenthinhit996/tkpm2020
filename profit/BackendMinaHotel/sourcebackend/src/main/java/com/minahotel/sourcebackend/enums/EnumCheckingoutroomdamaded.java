@@ -1,5 +1,10 @@
 package com.minahotel.sourcebackend.enums;
 
+/**
+ * EnumCheckingoutroomdamaded is enum of table Checkingoutroomdamaded
+ * @author Peter
+ *
+ */
 public enum EnumCheckingoutroomdamaded {
 	
 	IDCHECKINGOUTROOMDAMADED("idcheckingoutroomdamaded"),

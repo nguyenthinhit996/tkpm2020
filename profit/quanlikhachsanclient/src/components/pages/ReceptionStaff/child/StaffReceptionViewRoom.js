@@ -7,15 +7,17 @@ import { getRoomByNumber } from '../../../../core/room';
 
 // handle error and set loading process
 import { HandleGetError, HandleErrorSystem } from '../../../../core/handleDataFromDB'
-import {OpenLoadding, OffLoadding} from '../../../../core/Utils'
+import { OpenLoadding, OffLoadding } from '../../../../core/Utils'
 import Appcontext from '../../../../AppContext';
 
 export default function Staffreceptionviewroom(props) {
 
     const history = useHistory();
-    const {dispatch} = useContext(Appcontext);
+
+    const { dispatch } = useContext(Appcontext);
 
     const numberRoom = history.location.state.numberRoom;
+
     const idticketbooking = history.location.state.idticketbooking;
 
     const [value, setvalue] = useState({})
@@ -24,22 +26,15 @@ export default function Staffreceptionviewroom(props) {
         OpenLoadding(dispatch);
         let data = await getRoomByNumber(idticketbooking);
         let messError = HandleGetError(data);
-        if(messError.length !== 0){
+        if (messError.length !== 0) {
             OffLoadding(dispatch);
-            handlerMessageToast(messError,"error");
-            HandleErrorSystem(data,history);
-        }else{
+            handlerMessageToast(messError, "error");
+            HandleErrorSystem(data, history);
+        } else {
             setvalue(data);
             OffLoadding(dispatch);
         }
     }, [])
-
-    // const value = {
-    //     name: 'Nguyen van abc',
-    //     identity: '30125684',
-    //     numberInRoom: '4',
-    //     timerenting: '2:30',
-    // }
 
 
     //-----------------toast start
@@ -68,7 +63,6 @@ export default function Staffreceptionviewroom(props) {
 
     const onSubmit = data => {
         exportToastSuccessBooking();
-
         history.goBack();
     }
 
@@ -103,9 +97,7 @@ export default function Staffreceptionviewroom(props) {
         <div className="staffreceptionviewroom">
             <div className="gridViewBookingRoom" >
                 <h2> Information room number {numberRoom} </h2>
-
                 <div className="formViewBooking">
-
                     <List dense={false}>
                         {
                             <div>

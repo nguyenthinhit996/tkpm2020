@@ -1,5 +1,11 @@
 package com.minahotel.sourcebackend.common;
 
+
+/**
+ * DefinationCommon is class to final String use in Application
+ * @author Peter
+ *
+ */
 public class DefinationCommon {
 
 	public static final String STRING_INITIAL ="";

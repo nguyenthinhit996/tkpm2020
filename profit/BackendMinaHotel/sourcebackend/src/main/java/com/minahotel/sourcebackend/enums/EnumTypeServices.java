@@ -1,5 +1,10 @@
 package com.minahotel.sourcebackend.enums;
 
+/**
+ * EnumTypeServices is enum of table TypeServices
+ * @author Peter
+ *
+ */
 public enum EnumTypeServices {
 
 	CHECKOUTDAMAGED("Checkoutdamaged"),

@@ -15,11 +15,19 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 
+/**
+ * TypeOfRoomEntity is mapping with table typeofroom in Database
+ * @author Peter
+ *
+ */
 @Entity
 @Table(name = "typeofroom")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idNameTypeOfRoom")
 public class TypeOfRoomEntity extends MinaHoTelPojo {
 
+	/**
+	 * nametypeofroom is primary key column in Database
+	 */
 	@Id
 	@Column(name = "nametypeofroom", length = 50)
 	private String idNameTypeOfRoom;
@@ -175,7 +183,4 @@ public class TypeOfRoomEntity extends MinaHoTelPojo {
 	public TypeOfRoomEntity() {
 		super();
 	}
-
-	
-	
 }

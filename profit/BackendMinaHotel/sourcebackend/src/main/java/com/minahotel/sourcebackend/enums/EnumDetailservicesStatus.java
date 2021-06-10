@@ -1,5 +1,10 @@
 package com.minahotel.sourcebackend.enums;
 
+/**
+ * EnumDetailservicesStatus is enum of table DetailservicesStatus
+ * @author Peter
+ *
+ */
 public enum EnumDetailservicesStatus {
 
 	PREPARE("Prepare"),

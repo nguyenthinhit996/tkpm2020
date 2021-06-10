@@ -25,7 +25,6 @@ export default function Roomview({data, clickRoom }) {
     }
 
     return (
-
         <div onClick={actionChooseRoom} >
             {isEmpty && <div className="roomview">
                 <div className="emptyHead">
@@ -52,7 +51,6 @@ export default function Roomview({data, clickRoom }) {
                     </div>
                 </div>
             </div>}
-
 
             {isClean && <div className="roomview">
                 <div className="cleanHead">

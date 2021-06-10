@@ -1,9 +1,7 @@
 
-
 import {ON_LOADING,OFF_LOADING } from '../constants/ConstApp'
 
 export const OpenLoadding = (dispatch) =>{
-
     dispatch({
         type: ON_LOADING,
         payload: {
@@ -11,7 +9,6 @@ export const OpenLoadding = (dispatch) =>{
         }
     })
 }
-
 
 export const OffLoadding = (dispatch) =>{
 

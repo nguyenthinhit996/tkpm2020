@@ -3,8 +3,6 @@ package com.minahotel.sourcebackend.controller;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +20,11 @@ import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.pojo.TicketcheckoutroomFontEnd;
 import com.minahotel.sourcebackend.services.TicketcheckoutroomRepositoryServices;
 
+/**
+ * TicketcheckoutroomController is class @RestController working on Entity {@link TicketCheckOutRoomEntity} 
+ * @author Peter
+ *
+ */
 @RestController
 public class TicketcheckoutroomController {
 

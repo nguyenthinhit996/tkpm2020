@@ -1,5 +1,10 @@
 package com.minahotel.sourcebackend.enums;
 
+/**
+ * EnumDetailservices is enum of table Detailservices
+ * @author Peter
+ *
+ */
 public enum EnumDetailservices {
 
 	IDTICKETBOOKING("idticketbooking"),

@@ -14,8 +14,8 @@ import Appcontext from '../../../../AppContext';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        flexWrap: 'wrap',
-        '& > *': {
+        flexWrap: 'wrap', // bao bọc  nằm ở nhiều lines 
+        '& > *': { // và tất cả các con trực tiếp 
             margin: theme.spacing(2),
             width: theme.spacing(36),
             height: theme.spacing(16),
@@ -138,128 +138,6 @@ export default function Staffreceptionindex(props) {
         }
 
     }
-
-
-    // Data fetch from server
-    // control button end
-    // const isEmpty = true;
-    // const isFull = true;
-    // const isClean = true;
-    // const numberRoom = "123";
-    // const typeRoom = "Single";
-    // const timeStartRent = "2020/12/12 12:00"
-    // const nameRent = "Nguyen van a"
-    // const nameCLean = "Nguyen van a"
-    // const timeRent = "02:00:00"
-    // const timeClean = "00:03:00"
-
-    // const dataFetchIsServer = [{
-    //     isEmpty: true,
-    //     isFull: false,
-    //     isClean: false,
-    //     numberRoom: "123",
-    //     typeRoom: "Single",
-    //     timeStartRent: "2020/12/12 12:00",
-    //     timeStartClean:"2020/12/12 12:00",
-    //     nameRent: "Nguyen van a",
-    //     nameCLean: "Nguyen van a",
-    //     timeRent: "02:00:00",
-    //     timeClean: "00:03:00"
-    // }
-    //     ,
-    // {
-    //     isEmpty: false,
-    //     isFull: true,
-    //     isClean: false,
-    //     numberRoom: "1244",
-    //     typeRoom: "Single",
-    //     timeStartRent: "2020/12/12 12:00",
-    //     timeStartClean:"2020/12/12 12:00",
-    //     nameRent: "Nguyen van a",
-    //     nameCLean: "Nguyen van a",
-    //     timeRent: "02:00:00",
-    //     timeClean: "00:03:00"
-    // },
-    // {
-    //     isEmpty: false,
-    //     isFull: false,
-    //     isClean: true,
-    //     numberRoom: "13",
-    //     typeRoom: "Single",
-    //     timeStartRent: "2020/12/12 12:00",
-    //     timeStartClean:"2020/12/12 12:00",
-    //     nameRent: "Nguyen van a",
-    //     nameCLean: "Nguyen van a",
-    //     timeRent: "02:00:00",
-    //     timeClean: "00:03:00"
-    // },
-    // {
-    //     isEmpty: true,
-    //     isFull: false,
-    //     isClean: false,
-    //     numberRoom: "723",
-    //     typeRoom: "Double",
-    //     timeStartRent: "2020/12/12 12:00",
-    //     timeStartClean:"2020/12/12 12:00",
-    //     nameRent: "Nguyen van a",
-    //     nameCLean: "Nguyen van a",
-    //     timeRent: "02:00:00",
-    //     timeClean: "00:03:00"
-    // }
-    //     ,
-    // {
-    //     isEmpty: false,
-    //     isFull: true,
-    //     isClean: false,
-    //     numberRoom: "4",
-    //     typeRoom: "Single",
-    //     timeStartRent: "2020/12/12 12:00",
-    //     timeStartClean:"2020/12/12 12:00",
-    //     nameRent: "Nguyen van a",
-    //     nameCLean: "Nguyen van a",
-    //     timeRent: "02:00:00",
-    //     timeClean: "00:03:00"
-    // },
-    // {
-    //     isEmpty: false,
-    //     isFull: false,
-    //     isClean: true,
-    //     numberRoom: "1333",
-    //     typeRoom: "Double",
-    //     timeStartRent: "2020/12/12 12:00",
-    //     timeStartClean:"2020/12/12 12:00",
-    //     nameRent: "Nguyen van a",
-    //     nameCLean: "Nguyen van a",
-    //     timeRent: "02:00:00",
-    //     timeClean: "00:03:00"
-    // }
-    // ,
-    // {
-    //     isEmpty: false,
-    //     isFull: true,
-    //     isClean: false,
-    //     numberRoom: "3334",
-    //     typeRoom: "Vip",
-    //     timeStartRent: "2020/12/12 12:00",
-    //     timeStartClean:"2020/12/12 12:00",
-    //     nameRent: "Nguyen van a",
-    //     nameCLean: "Nguyen van a",
-    //     timeRent: "02:00:00",
-    //     timeClean: "00:03:00"
-    // },
-    // {
-    //     isEmpty: false,
-    //     isFull: false,
-    //     isClean: true,
-    //     numberRoom: "1366633",
-    //     typeRoom: "Vip",
-    //     timeStartRent: "2020/12/12 12:00",
-    //     timeStartClean:"2020/12/12 12:00",
-    //     nameRent: "Nguyen van a",
-    //     nameCLean: "Nguyen van a",
-    //     timeRent: "02:00:00",
-    //     timeClean: "00:03:00"
-    // }]
 
     useEffect(() => {
         setlistDataIsFilter(dataFetchIsServer);

@@ -21,7 +21,6 @@ export default function StaffManagementAdmin(props) {
     //     { "nametypeofroom": "double", "roomrateshours": 0, "roomratesdates": 350000, "numberinroom": 5, "roomratescharge": 50000 }
     //     , { "nametypeofroom": "single", "roomrateshours": 0, "roomratesdates": 250000, "numberinroom": 2, "roomratescharge": 50000 }
     //     , { "nametypeofroom": "vip", "roomrateshours": 0, "roomratesdates": 1000000, "numberinroom": 100, "roomratescharge": 0 }]);
-
     // const [dataGetServer, setdataGetServer] = useState([]);
 
     // toast  start
@@ -34,7 +33,6 @@ export default function StaffManagementAdmin(props) {
     }, [messageToast])
 
     const { enqueueSnackbar } = useSnackbar();
-
 
     const handlerMessageToast = (mess, variant) => {
         // variant could be success, error, warning, info, or default
@@ -55,7 +53,6 @@ export default function StaffManagementAdmin(props) {
         let a = 'Warning';
         setmessageToast({ message: mess, variant: a })
     }
-
     // toast  enddddddddddddddd
 
     const onSubmit = async (data) => {

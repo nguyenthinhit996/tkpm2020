@@ -17,11 +17,19 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 
+/**
+ * TicketBookingEntity is mapping with table ticketbooking in Database
+ * @author Peter
+ *
+ */
 @Entity
 @Table(name = "ticketbooking")
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idTicketBooking")
 public class TicketBookingEntity extends MinaHoTelPojo {
 
+	/**
+	 * idticketbooking is primary key column in Database
+	 */
 	@Id
 	@Column(name = "idticketbooking", length = 50)
 	private String idTicketBooking;
@@ -285,7 +293,4 @@ public class TicketBookingEntity extends MinaHoTelPojo {
 				+ ", numberPeopleInRoom=" + numberPeopleInRoom + ", status=" + status + ", staffReception="
 				+ staffReception + "]";
 	}
-
-	
-	
 }

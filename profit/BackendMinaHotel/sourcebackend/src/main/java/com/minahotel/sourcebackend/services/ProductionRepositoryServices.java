@@ -15,6 +15,11 @@ import com.minahotel.sourcebackend.entities.ProductionEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.repository.ProductionRepository;
 
+/**
+ * ProductionRepositoryServices is class to handle logic belong to Productions in Hotel, ex CRUD ...
+ * @author Peter
+ *
+ */
 @Service
 public class ProductionRepositoryServices implements MinaHotelServices{
 
@@ -92,8 +97,5 @@ public class ProductionRepositoryServices implements MinaHotelServices{
 			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_004);
 		}
 		return false;
-
 	}
-	 
-
 }

@@ -9,6 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 
+/**
+ * Http403ForbiddenEntryPointCustom is class custom Http403ForbiddenEntryPoint 
+ * EntryPoint for annonymous login into authenticated() catch it
+ * ex token on not header or object Authentication is null
+ * @author Peter
+ *
+ */
 public class Http403ForbiddenEntryPointCustom extends Http403ForbiddenEntryPoint{
 
 	

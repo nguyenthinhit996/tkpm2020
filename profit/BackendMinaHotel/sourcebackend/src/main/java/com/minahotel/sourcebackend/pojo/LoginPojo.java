@@ -2,7 +2,11 @@ package com.minahotel.sourcebackend.pojo;
 
 import java.io.Serializable;
 
-
+/**
+ * LoginPojo is object json communication client and server
+ * @author Peter
+ *
+ */
 public class LoginPojo implements Serializable{
 	/**
 	 * 

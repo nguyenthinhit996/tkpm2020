@@ -31,26 +31,41 @@ import com.minahotel.sourcebackend.pojo.LoginPojo;
 import com.minahotel.sourcebackend.pojo.UserCustomize;
 import com.minahotel.sourcebackend.security.SecurityConstants;
 
+/**
+ * 
+ * JWTAuthenticationFilter is class handle path /login .
+ * if login sucess return a {@link LoginPojo} to client, reverse throw error login
+ * @author Peter
+ *
+ */
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	
 	private static Logger LOG = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
 
     private AuthenticationManager authenticationManager;
 
+    /**
+     * Constructor JWTAuthenticationFilter in use file secutiry WebSecurity.java
+     * set path {@link SecurityConstants.LOG_IN_URL} to hanle if use access path {@link SecurityConstants.LOG_IN_URL}
+     * @param authenticationManager
+     */
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {	
         this.authenticationManager = authenticationManager;
         setFilterProcessesUrl(SecurityConstants.LOG_IN_URL); 
     }
 
+    /**
+     * Method prcessing authentication user
+     * @param HttpServletRequest req
+     * @param HttpServletResponse res
+     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
         	
-        	LOG.info(MessCodeUtils.TransferMessCode(Message.IN_001 , this.getClass().getName()));
-        	
-        	LoginPojo creds = new ObjectMapper().readValue(req.getInputStream(), LoginPojo.class);
-        	
+        	LOG.info(MessCodeUtils.TransferMessCode(Message.IN_001 , this.getClass().getName()));       	
+        	LoginPojo creds = new ObjectMapper().readValue(req.getInputStream(), LoginPojo.class);      	
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             creds.getIduser(),
@@ -69,6 +84,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         
     }
 
+    /**
+     * Mehthod will process if it authenticate sucess
+     * write a {@link LoginPojo} into body of response return client
+     */
     @Override
     protected void successfulAuthentication(HttpServletRequest req,
                                             HttpServletResponse res,
@@ -77,7 +96,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     	 
     	LoginPojo loginPojo = new LoginPojo();	
     	UserCustomize user = (UserCustomize) auth.getPrincipal();
-    	
     	
     	List<String> lsAuthorization =List.copyOf(AuthorityUtils.authorityListToSet(user.getAuthorities()));
     	

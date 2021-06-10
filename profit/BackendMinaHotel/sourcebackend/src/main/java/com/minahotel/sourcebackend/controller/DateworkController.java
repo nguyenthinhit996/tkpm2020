@@ -18,6 +18,11 @@ import com.minahotel.sourcebackend.entities.DateWorkEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.services.DateworkRepositoryServices;
 
+/**
+ * DateworkController is class @RestController working on Entity {@link DateWorkEntity} 
+ * @author Peter
+ *
+ */
 @RestController
 public class DateworkController {
 
@@ -53,5 +58,4 @@ public class DateworkController {
     boolean deleteObject(@RequestBody String id ) {
     	return dateworkRepositoryServices.deleteObjectById(id);
     }
-    
 }

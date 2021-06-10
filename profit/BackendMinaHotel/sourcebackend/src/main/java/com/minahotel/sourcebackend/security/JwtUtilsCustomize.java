@@ -12,14 +12,22 @@ import com.minahotel.sourcebackend.common.DefinationCommon;
 import com.minahotel.sourcebackend.pojo.UserCustomize;
 import com.minahotel.sourcebackend.services.StaffRepositoryServices;
 
-
+/**
+ * JwtUtilsCustomize is class to create token, it class ordinary(bình thường) not container-managed by Spring IOC
+ * so if you use a @bean of spring you must use class {@link BeanUtil} to do that
+ * @author Peter
+ *
+ */
 public class JwtUtilsCustomize {
 	
-	
+	/**
+	 * Get accesstoken from use Id
+	 * @param idUser
+	 * @return access token
+	 */
     public static String createAccessTokenByIdUser(String idUser) {
     	
-    	StaffRepositoryServices userdetailService = BeanUtil.getBean(StaffRepositoryServices.class);
-    	
+    	StaffRepositoryServices userdetailService = BeanUtil.getBean(StaffRepositoryServices.class);	
     	UserCustomize user = (UserCustomize) userdetailService.loadUserByUsername(idUser);
     	List<String> lsAuthorization =List.copyOf(AuthorityUtils.authorityListToSet(user.getAuthorities()));
     	

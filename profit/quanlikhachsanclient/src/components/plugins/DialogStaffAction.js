@@ -49,19 +49,17 @@ const DialogContent = withStyles((theme) => ({
 
 export default function DialogStaffAction(props) {
 
-
     const { register, handleSubmit, watch, errors, reset } = useForm();
-
 
     const history = useHistory();
 
     const role = localStorage.quanlikhachsan_role;
 
     const refSelectNew = useRef("");
+
     const refSelectEdit = useRef("");
 
     // openDialogStaff, setopenDialogStaff , isAction , modalTitle ,data
-
     const { staffState, setstaffState } = useContext(NavigationAppContext);
 
     // toast  start
@@ -74,7 +72,6 @@ export default function DialogStaffAction(props) {
     }, [messageToast])
 
     const { enqueueSnackbar } = useSnackbar();
-
 
     const handlerMessageToast = (mess, variant) => {
         // variant could be success, error, warning, info, or default
@@ -90,7 +87,6 @@ export default function DialogStaffAction(props) {
         let a = 'error';
         setmessageToast({ message: mess, variant: a })
     }
-
     // toast  enddddddddddddddd
 
     const onSubmitNewStaff = async (data) => {
@@ -124,9 +120,7 @@ export default function DialogStaffAction(props) {
 
     const onSubmitEditStaff = async (data) => {
         console.log(refSelectEdit.current.firstChild.value);
-
         console.log(JSON.stringify(data));
-
         let dataresult = {
             idstaff: staffState.data.idstaff
             , username: data.username
@@ -138,23 +132,17 @@ export default function DialogStaffAction(props) {
             , bonussalary: data.bonussalary
         }
         let result = await editStaff(dataresult);
-
         if (result) {
             exportToastSuccess("Edit Staff Success")
         } else {
             exportToastError("Not Edit Staff Success")
         }
-
-
         reset();
         handleClose();
         setTimeout(() => {
             history.go(0);
         }, 1500);
     }
-
-
-
 
     const handleClose = () => {
         setstaffState({ ...staffState, openDialogStaff: false });

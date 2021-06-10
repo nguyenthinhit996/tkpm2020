@@ -1,5 +1,10 @@
 package com.minahotel.sourcebackend.enums;
 
+/**
+ * EnumTypeofroom is enum of table Typeofroom
+ * @author Peter
+ *
+ */
 public enum EnumTypeofroom {
 
 	

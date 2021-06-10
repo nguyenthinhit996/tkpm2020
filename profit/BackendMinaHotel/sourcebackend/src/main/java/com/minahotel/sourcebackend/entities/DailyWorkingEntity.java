@@ -16,11 +16,19 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.minahotel.sourcebackend.entities.compositekey.CompositeKeyDailyWorkingEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 
+/**
+ * DailyWorkingEntity is mapping with table dailyworking in Database
+ * @author Peter
+ *
+ */
 @Entity
 @Table(name = "dailyworking")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idDailyWorkingEntity")
 public class DailyWorkingEntity extends MinaHoTelPojo {
 
+	/**
+	 * idDailyWorkingEntity is composite key 
+	 */
 	@EmbeddedId
 	private CompositeKeyDailyWorkingEntity idDailyWorkingEntity;
 
@@ -235,7 +243,4 @@ public class DailyWorkingEntity extends MinaHoTelPojo {
 	public DailyWorkingEntity() {
 		super();
 	}
-
-	 
-
 }

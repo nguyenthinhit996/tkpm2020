@@ -19,6 +19,11 @@ import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.pojo.StatusServiceTableFontEnd;
 import com.minahotel.sourcebackend.services.DetailservicesRepositoryServices;
 
+/**
+ * DetailservicesController is class @RestController working on Entity {@link DetailsServicesEntity} 
+ * @author Peter
+ *
+ */
 @RestController
 public class DetailservicesController {
 

@@ -40,7 +40,6 @@ export const getRoomByNumber = async (idticket) => {
   }
 }
 
-
 export const getInforCheckOutByIdTicket = async (idticket, numberroom) => {
   try {
     console.log(" Check out room : " + idticket);
@@ -58,17 +57,6 @@ export const getInforCheckOutByIdTicket = async (idticket, numberroom) => {
     return error.response;
   }
 }
-
-//   export const createCheckoutRoom = async (value) => {
-//     try {
-//         let { data } = await axiosInstance.post('/Ticketcheckoutroom',value);
-//         console.log(data);
-//         return data;
-//     } catch (error) {
-//           console.log(error.response);
-//           return error.response;
-//     }
-// } 
 
 export const createCheckoutTicket = async (value) => {
   try {

@@ -7,6 +7,11 @@ import java.util.StringJoiner;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+/**
+ * UserCustomize is object json communication client and server
+ * @author Peter
+ *
+ */
 public class UserCustomize extends User{
 	
 	/**

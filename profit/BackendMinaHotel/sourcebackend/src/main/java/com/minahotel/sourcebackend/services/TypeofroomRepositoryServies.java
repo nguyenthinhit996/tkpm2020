@@ -15,6 +15,11 @@ import com.minahotel.sourcebackend.entities.TypeOfRoomEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.repository.TypeofroomRepository;
 
+/**
+ * TypeofroomRepositoryServies is class to handle logic belong to Typeofroom
+ * @author Peter
+ *
+ */
 @Service
 public class TypeofroomRepositoryServies implements MinaHotelServices{
 
@@ -92,7 +97,5 @@ public class TypeofroomRepositoryServies implements MinaHotelServices{
 			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_004);
 		}
 		return false;
-
-	}
-	 
+	} 
 }

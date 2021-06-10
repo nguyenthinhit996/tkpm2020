@@ -8,35 +8,25 @@ import Staffreceptionviewdetailsubcharge from './StaffReceptionViewdetailSubchar
 import StaffReceptionViewdetailDamaged from './StaffReceptionViewdetailDamaged';
 import { createCheckoutTicket, getInforCheckOutByIdTicket } from '../../../../core/room';
 import CurrencyFormat from 'react-currency-format';
- 
+
 // handle error and set loading process
 import { HandleGetError, HandleErrorSystem } from '../../../../core/handleDataFromDB'
-import {OpenLoadding, OffLoadding} from '../../../../core/Utils'
+import { OpenLoadding, OffLoadding } from '../../../../core/Utils'
 import Appcontext from '../../../../AppContext';
 
 export default function Staffreceptioncheckoutticket(props) {
 
     const history = useHistory();
 
-    const {dispatch} = useContext(Appcontext);
+    const { dispatch } = useContext(Appcontext);
 
     const numberRoom = history.location.state.numberRoom;
 
     const idticketbooking = history.location.state.idticketbooking;
 
-    // const value = {
-    //     name: 'Nguyen van a',
-    //     identity: '30125684',
-    //     numberInRoom: '4',
-    //     timeStartRent: ' 2020/12/12 11:30:30',
-    //     timeRent: '2:30',
-    //     rateRent: '300000',
-    //     rateServices: '3000000',
-    //     roomSubCharge: '1000000',
-    //     roomDamaged: '0',
-    //     toTal: '3000000000'
-    // }
+    const [openViewInforSubCharge, setopenViewInforSubCharge] = useState(false);
 
+    const [openViewDamged, setopenViewDamged] = useState(false);
 
     const [value, setValue] = useState({
         idticketcheckoutroom: null,
@@ -68,16 +58,16 @@ export default function Staffreceptioncheckoutticket(props) {
 
     useEffect(async () => {
         OpenLoadding(dispatch);
-       let data = await getInforCheckOutByIdTicket(idticketbooking, numberRoom);
-       let messError = HandleGetError(data);
-       if(messError.length !== 0){
+        let data = await getInforCheckOutByIdTicket(idticketbooking, numberRoom);
+        let messError = HandleGetError(data);
+        if (messError.length !== 0) {
             OffLoadding(dispatch);
-            handlerMessageToast(messError,"error");
-            HandleErrorSystem(data,history);
-       }else{
-        OffLoadding(dispatch);
-        setValue(data);
-       }
+            handlerMessageToast(messError, "error");
+            HandleErrorSystem(data, history);
+        } else {
+            OffLoadding(dispatch);
+            setValue(data);
+        }
     }, []);
 
     //-----------------toast start
@@ -110,21 +100,20 @@ export default function Staffreceptioncheckoutticket(props) {
     }
 
     const handlerPaidRoom = async () => {
-        console.log(" dddddddddddddddddddddddddd Paid");
 
         // 1) tao CheckOut clean
         // 2) cap nhat trang thai cho checkking off
 
         const dataSendToServer = {
             idTicketCheckout: "now time",
-            ticketBooking:{
+            ticketBooking: {
                 idTicketBooking: idticketbooking
             }
-            ,timeEndRentRoom: value.timeendrent,
+            , timeEndRentRoom: value.timeendrent,
             staffCheckoutRoom: {
-                idStaff:localStorage.quanlikhachsan_iduser
+                idStaff: localStorage.quanlikhachsan_iduser
             }
-            ,numberRoomRent: value.roomnumber,
+            , numberRoomRent: value.roomnumber,
             totalRateAll: value.sumaryratesandservices,
             rateRentRoom: value.rateRent,
             rateSevices: value.rateservices,
@@ -149,10 +138,6 @@ export default function Staffreceptioncheckoutticket(props) {
 
     const handlerViewDetailServicesRoom = () => {
         exportToastSuccessBooking();
-        // setTimeout(() => {
-        //     history.push("/staff");
-        // }, 2000);
-
         history.push({
             pathname: '/rect/staffReceptionViewServices',
             state: {
@@ -161,10 +146,6 @@ export default function Staffreceptioncheckoutticket(props) {
             }
         });
     }
-
-    const [openViewInforSubCharge, setopenViewInforSubCharge] = useState(false);
-
-    const [openViewDamged, setopenViewDamged] = useState(false);
 
     return (
         <>

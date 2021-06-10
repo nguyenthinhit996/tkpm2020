@@ -14,11 +14,19 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 
+/**
+ * DateWorkEntity is mapping with table datework in Database
+ * @author Peter
+ *
+ */
 @Entity
 @Table(name = "datework")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idDateWork")
 public class DateWorkEntity extends MinaHoTelPojo {
 
+	/**
+	 * iddatework is primary key column in Database
+	 */
 	@Id
 	@Column(name = "iddatework")
 	private LocalDate idDateWork;
@@ -152,7 +160,4 @@ public class DateWorkEntity extends MinaHoTelPojo {
 	public DateWorkEntity() {
 		super();
 	}
-
-	
-	 
 }

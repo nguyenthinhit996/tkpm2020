@@ -1,34 +1,45 @@
 package com.minahotel.sourcebackend.services;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.minahotel.sourcebackend.common.customizeexception.CodeErrorException;
 import com.minahotel.sourcebackend.common.customizeexception.exception.BusinessException;
 import com.minahotel.sourcebackend.common.customizeexception.exception.CRUDExceptionCustomize;
 import com.minahotel.sourcebackend.common.customizeexception.exception.NotFoundItemException;
-import com.minahotel.sourcebackend.entities.ProductionEntity;
 import com.minahotel.sourcebackend.entities.StaffEntity;
 import com.minahotel.sourcebackend.pojo.ChangePassPojo;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.pojo.UserCustomize;
-import com.minahotel.sourcebackend.repository.ProductionRepository;
 import com.minahotel.sourcebackend.repository.StaffRepository;
 
+/**
+ * StaffRepositoryServices is class to handle logic belong to staff, ex login page, CRUD staff
+ * @author Peter
+ *
+ */
 @Service
 public class StaffRepositoryServices implements MinaHotelServices, UserDetailsService {
 	
 	@Autowired
 	StaffRepository staffRepository;
+	
+	@PersistenceContext
+	EntityManager entityManager;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@Override
 	public List<? extends MinaHoTelPojo> getAll() {		
@@ -113,5 +124,25 @@ public class StaffRepositoryServices implements MinaHotelServices, UserDetailsSe
 			user = new UserCustomize(staff.getIdStaff(), staff.getNameStaff(), staff.getPassWordStaff(), true, true, true, true, List.of(simplerole));
 		}
 		return user;
+	}
+	
+	public Boolean changePassword(ChangePassPojo objectChangePass){
+		try {
+			StaffEntity staff =entityManager.getReference(StaffEntity.class, objectChangePass.getIdStaff());
+			if(staff != null) {
+				if(passwordEncoder.matches(objectChangePass.getPasswordOld(), staff.getPassWordStaff())) {
+					String newPassWord = passwordEncoder.encode(objectChangePass.getPasswordNew());
+					staff.setPassWordStaff(newPassWord);
+					staffRepository.save(staff);
+					return true;
+				}else {
+					//Password Old invalid , please input again
+					throw new BusinessException(CodeErrorException.EA_001);
+				}
+			}
+		}catch(IllegalArgumentException e) {// IllegalArgumentException getReference
+			throw new BusinessException(CodeErrorException.ES_004);
+		}
+		return false;
 	}
 }

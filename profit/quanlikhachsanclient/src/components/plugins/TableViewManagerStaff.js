@@ -60,7 +60,6 @@ export default function TableViewManagerStaff(pros) {
         let a = 'error';
         setmessageToast({ message: mess, variant: a })
     }
-
     // toast  enddddddddddddddd
 
     const handlerEditStaff = (row) => {
@@ -68,14 +67,9 @@ export default function TableViewManagerStaff(pros) {
         handlerEditStaffButton(row);
     }
 
-
-
     const handlerRemoveStaff = async (row) => {
-
         row.status = "Off";
-
         let result = await editStaff(row);
-
         if (result) {
             var id = row.idstaff;
             let mess = "Remove Staff (" + id + ") Success";
@@ -118,14 +112,11 @@ export default function TableViewManagerStaff(pros) {
                                 {row.datework}
                             </TableCell>
                             <TableCell align="justify">
-
                                 <CurrencyFormat value={row.salarymonth} displayType={'text'} thousandSeparator={true} suffix={'đ'} renderText={value => <div>{value}</div>} />
                             </TableCell>
                             <TableCell align="justify">
-
                                 <CurrencyFormat value={row.bonussalary} displayType={'text'} thousandSeparator={true} suffix={'đ'} renderText={value => <div>{value}</div>} />
                             </TableCell>
-
                             {
                                 // admin view len het ngoai tru no
                                 localStorage.quanlikhachsan_role === STAFF_MANAGER_ADMIN
@@ -148,20 +139,14 @@ export default function TableViewManagerStaff(pros) {
                                     <TableCell align="justify">
                                         <button disabled={(row.idstaff === localStorage.quanlikhachsan_iduser || row.role === STAFF_MANAGER_ADMIN) ? true : false} onClick={() => handlerEditStaff(row)} className="btn--quanlikhachsan btn--quanlikhachsan__green__Edit" > Edit </button>
                                     </TableCell>
-
                                     <TableCell align="justify">
                                         <button disabled={(row.idstaff === localStorage.quanlikhachsan_iduser || row.role === STAFF_MANAGER_ADMIN) ? true : false} className="btn--quanlikhachsan btn--quanlikhachsan__green__Remove" > Remove </button>
                                     </TableCell>
                                 </div>
-
                             }
-
-
-
                         </TableRow>
                     ))}
                 </TableBody>
-
             </Table>
         </TableContainer>
     );

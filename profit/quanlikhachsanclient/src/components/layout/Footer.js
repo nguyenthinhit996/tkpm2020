@@ -4,12 +4,9 @@ import "./Footer.css"
 
 
 export default function Footer(props) {
-
-
     return (
         <div className="footerQuanliKhachSan">
-            <h2>This is footer </h2>
+            <h3> Website create by Perter </h3>
         </div>
     )
-
 }

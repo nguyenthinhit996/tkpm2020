@@ -1,7 +1,11 @@
 package com.minahotel.sourcebackend.enums;
 
+/**
+ * EnumDatework is enum of table Datework
+ * @author Peter
+ *
+ */
 public enum EnumDatework {
-
 
 	IDDATEWORK("iddatework"),
 	LISTUSERWORKFULLDAY("listuserworkfullday"),

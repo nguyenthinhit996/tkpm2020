@@ -13,7 +13,6 @@ export const getAllServices = async (value) => {
     }
 }
 
-
 export const putAddProductToCart = async (value) => {
     try {
         console.log(value)
@@ -29,7 +28,6 @@ export const putAddProductToCart = async (value) => {
 export const DetailservicesUpdate = async (value) => {
     try {
         console.log(value)
-
         let valueSendToDB = {
             idDetailsServicesEntity: {
                 idTicketBooking: value.ticketBookingindetail.idTicketBooking
@@ -49,7 +47,6 @@ export const DetailservicesUpdate = async (value) => {
                 idProduct: value.productDetail.idProduct
             }
         }
-
         let { data } = await axiosInstance.post('/detailservicesUpdateOneProduct', valueSendToDB, { headers: HeaderAccessToken() });
         console.log("data " + data);
         return data;
@@ -98,7 +95,6 @@ export const getAllProduct = async (value) => {
     }
 }
 
-
 export const addNewProduct = async (value) => {
     try {
         console.log(value)
@@ -111,7 +107,6 @@ export const addNewProduct = async (value) => {
     }
 }
 
-
 export const editProduct = async (value) => {
     try {
         console.log(value)
@@ -123,4 +118,3 @@ export const editProduct = async (value) => {
         return error.response;
     }
 }
-

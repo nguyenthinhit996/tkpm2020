@@ -28,7 +28,6 @@ export default function StaffManagementAdminChangeProduct(props) {
             </div>
             <div className="StaffManagementAdminChangeProductBody">
                 <h2>Management Product</h2>
-
                 <NavigationAppContext.Provider value={{ opeAddProduct, setopeAddProduct, listRowData, setlistRowData }}>
                     <TableViewManagerProduct />
                     {opeAddProduct && <DialogAddProduct />}

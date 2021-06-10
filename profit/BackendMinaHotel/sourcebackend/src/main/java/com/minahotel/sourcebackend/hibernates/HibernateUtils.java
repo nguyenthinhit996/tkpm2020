@@ -1,8 +1,6 @@
 package com.minahotel.sourcebackend.hibernates;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * HibernateUtils config hibernate get Utils
+ * @author Peter
+ *
+ */
 @Configuration
 public class HibernateUtils {
 

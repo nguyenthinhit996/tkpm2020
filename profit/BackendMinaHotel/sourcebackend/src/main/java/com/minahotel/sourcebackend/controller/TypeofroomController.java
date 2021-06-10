@@ -18,6 +18,11 @@ import com.minahotel.sourcebackend.entities.TypeOfRoomEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.services.TypeofroomRepositoryServies;
 
+/**
+ * TypeofroomController is class @RestController  working on Entity {@link TypeOfRoomEntity} 
+ * @author Peter
+ *
+ */
 @RestController
 public class TypeofroomController {
 
@@ -47,7 +52,6 @@ public class TypeofroomController {
         return typeofroomRepositoryServies.saveOrUpdate(object);
     }
     
-
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/typeofroom")
     boolean deleteObject(@RequestBody TypeOfRoomEntity object ) {

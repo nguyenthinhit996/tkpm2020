@@ -2,24 +2,16 @@ package com.minahotel.sourcebackend.repository.implementsrepo;
 
 import java.util.List;
 
-import javax.persistence.EntityTransaction;
-import javax.persistence.criteria.CriteriaBuilder;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.CriteriaQuery;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import com.minahotel.sourcebackend.entities.DateWorkEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.repository.customizeinterface.DateworkRepositoryCustom;
 
-@Repository
+/**
+ * DateworkRepositoryImpl is class implements method from interface repository custom
+ * @author Peter
+ *
+ */
 public class DateworkRepositoryImpl implements DateworkRepositoryCustom{
 
-	@Autowired
-	private SessionFactory session;
 	
 	@Override
 	public List<? extends MinaHoTelPojo> findByidDateWork(String id) {

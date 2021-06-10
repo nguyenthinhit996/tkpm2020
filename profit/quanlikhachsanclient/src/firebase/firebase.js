@@ -14,7 +14,7 @@ import 'firebase/analytics'
     appId: "1:305907811778:web:518dc4b2662ff9da13c25b",
     measurementId: "G-EK576H3VQV"
   };
-//   {/* // Initialize Firebase */}
+  // {/* // Initialize Firebase */}
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
   const storage = firebase.storage();

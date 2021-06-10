@@ -18,6 +18,11 @@ import com.minahotel.sourcebackend.entities.compositekey.CompositeKeyDailyWorkin
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.repository.DailyworkingRepository;
 
+/**
+ * DailyworkingRepositoryServices is class to handle logic belong daily work of  all staff, checking, checkout time work 
+ * @author Peter
+ *
+ */
 @Service
 public class DailyworkingRepositoryServices implements MinaHotelServices {
 
@@ -101,8 +106,5 @@ public class DailyworkingRepositoryServices implements MinaHotelServices {
 			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_004);
 		}
 		return false;
-
 	}
-
-	 
 }

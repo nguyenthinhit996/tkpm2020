@@ -9,7 +9,11 @@ import com.minahotel.sourcebackend.entities.DailyWorkingEntity;
 import com.minahotel.sourcebackend.entities.compositekey.CompositeKeyDailyWorkingEntity;
 import com.minahotel.sourcebackend.repository.customizeinterface.DailyworkingRepositoryCustom;
 
-
+/**
+ * DailyworkingRepository is interface to action CrudRepository with Entity 
+ * @author Peter
+ *
+ */
 @Repository
 public interface DailyworkingRepository extends CrudRepository<DailyWorkingEntity, Long>, DailyworkingRepositoryCustom{
 	

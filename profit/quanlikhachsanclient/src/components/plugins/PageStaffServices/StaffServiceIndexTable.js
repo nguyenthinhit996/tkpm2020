@@ -32,72 +32,71 @@ const useStyleTable = makeStyles((theme) => ({
         width: '100%',
         marginBottom: theme.spacing(2) // 8 * 2 =16px default
     },
-    containerTable:{
+    containerTable: {
         maxHeight: '400px'
         // minHeight: '400px'
     },
-    paginationCustomize:{
-        flexShrink:0
+    paginationCustomize: {
+        flexShrink: 0
     }
 }))
 
 
-function HeaderTable (pros) {
+function HeaderTable(pros) {
 
-    const {ColumnSortArr, TypeSortArr, HandleSortTableArr} = pros;
+    const { ColumnSortArr, TypeSortArr, HandleSortTableArr } = pros;
 
     const headCells = [
-        {id:"idstaff", label:"Id Staff", isNumber: false, disablePadding:false, isSort:true},
-        {id:"username", label:"Name Staff", isNumber: false, disablePadding:false, isSort:true},
-        {id:"numberroom", label:"Room", isNumber: true, disablePadding:false, isSort:true},
-        {id:"typeservices", label:"Type Services", isNumber: false, disablePadding:false, isSort:true},
-        {id:"status", label:"Status", isNumber: false, disablePadding:false, isSort:true},
-        {id:"detail", label:"Detail", isNumber: false, disablePadding:false, isSort:false}
+        { id: "idstaff", label: "Id Staff", isNumber: false, disablePadding: false, isSort: true },
+        { id: "username", label: "Name Staff", isNumber: false, disablePadding: false, isSort: true },
+        { id: "numberroom", label: "Room", isNumber: true, disablePadding: false, isSort: true },
+        { id: "typeservices", label: "Type Services", isNumber: false, disablePadding: false, isSort: true },
+        { id: "status", label: "Status", isNumber: false, disablePadding: false, isSort: true },
+        { id: "detail", label: "Detail", isNumber: false, disablePadding: false, isSort: false }
     ]
 
-    const createRequestSort = (column) => (event) => { // hàm gọi hàm cú pháp của react nếu ko cso thê sử dụng 
-                                                        // () => createRequestSort(colum) ở dưới 
+    // hàm gọi hàm cú pháp của react nếu ko cso thê sử dụng () => createRequestSort(colum) ở dưới 
+    const createRequestSort = (column) => (event) => {
         HandleSortTableArr(column);
     }
 
     return (
         <TableHead>
-        <TableRow>
-            {
-                headCells.map((row) => (
-                    <TableCell
-                        key={row.id}
-                        padding={row.disablePadding ? 'none' : 'default'}
-                        align={row.isNumber ? 'right' : 'left'}
-                    >
-                        <TableSortLabel
-                            disabled={!row.isSort}
-                            active={ColumnSortArr === row.id ? true : false} // view icon arrow
-                            direction={ColumnSortArr === row.id ? TypeSortArr : 'asc'} // view direction arrow up or down
-                            onClick={createRequestSort(row.id)}
+            <TableRow>
+                {
+                    headCells.map((row) => (
+                        <TableCell
+                            key={row.id}
+                            padding={row.disablePadding ? 'none' : 'default'}
+                            align={row.isNumber ? 'right' : 'left'}
                         >
-                            {row.label}
-                        </TableSortLabel>
-                    </TableCell>
-                ))
-            }
-        </TableRow>    
+                            <TableSortLabel
+                                disabled={!row.isSort}
+                                active={ColumnSortArr === row.id ? true : false} // view icon arrow
+                                direction={ColumnSortArr === row.id ? TypeSortArr : 'asc'} // view direction arrow up or down
+                                onClick={createRequestSort(row.id)}
+                            >
+                                {row.label}
+                            </TableSortLabel>
+                        </TableCell>
+                    ))
+                }
+            </TableRow>
         </TableHead>
     )
-
 }
 
 
 function CustomizaPagination(pros) {
 
-    const {count, rowsPerPage, page, onChangePage} = pros;
+    const { count, rowsPerPage, page, onChangePage } = pros;
 
     const them = useTheme();
 
     const classes = useStyleTable();
 
     const maxPage = () => {
-        return Math.ceil(count/rowsPerPage) - 1;// tại vì page bắt đầu từ 0 nên trừ cho 1 , ceil đã làm tròn lên rồi 
+        return Math.ceil(count / rowsPerPage) - 1;// tại vì page bắt đầu từ 0 nên trừ cho 1 , ceil đã làm tròn lên rồi 
     }
 
     const handleClickFirstPage = (event) => {
@@ -123,7 +122,7 @@ function CustomizaPagination(pros) {
                 aria-label="first page"
                 onClick={handleClickFirstPage}
             >
-                {them.direction === 'ltr' ? <FirstPageIcon/> : <LastPageIcon/> }
+                {them.direction === 'ltr' ? <FirstPageIcon /> : <LastPageIcon />}
             </IconButton>
 
             <IconButton
@@ -131,7 +130,7 @@ function CustomizaPagination(pros) {
                 aria-label="previous page"
                 onClick={handleClickPreviousPage}
             >
-                {them.direction === 'ltr' ? <KeyboardArrowLeft/> : <KeyboardArrowRight/> }
+                {them.direction === 'ltr' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
             </IconButton>
 
             <IconButton
@@ -139,15 +138,15 @@ function CustomizaPagination(pros) {
                 aria-label="next page"
                 onClick={handleClickNextPage}
             >
-                {them.direction === 'ltr' ? <KeyboardArrowRight/> : <KeyboardArrowLeft/> }
+                {them.direction === 'ltr' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
             </IconButton>
 
             <IconButton
-               disabled={page === maxPage()}
+                disabled={page === maxPage()}
                 aria-label="Last page"
                 onClick={handleClickLastPage}
             >
-                {them.direction === 'ltr' ? <LastPageIcon/> : <FirstPageIcon/> }
+                {them.direction === 'ltr' ? <LastPageIcon /> : <FirstPageIcon />}
             </IconButton>
 
         </div>
@@ -157,7 +156,7 @@ function CustomizaPagination(pros) {
 
 export default function Staffserviceindextable(pros) {
 
-    const {dataFetchIsServer, changeSelectStatusHandler,handlerButtonDetailViewServices } = useContext(NavigationAppContext);
+    const { dataFetchIsServer, changeSelectStatusHandler, handlerButtonDetailViewServices } = useContext(NavigationAppContext);
 
     const [listOriginal, setlistOriginal] = useState([]);
     const [page, setpage] = useState(0);
@@ -191,23 +190,23 @@ export default function Staffserviceindextable(pros) {
         setColumnSort(column);
     }
 
-    const sortFucntionASC = (a,b) => {
-            if(a[ColumnSort] > b[ColumnSort]){
-                return 1
-            }else if(a[ColumnSort] < b[ColumnSort]){
-                return -1;
-            }
-            return 0;
+    const sortFucntionASC = (a, b) => {
+        if (a[ColumnSort] > b[ColumnSort]) {
+            return 1
+        } else if (a[ColumnSort] < b[ColumnSort]) {
+            return -1;
+        }
+        return 0;
     }
 
-    const coreSort = (a,b) => {
-        return TypeSort === 'asc' ?  sortFucntionASC(a,b) : -sortFucntionASC(a,b);
+    const coreSort = (a, b) => {
+        return TypeSort === 'asc' ? sortFucntionASC(a, b) : -sortFucntionASC(a, b);
     }
 
     const sortList = (arrays) => {
         const listCopy = arrays.map((el) => el);
-        return listCopy.sort((a,b) => {
-            return coreSort(a,b);
+        return listCopy.sort((a, b) => {
+            return coreSort(a, b);
         });
     }
 
@@ -220,9 +219,9 @@ export default function Staffserviceindextable(pros) {
                         size='small'
                         aria-label="sticky table"
                     >
-                        <HeaderTable ColumnSortArr ={ColumnSort} TypeSortArr={TypeSort} HandleSortTableArr={HandleSortTable}/>
+                        <HeaderTable ColumnSortArr={ColumnSort} TypeSortArr={TypeSort} HandleSortTableArr={HandleSortTable} />
                         <TableBody className="group--body-table-viewer-workstaff">
-                            { sortList(listOriginal).slice(rowsPerPage * page, rowsPerPage * page + rowsPerPage).map((row) => (
+                            {sortList(listOriginal).slice(rowsPerPage * page, rowsPerPage * page + rowsPerPage).map((row) => (
                                 <TableRow key={Math.random()}
                                     className={(row.status === "Off" || row.status === "Done") ? "group--body-table-viewer-workstaff-rowDisable" : ""}
                                 >
@@ -269,7 +268,7 @@ export default function Staffserviceindextable(pros) {
                 </TableContainer>
                 <TablePagination
                     component='div'
-                    rowsPerPageOptions={[5, 10, 20, 50, {value:-1, label:"All" }]}
+                    rowsPerPageOptions={[5, 10, 20, 50, { value: -1, label: "All" }]}
                     page={page}
                     count={listOriginal.length}
                     rowsPerPage={rowsPerPage}

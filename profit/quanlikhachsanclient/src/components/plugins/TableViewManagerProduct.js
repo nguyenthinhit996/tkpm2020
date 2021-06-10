@@ -28,16 +28,6 @@ const useStyles = makeStyles({
     },
 });
 
-// const useStyles = makeStyles({
-//     root: {
-//         maxWidth: 200,
-//     },
-//     media: {
-//         height: 0,
-//         paddingTop: '56.25%', // 16:9
-//     },
-// });
-
 export default function TableViewManagerProduct(pros) {
 
     const { listRowData, setlistRowData } = useContext(NavigationAppContext);
@@ -72,7 +62,6 @@ export default function TableViewManagerProduct(pros) {
         let a = 'erro';
         setmessageToast({ message: mess, variant: a })
     }
-
     // toast  enddddddddddddddd
 
     // openEdit, setopenEdit
@@ -86,22 +75,16 @@ export default function TableViewManagerProduct(pros) {
         setopenEdit({ ...openEdit, status: true, data: row });
     }
 
-
     const handlerRemoveProduct = async (row) => {
 
         row.status = "Off";
-
         console.log(row);
-
         let result = await editProduct(row);
-
         if (result) {
             exportToastSuccess("Remove  Product Success");
         } else {
             exportToastError("Not Update Product Success");
         }
-
-        
         setTimeout(() => {
             history.go(0);
         }, 1500);

@@ -17,6 +17,11 @@ import { useForm } from 'react-hook-form';
 import { changePassWithServer } from '../../core/auth';
 import { useSnackbar } from 'notistack';
 
+import { HandleGetError, HandleErrorSystem } from '../../core/handleDataFromDB'
+import { useHistory } from 'react-router-dom'
+import { OpenLoadding, OffLoadding } from '../../core/Utils'
+import Appcontext from '../../AppContext';
+
 
 const styles = (theme) => ({
     root: {
@@ -55,9 +60,10 @@ const DialogContent = withStyles((theme) => ({
 
 export default function Chooseoptionuserchangepass(props) {
 
+    const { dispatch } = useContext(Appcontext);
+    const history = useHistory();
 
     const modalTitle = "Change PassWord For User";
- 
 
     const [changePass, setchangePass] = useState('');
 
@@ -74,7 +80,6 @@ export default function Chooseoptionuserchangepass(props) {
 
     const { enqueueSnackbar } = useSnackbar();
 
-
     const handlerMessageToast = (mess, variant) => {
         // variant could be success, error, warning, info, or default
         enqueueSnackbar(mess, { variant });
@@ -82,6 +87,10 @@ export default function Chooseoptionuserchangepass(props) {
 
     const exportToastSuccess = (mess) => {
         let a = 'success';
+        setmessageToast({ message: mess, variant: a })
+    }
+    const exportToastError = (mess) => {
+        let a = 'error';
         setmessageToast({ message: mess, variant: a })
     }
     // toast enddddddddddddd
@@ -97,39 +106,27 @@ export default function Chooseoptionuserchangepass(props) {
         if (data.inpPasswordNew !== data.inpPasswordAgain) {
             const messageLogin = "Password new not similar !";
             setchangePass(messageLogin);
-        }else{
-            let message = await changePassWithServer(data.inpPasswordOld,data.inpPasswordNew);
-            if("Password old incorrect".includes(message)){
-                setchangePass(message);
-            }else{
-                exportToastSuccess(message);
-                setopenChangePass(false);
+        } else {
+            OpenLoadding(dispatch);
+            let result = await changePassWithServer(data.inpPasswordOld, data.inpPasswordNew);
+            let messError = HandleGetError(result);
+            if (messError.length !== 0) {
+                exportToastError(messError);
+                OffLoadding(dispatch);
+                HandleErrorSystem(result, history);
             }
-        }  
+            else {
+                OffLoadding(dispatch);
+                if (result) {
+                    exportToastSuccess("Ok Changepass Success");
+                    setopenChangePass(false);
+                } else {
+                    exportToastError("Error In Processing Change pass");
+                    setopenChangePass(true);
+                }
+            }
+        }
     }
-
-    // const onSubmit = async (data) => {
-    //     console.log(data);
-    //     let res = await login(data);
-    //     if (res.authenticated !== undefined && res.authenticated) {
-            
-            
-    //         if (res.role === STAFF_RECEPTION) {
-    //             history.push('/staffreception');  
-    //         }
-    //         if (res.role === STAFF_SERVICE) {
-    //             history.push('/staffservice');  
-    //         }
-    //         if (res.role === STAFF_MANAGER) {
-    //             history.push('/staffmanager');  
-    //         }
-
-    //     } else {
-    //         // alertMessage({ type: 'error', message: 'Tài khoản hoặc mật khẩu không đúng!' });
-    //         const messageLogin = "User or password incorrect !";
-    //         setloginState(messageLogin);
-    //     }
-    // }
 
     return (
         <div>
@@ -142,7 +139,7 @@ export default function Chooseoptionuserchangepass(props) {
                     <form className="chooseoptionuserchangepassForm" onSubmit={handleSubmit(onSubmit)} >
 
                         <h3 className={changePass !== "" ? "aler--error container--removespace" : "display--none"}> {changePass} </h3>
-                       
+
                         <div className="form--mod" >
                             <label > Password Old:  </label>
                             <input name="inpPasswordOld"
@@ -166,7 +163,7 @@ export default function Chooseoptionuserchangepass(props) {
                             />
                             {errors.inpPasswordAgain && < p className="container--removespace add--space-margin--left aler--error"> * required </p>}
                         </div>
-                        
+
                         <Grid className="btn--quanlikhachsan__changePass">
                             <button type="submit" className="btn--quanlikhachsan" > Change Pass </button>
                         </Grid>

@@ -18,6 +18,12 @@ import com.minahotel.sourcebackend.common.customizeexception.ExceptionAppCustomi
 import com.minahotel.sourcebackend.common.customizeexception.exception.BusinessException;
 import com.minahotel.sourcebackend.common.customizeexception.exception.JWTExceptionCustomize;
 
+/**
+ * ErrorFilterCustome is class final handle exception from application and parse exception to {@link ErrorMessage}
+ * return client Code and MessageError 
+ * @author Peter
+ *
+ */
 public class ErrorFilterCustome extends OncePerRequestFilter {
 
 	@Override
@@ -70,5 +76,4 @@ public class ErrorFilterCustome extends OncePerRequestFilter {
 			response.flushBuffer();
 		}
 	}
-
 }

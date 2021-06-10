@@ -20,7 +20,29 @@ export default function StaffReceptionViewServices(props) {
     const {dispatch} = useContext(Appcontext);
 
     const numberRoom = history.location.state.numberRoom;
+
     const idticketbooking = history.location.state.idticketbooking;
+
+    // data fetch from server
+    const [listRowData, setlistRowData] = useState([]);
+
+    useEffect( async() => {
+        OpenLoadding(dispatch);
+        let data = await detailServicesByChecking(idticketbooking);
+        let messError = HandleGetError(data);
+        if(messError.length !== 0){
+            OffLoadding(dispatch);
+            handlerMessageToast(messError,"error");
+            HandleErrorSystem(data,history);
+        }else{
+            OffLoadding(dispatch);
+            setlistRowData(data);
+        }
+    }, [])
+
+    useEffect(async () => {
+        console.log("update list to server");
+    }, [listRowData])
 
     // toast  start
     const [messageToast, setmessageToast] = useState({ message: '', variant: '' });
@@ -43,59 +65,11 @@ export default function StaffReceptionViewServices(props) {
         let a = 'success';
         setmessageToast({ message: mess, variant: a })
     }
-
     // toast  enddddddddddddddd
 
     const backViewRoomHandler = () => {
         history.goBack();
     }
-
-    // data fetch from server
-    // const rows = [{
-    //     nameProduct: "sdfsadf",
-    //     amountProduct: "3",
-    //     priceProduct: "123",
-    //     note: "This is note",
-    //     sumPrice: "123000",
-    //     statusService: "Prepare"
-    // },
-    // {
-    //     nameProduct: "sdfsadf 1",
-    //     amountProduct: "2",
-    //     priceProduct: "123",
-    //     note: "This is note",
-    //     sumPrice: "123000",
-    //     statusService: "Prepare"
-    // },
-    // {
-    //     nameProduct: "sdfsadf 2",
-    //     amountProduct: "1",
-    //     priceProduct: "123",
-    //     note: "This is note",
-    //     sumPrice: "123000",
-    //     statusService: "Done"
-    // }
-    // ];
-
-    const [listRowData, setlistRowData] = useState([]);
-
-    useEffect( async() => {
-        OpenLoadding(dispatch);
-        let data = await detailServicesByChecking(idticketbooking);
-        let messError = HandleGetError(data);
-        if(messError.length !== 0){
-            OffLoadding(dispatch);
-            handlerMessageToast(messError,"error");
-            HandleErrorSystem(data,history);
-        }else{
-            OffLoadding(dispatch);
-            setlistRowData(data);
-        }
-    }, [])
-
-    useEffect(async () => {
-        console.log("update list to server");
-    }, [listRowData])
 
     return (
 

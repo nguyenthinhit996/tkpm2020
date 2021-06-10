@@ -44,7 +44,6 @@ export default function Managerstaffindex(props) {
 
     const [data, setdata] = useState([])
     const [viewChart, setviewChart] = useState(false)
-
     useEffect(async () => {
         await getRevenue().then(value => {
             setdata(value);

@@ -39,7 +39,6 @@ export default function StaffManagementSalary(props) {
                 <button onClick={handlerDailyWorkingButton} className="btn--quanlikhachsan btn--quanlikhachsan__green__Salary" > Daily Working </button>
             </div>
             <div className="StaffManagementSalaryBody">
-
                 <form className="StaffManagementSalaryBodyFrom"  >
                     <h2>Checking and Calculator Salary of Staff </h2>
                     <div className="form--mod--dailyWorking" >

@@ -17,7 +17,6 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 
 
-
 const styles = (theme) => ({
     root: {
         margin: 0,
@@ -66,14 +65,8 @@ export default function Chooseoptionuserlogout(props) {
     };
 
     const btnLogoutHandler = () => {
-        //alert("Logouted");
-        // localStorage.onlineAcademy_accessToken = data.accessToken;
-        // localStorage.onlineAcademy_refreshToken = data.refreshToken;
-        // localStorage.onlineAcademy_authenticated = data.authenticated;
-        // localStorage.onlineAcademy_role = data.role;
-        // localStorage.onlineAcademy_userName = data.username;
         localStorage.clear();
-        console.log("localStorage.onlineAcademy_userName "+ localStorage.quanlikhachsan_iduser);
+        console.log("localStorage.onlineAcademy_userName " + localStorage.quanlikhachsan_iduser);
         history.push("/");
     }
 
@@ -91,7 +84,6 @@ export default function Chooseoptionuserlogout(props) {
                         <Grid>
                             <button onClick={btnLogoutHandler} className="btn--quanlikhachsan btn--quanlikhachsan__logout" > OK </button>
                         </Grid>
-
                     </div>
                 </DialogContent>
             </Dialog>

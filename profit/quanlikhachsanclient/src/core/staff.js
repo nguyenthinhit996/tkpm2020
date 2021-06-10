@@ -23,7 +23,6 @@ export const getAllStaff = async (idticket) => {
     }
   }
 
-
   export const editStaff = async (value) => {
     try {
       let { data } = await axiosInstance.put('/staff', value);
@@ -45,4 +44,3 @@ export const getAllStaff = async (idticket) => {
       return error.response;
     }
   }
-  
