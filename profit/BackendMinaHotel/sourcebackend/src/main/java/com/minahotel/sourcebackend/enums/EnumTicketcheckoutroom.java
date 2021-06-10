@@ -1,5 +1,10 @@
 package com.minahotel.sourcebackend.enums;
 
+/**
+ * EnumTicketcheckoutroom is enum of table Ticketcheckoutroom
+ * @author Peter
+ *
+ */
 public enum EnumTicketcheckoutroom {
 
 	

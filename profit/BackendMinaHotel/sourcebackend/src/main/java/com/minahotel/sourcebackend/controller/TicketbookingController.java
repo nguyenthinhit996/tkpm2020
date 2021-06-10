@@ -18,6 +18,11 @@ import com.minahotel.sourcebackend.entities.TicketBookingEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.services.TicketbookingRepositoryServices;
 
+/**
+ * TicketbookingController is class @RestController working on Entity {@link TicketBookingEntity} 
+ * @author Peter
+ *
+ */
 @RestController
 public class TicketbookingController {
 

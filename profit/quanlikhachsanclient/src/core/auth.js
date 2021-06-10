@@ -5,7 +5,6 @@ import { HeaderAccessToken } from './header';
 
 
 export const login = async (value) => {
-
   console.log(value);
   let loginPojo = {
     iduser: value.UserName,
@@ -29,24 +28,10 @@ export const login = async (value) => {
     return res.data;
   }).catch(function (error) {
     console.log(error);
-    // let dataError;
-    // if (error.response.data.code_error === ES_001) {
-    //   dataError = {
-    //     authenticated: false
-    //     , messerror: ""
-    //   }
-
-    // } else {
-    //   dataError = {
-    //     authenticated: false
-    //     , messerror: error.response.data.content_error
-    //   }
-    // }
     return error.response;
   });
   return data;
 }
-
 
 export const getInfoUser = async () => {
   try {
@@ -59,7 +44,6 @@ export const getInfoUser = async () => {
   }
 }
 
-
 export const changePassWithServer = async (passOld, passNew) => {
   try {
     let idstaff = localStorage.quanlikhachsan_iduser
@@ -68,8 +52,7 @@ export const changePassWithServer = async (passOld, passNew) => {
       passwordOld: passOld,
       passwordNew: passNew,
     }
-
-    let { data } = await axiosInstance.post('/changepass', { headers: HeaderAccessToken(), data: changePass });
+    let { data } = await axiosInstance.post('/changepass',changePass ,{ headers: HeaderAccessToken()});
     console.log(data);
     return data;
   } catch (error) {

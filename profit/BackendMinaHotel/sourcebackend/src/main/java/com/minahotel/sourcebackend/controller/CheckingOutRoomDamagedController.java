@@ -16,6 +16,12 @@ import com.minahotel.sourcebackend.entities.CheckingOutRoomDamagedEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.services.CheckingOutRoomDamagedRepositoryServices;
 
+
+/**
+ * CheckingOutRoomDamagedController is class @RestController working on Entity {@link CheckingOutRoomDamagedEntity} 
+ * @author Peter
+ *
+ */
 @RestController
 public class CheckingOutRoomDamagedController {
 

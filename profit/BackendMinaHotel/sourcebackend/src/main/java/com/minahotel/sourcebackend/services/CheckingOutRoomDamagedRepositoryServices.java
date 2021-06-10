@@ -12,11 +12,14 @@ import com.minahotel.sourcebackend.common.customizeexception.exception.BusinessE
 import com.minahotel.sourcebackend.common.customizeexception.exception.CRUDExceptionCustomize;
 import com.minahotel.sourcebackend.common.customizeexception.exception.NotFoundItemException;
 import com.minahotel.sourcebackend.entities.CheckingOutRoomDamagedEntity;
-import com.minahotel.sourcebackend.entities.TypeOfRoomEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.repository.CheckingOutRoomDamagedRepository;
-import com.minahotel.sourcebackend.repository.TypeofroomRepository;
  
+/**
+ * CheckingOutRoomDamagedRepositoryServices is class to hanle logic belong check damaged of room
+ * @author Peter
+ *
+ */
 @Service
 public class CheckingOutRoomDamagedRepositoryServices implements MinaHotelServices{
 
@@ -93,6 +96,5 @@ public class CheckingOutRoomDamagedRepositoryServices implements MinaHotelServic
 			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_004);
 		}
 		return false;
-
 	}
 }

@@ -80,8 +80,6 @@ export default function DialogEditProduct(props) {
     // toast  start
     const [messageToast, setmessageToast] = useState({ message: '', variant: '' });
 
-    
-
     useEffect(() => {
         if (messageToast.message.length !== 0) {
             handlerMessageToast(messageToast.message, messageToast.variant);
@@ -89,7 +87,6 @@ export default function DialogEditProduct(props) {
     }, [messageToast])
 
     const { enqueueSnackbar } = useSnackbar();
-
 
     const handlerMessageToast = (mess, variant) => {
         // variant could be success, error, warning, info, or default
@@ -116,9 +113,7 @@ export default function DialogEditProduct(props) {
         history.go(0);
     };
 
-    
     // firebase start
-
     const [file, setFile] = useState(null);
 
     function handleChangeFile(e) {

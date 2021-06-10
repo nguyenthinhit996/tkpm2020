@@ -1,10 +1,13 @@
 package com.minahotel.sourcebackend.pojo;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 
-
+/**
+ * Revenue is object json communication client and server
+ * @author Peter
+ *
+ */
 public class Revenue extends MinaHoTelPojo{
 	
 	private String iddatework;

@@ -26,13 +26,17 @@ import com.minahotel.sourcebackend.entities.TicketCheckOutRoomEntity;
 import com.minahotel.sourcebackend.entities.TypeOfRoomEntity;
 import com.minahotel.sourcebackend.enums.EnumCommon;
 import com.minahotel.sourcebackend.enums.EnumDetailservicesStatus;
-import com.minahotel.sourcebackend.enums.EnumTicketcheckoutroom;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.pojo.TicketcheckoutroomFontEnd;
 import com.minahotel.sourcebackend.repository.CheckingOutRoomDamagedRepository;
 import com.minahotel.sourcebackend.repository.TicketbookingRepository;
 import com.minahotel.sourcebackend.repository.TicketcheckoutroomRepository;
 
+/**
+ * TicketcheckoutroomRepositoryServices is class to handle logic Ticketcheckoutroom room .
+ * @author Peter
+ *
+ */
 @Service
 public class TicketcheckoutroomRepositoryServices implements MinaHotelServices {
 
@@ -142,7 +146,6 @@ public class TicketcheckoutroomRepositoryServices implements MinaHotelServices {
 			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_004);
 		}
 		return false;
-
 	}
 
 	public TicketcheckoutroomFontEnd getObjectTicketcheckoutroomFontEnd(final String idTicketChecking,
@@ -219,8 +222,7 @@ public class TicketcheckoutroomRepositoryServices implements MinaHotelServices {
 					objectTicketCheckOutFontEnd.setListDamaged(checkingOutRoomDamagedEntity.getListProductDamaded());																	// off
 				} else {
 					objectTicketCheckOutFontEnd.setRoomDamaged(BigDecimal.ZERO);
-					objectTicketCheckOutFontEnd.setStatus(EnumDetailservicesStatus.SHIPPING.getName()); // checking
-																										// clean off
+					objectTicketCheckOutFontEnd.setStatus(EnumDetailservicesStatus.SHIPPING.getName()); // checking																									// clean off
 				}
 			} else {
 				// create Dameged
@@ -245,7 +247,6 @@ public class TicketcheckoutroomRepositoryServices implements MinaHotelServices {
 			// throw error
 			throw new NotFoundItemException(CodeErrorException.EN_001);
 		}
-
 		return objectTicketCheckOutFontEnd;
 	}
 

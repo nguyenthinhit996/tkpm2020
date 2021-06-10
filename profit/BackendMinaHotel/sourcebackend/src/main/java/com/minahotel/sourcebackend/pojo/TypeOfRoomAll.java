@@ -1,5 +1,10 @@
 package com.minahotel.sourcebackend.pojo;
 
+/**
+ * TypeOfRoomAll is object json communication client and server
+ * @author Peter
+ *
+ */
 public class TypeOfRoomAll {
 
 	private String doubleNumberInRoom;

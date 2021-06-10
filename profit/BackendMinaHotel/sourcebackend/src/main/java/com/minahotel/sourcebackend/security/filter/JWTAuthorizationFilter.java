@@ -34,20 +34,40 @@ import com.minahotel.sourcebackend.common.logs.Message;
 import com.minahotel.sourcebackend.security.JwtUtilsCustomize;
 import com.minahotel.sourcebackend.security.SecurityConstants;
 
+/**
+ * JWTAuthorizationFilter is class authentication on per request (access resource, refreshToken, ...)
+ * except path (SecurityConstants.LOG_IN_URL) only handle in JWTAuthenticationFilter
+ * @author Peter
+ *
+ */
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 	
 	private static Logger LOG = LoggerFactory.getLogger(JWTAuthorizationFilter.class);
 
+	/**
+	 * Constructor JWTAuthorizationFilter is used by secutity config WebSecurity.java
+	 * @param authManager
+	 */
 	public JWTAuthorizationFilter(AuthenticationManager authManager) {
 		super(authManager);
 	}
 
+	
+	/**
+	 * Do filter every request to server catch check accesstoken if use want access resouce or
+	 * check refresh token if use want refresh new accesstoke because access token expired .
+	 * if request not contain token in header, the processing send request to next filter, finally it is caught in ExceptionTranslationFilter.class .
+	 * in ExceptionTranslationFilter class i customized Http403ForbiddenEntryPointCustom and CustomizeAccessDenieHandle to only set response.setStatus(HttpStatus.FORBIDDEN.value())
+	 * that foribiden is handle in {@link ErrorFilterCustome}
+	 * @param HttpServletRequest req
+	 * @param HttpServletResponse res
+	 * @param FilterChain chain
+ 	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 
 		LOG.info(MessCodeUtils.TransferMessCode(Message.IN_001, JWTAuthorizationFilter.class.getName()));
-
 		String header = req.getHeader(SecurityConstants.HEADER_STRING);
 		// khong co thi cho filter security ở sau chặn lại
 		if (header == null || !header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
@@ -55,7 +75,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 			chain.doFilter(req, res);
 			return;
 		}
-
 		// 1 refresh token
 		if (SecurityConstants.REFRESH_TOKEN_URL.equals(req.getServletPath())) {
 			LOG.info(MessCodeUtils.TransferMessCode(Message.IN_001, SecurityConstants.REFRESH_TOKEN_URL));
@@ -72,13 +91,16 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		}
 	}
 
-	// Reads the JWT from the Authorization header, and then uses JWT to validate
-	// the token
-	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 
+	/**
+	 * Reads the JWT from the Authorization header, and then uses JWT to validate. 
+	 * To verify token and get claims to set UsernamePasswordAuthenticationToken for authentication Manager
+	 * @param request
+	 * @return UsernamePasswordAuthenticationToken
+	 */
+	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 		String token = request.getHeader(SecurityConstants.HEADER_STRING);
 		Map<String, Claim> mapClaim = null;
-		
 		try {
 			// parse the token.
 			mapClaim = JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes())).build()
@@ -90,7 +112,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		} catch (Exception e) {
 			throw new JWTExceptionCustomize(e);
 		}
-
 		if (mapClaim != null && !mapClaim.isEmpty()) {
 			Claim sub = mapClaim.get(DefinationCommon.SUBJECT);
 			Claim role = mapClaim.get(DefinationCommon.ROLE);
@@ -101,6 +122,14 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		return null;
 	}
 
+	
+	/**
+	 * To handle refresh token that is use provider new accesstoken if acesstoken expired
+	 * Write new access token into body response and return client
+	 * @param req
+	 * @param res
+	 * @throws IOException
+	 */
 	public void processRefreshToken(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
 		String token = req.getHeader(SecurityConstants.HEADER_STRING);

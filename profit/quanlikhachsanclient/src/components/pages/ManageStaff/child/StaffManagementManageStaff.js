@@ -26,8 +26,6 @@ export default function StaffManagementManageStaff(props) {
         })
     }, [])
 
-
-
     const handlerDailyWorkingButton = () => {
         history.push({
             pathname: '/admin/staffmanagementdailyworking'
@@ -47,7 +45,6 @@ export default function StaffManagementManageStaff(props) {
     const handlerEditStaffButton = (data) => {
         setstaffState({ ...staffState, openDialogStaff: true, isAction: "Edit", data: data, modalTitle: "Edit Staff" });
     }
-
 
     return (
         <div className="StaffManagementManageStaff">

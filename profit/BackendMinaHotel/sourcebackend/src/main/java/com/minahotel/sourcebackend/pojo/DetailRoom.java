@@ -2,6 +2,11 @@ package com.minahotel.sourcebackend.pojo;
 
 import java.time.LocalDateTime;
 
+/**
+ * DetailRoom is object json communication client and server
+ * @author Peter
+ *
+ */
 public class DetailRoom extends MinaHoTelPojo{
 
 	 private Boolean isEmpty;

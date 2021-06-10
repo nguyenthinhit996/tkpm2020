@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 import com.minahotel.sourcebackend.entities.StaffEntity;
 import com.minahotel.sourcebackend.repository.customizeinterface.StaffRepositoryCustom;
 
+/**
+ * StaffRepository is interface to action CrudRepository with Entity 
+ * @author Peter
+ *
+ */
 @Repository
 public interface StaffRepository extends CrudRepository<StaffEntity, Long>, StaffRepositoryCustom{
 

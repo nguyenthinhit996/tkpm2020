@@ -12,13 +12,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
+/**
+ * CustomizeAccessDenieHandle is class handle if Forbiden access with roles in security config, ex role user forbiden access role admin
+ * @author Peter
+ *
+ */
 public class CustomizeAccessDenieHandle implements AccessDeniedHandler {
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
-		 Authentication auth 
-         = SecurityContextHolder.getContext().getAuthentication();
+	
+	   Authentication auth = SecurityContextHolder.getContext().getAuthentication();
        if (auth != null) {
            System.out.println("Use CustomizeAccessDenieHandle");
            response.setStatus(HttpStatus.FORBIDDEN.value());

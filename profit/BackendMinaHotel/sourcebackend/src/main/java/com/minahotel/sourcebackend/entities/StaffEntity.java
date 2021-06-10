@@ -15,11 +15,19 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 
+/**
+ * StaffEntity is mapping with table staff in Database
+ * @author Peter
+ *
+ */
 @Entity
 @Table(name = "staff")
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idStaff")
 public class StaffEntity extends MinaHoTelPojo {
 
+	/**
+	 * idstaff is primary key column in Database
+	 */
 	@Id
 	@Column(name = "idstaff")
 	private String idStaff;
@@ -76,7 +84,6 @@ public class StaffEntity extends MinaHoTelPojo {
 	@OneToMany(mappedBy = "staffCheckoutRoom", targetEntity = TicketCheckOutRoomEntity.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	List<TicketCheckOutRoomEntity> dsRoomCheckout;
 
-	
 	
 	/**
 	 * @return the idStaff
@@ -345,7 +352,4 @@ public class StaffEntity extends MinaHoTelPojo {
 				+ ", roleOfStaff=" + roleOfStaff + ", dateStartWork=" + dateStartWork + ", salaryStaffByMonth="
 				+ salaryStaffByMonth + ", bonussalary=" + bonussalary + ", status=" + status + "]";
 	}
-
-	
-	
 }

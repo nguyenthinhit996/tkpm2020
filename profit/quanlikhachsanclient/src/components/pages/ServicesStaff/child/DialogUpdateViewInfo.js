@@ -8,8 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import React, { useContext, useEffect, useState } from 'react'
-import '../../layout/Body.css'
-import NavigationAppContext  from '../../../stores/NavigationAppContext'
+import NavigationAppContext  from '../../../../stores/NavigationAppContext'
 
 
 

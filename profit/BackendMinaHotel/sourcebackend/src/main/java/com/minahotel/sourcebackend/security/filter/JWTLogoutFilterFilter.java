@@ -1,21 +1,27 @@
 package com.minahotel.sourcebackend.security.filter;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 
 import com.minahotel.sourcebackend.security.SecurityConstants;
 
+/**
+ * To handle logout if user access {@linkplain SecurityConstants.LOG_OUT_URL}
+ * To action two things. the first LogoutHandler wil set null for SecurityContextHolder.getContext().setAuthentication(null).
+ * the second to if LogoutHandler success it return {@link SecurityConstants.LOG_IN_URL}
+ * @author Peter
+ *
+ */
 public class JWTLogoutFilterFilter extends LogoutFilter {
 
+	/**
+	 * Constructor JWTLogoutFilterFilter use LogoutSuccessHandler and LogoutHandler to handle logout
+	 * @param logoutSuccessHandler
+	 * @param handlers
+	 */
 	public JWTLogoutFilterFilter(LogoutSuccessHandler logoutSuccessHandler, LogoutHandler[] handlers) {
 		super(logoutSuccessHandler, handlers);
 		setFilterProcessesUrl(SecurityConstants.LOG_OUT_URL);
 	}
-	
-	
 }

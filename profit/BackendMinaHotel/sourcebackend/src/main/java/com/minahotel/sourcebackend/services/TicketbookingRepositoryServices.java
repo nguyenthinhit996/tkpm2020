@@ -23,6 +23,11 @@ import com.minahotel.sourcebackend.entities.TicketBookingEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.repository.TicketbookingRepository;
 
+/**
+ * TicketbookingRepositoryServices is class to handle logic Ticketbooking room. 
+ * @author Peter
+ *
+ */
 @Service
 public class TicketbookingRepositoryServices implements MinaHotelServices{
 
@@ -41,6 +46,7 @@ public class TicketbookingRepositoryServices implements MinaHotelServices{
 		if(dsAll.size() == 0 ) {
 			throw new NotFoundItemException(CodeErrorException.EN_001);
 		}
+		LOG.info("All");
 		return dsAll;
 	}
 
@@ -111,7 +117,5 @@ public class TicketbookingRepositoryServices implements MinaHotelServices{
 			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_004);
 		}
 		return false;
-
 	}
-
 }

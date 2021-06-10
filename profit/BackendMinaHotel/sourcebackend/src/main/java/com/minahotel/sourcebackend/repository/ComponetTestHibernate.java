@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 
 import com.minahotel.sourcebackend.entities.StaffEntity;
 
+
 @Repository
 public class ComponetTestHibernate {
 

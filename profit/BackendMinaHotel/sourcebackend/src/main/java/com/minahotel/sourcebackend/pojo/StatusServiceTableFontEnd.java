@@ -1,5 +1,10 @@
 package com.minahotel.sourcebackend.pojo;
 
+/**
+ * StatusServiceTableFontEnd is object json communication client and server
+ * @author Peter
+ *
+ */
 public class StatusServiceTableFontEnd {
 	private String idstaff;
 	private String username;

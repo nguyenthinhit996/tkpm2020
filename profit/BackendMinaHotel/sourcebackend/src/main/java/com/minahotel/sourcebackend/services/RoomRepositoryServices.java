@@ -3,7 +3,6 @@ package com.minahotel.sourcebackend.services;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +14,6 @@ import com.minahotel.sourcebackend.common.customizeexception.CodeErrorException;
 import com.minahotel.sourcebackend.common.customizeexception.exception.BusinessException;
 import com.minahotel.sourcebackend.common.customizeexception.exception.CRUDExceptionCustomize;
 import com.minahotel.sourcebackend.common.customizeexception.exception.NotFoundItemException;
-import com.minahotel.sourcebackend.entities.DetailsServicesEntity;
 import com.minahotel.sourcebackend.entities.RoomEntity;
 import com.minahotel.sourcebackend.entities.TicketBookingEntity;
 import com.minahotel.sourcebackend.entities.TicketCheckOutRoomEntity;
@@ -25,6 +23,11 @@ import com.minahotel.sourcebackend.repository.RoomRepository;
 import com.minahotel.sourcebackend.repository.TicketbookingRepository;
 import com.minahotel.sourcebackend.repository.TicketcheckoutroomRepository;
 
+/**
+ * RoomRepositoryServices is class to handle logic belong to Room ex CRUD room, checking room
+ * @author Peter
+ *
+ */
 @Service
 public class RoomRepositoryServices implements MinaHotelServices {
 
@@ -119,9 +122,7 @@ public class RoomRepositoryServices implements MinaHotelServices {
 					.finAllTicketCheckoutStatusClean();
 
 			lsAllRoom.forEach(room -> {
-
 				DetailRoom detailRoom = new DetailRoom();
-
 				Optional<TicketBookingEntity> roomChecking = allTickStatusOn.stream().filter(ticketBooking -> {
 					return ticketBooking.getRoomRent().getIdRoom() == room.getIdRoom();
 				}).findFirst();
@@ -173,13 +174,11 @@ public class RoomRepositoryServices implements MinaHotelServices {
 						detailRoom.setTypeRoom(room.getTypeOfRoom().getIdNameTypeOfRoom());
 					}
 				}
-
 				resultReturnList.add(detailRoom);
 			});
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
-		
 		return resultReturnList;
 	}
 }

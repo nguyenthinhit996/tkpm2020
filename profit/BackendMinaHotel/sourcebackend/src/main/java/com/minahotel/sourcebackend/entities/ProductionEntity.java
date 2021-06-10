@@ -14,11 +14,19 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 
+/**
+ * ProductionEntity is mapping with table production in Database
+ * @author Peter
+ *
+ */
 @Entity
 @Table(name = "production")
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idProduct")
 public class ProductionEntity extends MinaHoTelPojo {
 
+	/**
+	 * idproduction is primary key column in Database
+	 */
 	@Id
 	@Column(name = "idproduction", length = 50)
 	private String idProduct;
@@ -222,7 +230,4 @@ public class ProductionEntity extends MinaHoTelPojo {
 	public ProductionEntity() {
 		super();
 	}
-
-	 
-
 }

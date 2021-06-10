@@ -50,7 +50,6 @@ export default function TableViewCheckingDaily(pros) {
         let a = 'success';
         setmessageToast({ message: mess, variant: a })
     }
-
     // toast  enddddddddddddddd
 
     const handlerEditButton = (row) => {

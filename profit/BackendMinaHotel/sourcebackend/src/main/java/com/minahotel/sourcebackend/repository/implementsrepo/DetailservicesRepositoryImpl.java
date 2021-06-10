@@ -11,6 +11,11 @@ import javax.persistence.criteria.Root;
 import com.minahotel.sourcebackend.entities.DetailsServicesEntity;
 import com.minahotel.sourcebackend.repository.customizeinterface.DetailservicesRepositoryCustom;
 
+/**
+ * DetailservicesRepositoryImpl is class implements method from interface repository custom 
+ * @author Peter
+ *
+ */
 public class DetailservicesRepositoryImpl implements DetailservicesRepositoryCustom{
 
 	@PersistenceContext

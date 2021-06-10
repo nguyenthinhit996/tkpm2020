@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * MinaHoTelPojo is object json communication client and server
+ * @author Peter
+ *
+ */
 public class MinaHoTelPojo {
 
 	private Object[] idHashCode;

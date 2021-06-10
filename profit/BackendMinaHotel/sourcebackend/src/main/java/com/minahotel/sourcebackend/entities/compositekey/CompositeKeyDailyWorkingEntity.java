@@ -6,17 +6,24 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/**
+ * CompositeKeyDailyWorkingEntity is class @Embeddable id key into entity DailyWorkingEntity
+ * @author Peter
+ */
 @Embeddable
 public class CompositeKeyDailyWorkingEntity implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7326507640168973180L;
 
+	/**
+	 * idtoday is primary key column in Database
+	 */
 	@Column(name = "idtoday")
 	private LocalDate idToDay;
 	
+	/**
+	 * idstaffwork is primary key column in Database
+	 */
 	@Column(name="idstaffwork", length = 50)
 	private String idStaffWork;
 
@@ -94,5 +101,4 @@ public class CompositeKeyDailyWorkingEntity implements Serializable{
 	public CompositeKeyDailyWorkingEntity() {
 		super();
 	}
-	
 }

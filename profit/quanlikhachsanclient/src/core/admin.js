@@ -13,7 +13,6 @@ export const getTypeOfRoom = async () => {
   }
 }
 
-
 export const updateTypeOfRoom = async (dataSendTo) => {
   try {
     let { data } = await axiosInstance.put('/Typeofroom', { headers: HeaderAccessToken(),data: dataSendTo });

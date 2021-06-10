@@ -9,6 +9,11 @@ import com.minahotel.sourcebackend.repository.customizeinterface.RoomRepositoryC
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * RoomRepository is interface to action CrudRepository with Entity 
+ * @author Peter
+ *
+ */
 @Repository
 public interface RoomRepository extends CrudRepository<RoomEntity, Long>, RoomRepositoryCustom {
 

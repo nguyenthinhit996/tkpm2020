@@ -6,7 +6,6 @@ export const HeaderAccessToken = () => {
     return headers;
 }
 
-
 export const HeaderRefreshToken = () => {
     var headers = 
         {'Content-type': 'application/json; charset=utf-8'

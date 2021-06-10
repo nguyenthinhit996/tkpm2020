@@ -1,5 +1,10 @@
 package com.minahotel.sourcebackend.pojo;
 
+/**
+ * ChangePassPojo is object json communication client and server
+ * @author Peter
+ *
+ */
 public class ChangePassPojo {
 
 	private String idStaff;
@@ -32,5 +37,4 @@ public class ChangePassPojo {
 	public ChangePassPojo() {
 		super();
 	}
-	
 }

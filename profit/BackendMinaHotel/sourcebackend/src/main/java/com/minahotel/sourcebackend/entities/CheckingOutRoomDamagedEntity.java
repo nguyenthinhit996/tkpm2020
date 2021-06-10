@@ -15,11 +15,19 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 
+/**
+ * CheckingOutRoomDamagedEntity is mapping with table CheckingOutRoomDamaged in Database
+ * @author Peter
+ *
+ */
 @Entity
 @Table(name = "checkingoutroomdamaged")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idCheckoutRoomDamaged")
 public class CheckingOutRoomDamagedEntity extends MinaHoTelPojo {
 
+	/**
+	 * idcheckingoutroomdamaded is primary key column in Database
+	 */
 	@Id
 	@Column(name = "idcheckingoutroomdamaded", length = 50)
 	private String idCheckoutRoomDamaged;
@@ -207,6 +215,5 @@ public class CheckingOutRoomDamagedEntity extends MinaHoTelPojo {
 
 	public CheckingOutRoomDamagedEntity() {
 		super();
-	}
-	
+	}	
 }

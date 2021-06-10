@@ -7,9 +7,9 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { login } from '../../core/auth';
 import { STAFF_RECEPTION, STAFF_SERVICE, STAFF_MANAGER, STAFF_MANAGER_ADMIN } from '../../constants/ConstApp';
 import { useSnackbar } from 'notistack';
-import {LOGIN_SUCCESS} from '../../constants/ConstApp'
+import { LOGIN_SUCCESS } from '../../constants/ConstApp'
 import Appcontext from '../../AppContext';
-import {OpenLoadding, OffLoadding } from '../../core/Utils'
+import { OpenLoadding, OffLoadding } from '../../core/Utils'
 import { HandleGetError, HandleErrorSystem } from '../../core/handleDataFromDB'
 
 
@@ -28,11 +28,12 @@ export default function Login(props) {
 
     const [loginState, setloginState] = useState('');
 
-    const {dispatch} = useContext(Appcontext);
+    const { dispatch } = useContext(Appcontext);
 
     const location = useLocation();
+
     const history = useHistory();
- 
+
     const classes = useStyles();
 
     // toast  start
@@ -45,7 +46,6 @@ export default function Login(props) {
     }, [messageToast])
 
     const { enqueueSnackbar } = useSnackbar();
-
 
     const handlerMessageToast = (mess, variant) => {
         // variant could be success, error, warning, info, or default
@@ -71,12 +71,11 @@ export default function Login(props) {
         let a = 'Warning';
         setmessageToast({ message: mess, variant: a })
     }
-
     // toast  enddddddddddddddd
 
     const { register, handleSubmit, watch, errors } = useForm();
 
-    const {from} = location.state || {from : {pathname:"/"}};
+    const { from } = location.state || { from: { pathname: "/" } };
 
     const onSubmit = async (dataSendToDB) => {
         console.log(dataSendToDB);
@@ -84,34 +83,33 @@ export default function Login(props) {
         let data = await login(dataSendToDB);
         let messError = HandleGetError(data);
         if (messError.length !== 0) {
-           OffLoadding(dispatch);
-           //exportToastError(messError);
-           const messageLogin = "User or password incorrect !";
-           setloginState(messageLogin);
-           HandleErrorSystem(data, history);
-       } else {
-        if (data.authenticated !== undefined && data.authenticated) {
-            dispatch({
-                type: LOGIN_SUCCESS,
-                payload: {
-                    role: data.role,
-                    isLogged: data.authenticated
+            OffLoadding(dispatch);
+            //exportToastError(messError);
+            const messageLogin = "User or password incorrect !";
+            setloginState(messageLogin);
+            HandleErrorSystem(data, history);
+        } else {
+            OffLoadding(dispatch);
+            if (data.authenticated !== undefined && data.authenticated) {
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: {
+                        role: data.role,
+                        isLogged: data.authenticated
+                    }
+                })
+
+                if (data.role === STAFF_RECEPTION) {
+                    history.push('/rect/staffreception');
                 }
-            })
-
-
-            if (data.role === STAFF_RECEPTION) {
-                history.push('/rect/staffreception');
-            }
-            if (data.role === STAFF_SERVICE) {
-                history.push('/staffservice');
-            }
-            if (data.role === STAFF_MANAGER || data.role === STAFF_MANAGER_ADMIN) {
-                history.push('/admin/staffmanager');
+                if (data.role === STAFF_SERVICE) {
+                    history.push('/sv/staffservice');
+                }
+                if (data.role === STAFF_MANAGER || data.role === STAFF_MANAGER_ADMIN) {
+                    history.push('/admin/staffmanager');
+                }
             }
         }
-       }
-    OffLoadding(dispatch);
     }
 
     const forgetPassWordHandler = () => {
@@ -155,9 +153,7 @@ export default function Login(props) {
                                 <Grid>
                                     <button type="submit" className="btn--quanlikhachsan btn--quanlikhachsan__green__login" > Login </button>
                                 </Grid>
-
                             </form >
-
                         </div>
                     </ Grid >
                 </Grid>

@@ -26,7 +26,7 @@ export const getHomePage = () => {
         return '/admin/staffmanager';
     }
     if(role === STAFF_SERVICE){
-        return '/staffservice';
+        return '/sv/staffservice';
     }
 }
 

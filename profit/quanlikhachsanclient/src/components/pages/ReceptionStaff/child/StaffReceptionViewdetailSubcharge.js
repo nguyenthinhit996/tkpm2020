@@ -51,11 +51,7 @@ export default function Staffreceptionviewdetailsubcharge({numberInRoom,rateSubC
 
     const modelTitle = "Room subCharge In Room "+ numberRoom;
 
-    // const value = {
-    //     numberInRoom: '5',
-    //     rateSubCharge: '50.000',
-    //     toTalCharge:'5 x 50.000'
-    // }
+    const {openViewInforSubCharge, setopenViewInforSubCharge} = useContext(NavigationAppContext);
 
     var total="";
 
@@ -64,8 +60,6 @@ export default function Staffreceptionviewdetailsubcharge({numberInRoom,rateSubC
     }else{
         total="Not subCharge "
     }
-
-    const {openViewInforSubCharge, setopenViewInforSubCharge} = useContext(NavigationAppContext);
 
     const handleClose = () => {
         setopenViewInforSubCharge(false);

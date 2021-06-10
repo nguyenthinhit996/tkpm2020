@@ -1,5 +1,10 @@
 package com.minahotel.sourcebackend.enums;
 
+/**
+ * EnumProduction is enum of table Production
+ * @author Peter
+ *
+ */
 public enum EnumProduction {
 
 	IDPRODUCTION("idproduction"),

@@ -1,5 +1,10 @@
 package com.minahotel.sourcebackend.enums;
 
+/**
+ * EnumCommon is EnumCommon
+ * @author Peter
+ *
+ */
 public enum EnumCommon {
 
 	ON("On"),

@@ -1,5 +1,10 @@
 package com.minahotel.sourcebackend.security;
 
+/**
+ * SecurityConstants is class contain constants belong security config
+ * @author Peter
+ *
+ */
 public class SecurityConstants {
 
 	public static final String SECRET = "SECRET_KEY";
@@ -17,4 +22,5 @@ public class SecurityConstants {
 	public static final String REFRESH_TOKEN_URL = "/token";
 	public static final String ACCESS_TOKEN = "accessToken";
 	public static final String REFERSH_TOKEN = "refreshToken";
+	
 }

@@ -7,17 +7,16 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import React, { useContext, useEffect, useState, } from 'react'
 import { Grid } from '@material-ui/core';
-import '../../layout/Body.css'
-import NavigationAppContext from '../../../stores/NavigationAppContext'
+import NavigationAppContext from '../../../../stores/NavigationAppContext'
 import { useForm } from 'react-hook-form';
 import './DialogUpdateDamaged.css'
 import { useSnackbar } from 'notistack';
-import { updateDamagedListOfRoom } from '../../../core/workstaff';
+import { updateDamagedListOfRoom } from '../../../../core/workstaff';
 
 // handle error and set loading process
-import { HandleGetError, HandleErrorSystem } from '../../../core/handleDataFromDB'
-import {OpenLoadding, OffLoadding} from '../../../core/Utils'
-import Appcontext from '../../../AppContext';
+import { HandleGetError, HandleErrorSystem } from '../../../../core/handleDataFromDB'
+import { OpenLoadding, OffLoadding } from '../../../../core/Utils'
+import Appcontext from '../../../../AppContext';
 import { useHistory } from 'react-router-dom';
 
 
@@ -58,13 +57,13 @@ const DialogContent = withStyles((theme) => ({
 
 export default function DialogUpdateDamaged(pros) {
 
-    const {dispatch} = useContext(Appcontext);
+    const { dispatch } = useContext(Appcontext);
 
-    const {history} = useHistory();
+    const { history } = useHistory();
 
     const { stateInforDialog, setstateInforDialog } = useContext(NavigationAppContext);
 
-    const modalTitle = "Update Damged of room "+ stateInforDialog.numberroom;
+    const modalTitle = "Update Damged of room " + stateInforDialog.numberroom;
 
     // toast  start
     const [messageToast, setmessageToast] = useState({ message: '', variant: '' });
@@ -104,31 +103,31 @@ export default function DialogUpdateDamaged(pros) {
     const onSubmit = async (data) => {
         //update idDamaged
 
-        var varData ={
-            idCheckoutRoomDamaged:stateInforDialog.idDamaged,
-            ticketCheckoutObject:null,
-            idTicketBooking:null,
-            listProductDamaded:data.listDamged,
-            staffCheckOutRoomDamaged:null,
-            sumaryIndemnify:data.money,
-            status:""
+        var varData = {
+            idCheckoutRoomDamaged: stateInforDialog.idDamaged,
+            ticketCheckoutObject: null,
+            idTicketBooking: null,
+            listProductDamaded: data.listDamged,
+            staffCheckOutRoomDamaged: null,
+            sumaryIndemnify: data.money,
+            status: ""
         }
         OpenLoadding(dispatch);
-        let result =await updateDamagedListOfRoom(varData);
+        let result = await updateDamagedListOfRoom(varData);
         let messError = HandleGetError(result);
-        if(messError.length !== 0){
+        if (messError.length !== 0) {
             OffLoadding(dispatch);
-            handlerMessageToast(messError,"error");
-            HandleErrorSystem(result,history);
-        }else{
+            handlerMessageToast(messError, "error");
+            HandleErrorSystem(result, history);
+        } else {
             OffLoadding(dispatch);
-            if(result){
+            if (result) {
                 exportToastSuccess("Updated List Damaged");
-            }else{
+            } else {
                 exportToastError("Not updated List Damaged");
             }
         }
-        
+
         console.log("Update ------------- DialogUpdateDamaged ");
         setstateInforDialog({ ...stateInforDialog, statusDamaged: false });
     }

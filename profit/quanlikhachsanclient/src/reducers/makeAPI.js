@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { HeaderRefreshToken,HeaderAccessToken } from '../core/header'
 
-
 export const axiosInstance = axios.create({
     baseURL: "http://localhost:8089/backendhotel",
     timeout: 300000,
@@ -68,7 +67,6 @@ axiosInstance.interceptors.response.use(
 axiosInstance.interceptors.request.use((req => {
     console.log("axiosInstance.interceptors.request request");
     console.log(req);
-
     return req;
 }),(error => {
     console.log("axiosInstance.interceptors.request Error");

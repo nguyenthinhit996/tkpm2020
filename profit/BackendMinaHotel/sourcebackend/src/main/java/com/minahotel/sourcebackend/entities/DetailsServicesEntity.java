@@ -13,19 +13,24 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.minahotel.sourcebackend.entities.compositekey.CompositeKeyDetailsServicesEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 
+/**
+ * DetailsServicesEntity is mapping with table detailservices in Database
+ * @author Peter
+ *
+ */
 @Entity
 @Table(name = "detailservices")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idDetailsServicesEntity")
 public class DetailsServicesEntity extends MinaHoTelPojo {
 
+	/**
+	 * idDetailsServicesEntity is composite key 
+	 */
 	@EmbeddedId
 	private CompositeKeyDetailsServicesEntity idDetailsServicesEntity;
 
@@ -272,6 +277,4 @@ public class DetailsServicesEntity extends MinaHoTelPojo {
 				+ ", BigdesumaryMoneySerives=" + BigdesumaryMoneySerives + ", staffService=" + staffService
 				+ ", ticketBookingindetail=" + ticketBookingindetail + ", productDetail=" + productDetail + "]";
 	}
-	
-	
 }

@@ -23,7 +23,6 @@ const useStyles = makeStyles({
 
 export default function TableViewSalaryStaff({ listRowData }) {
 
-
     const classes = useStyles();
 
     const refInputAmount = useRef();
@@ -39,7 +38,6 @@ export default function TableViewSalaryStaff({ listRowData }) {
 
     const { enqueueSnackbar } = useSnackbar();
 
-
     const handlerMessageToast = (mess, variant) => {
         // variant could be success, error, warning, info, or default
         enqueueSnackbar(mess, { variant });
@@ -49,7 +47,6 @@ export default function TableViewSalaryStaff({ listRowData }) {
         let a = 'success';
         setmessageToast({ message: mess, variant: a })
     }
-
     // toast  enddddddddddddddd
 
     const changeSelectStatusHandler = (nameProduct, event) => {

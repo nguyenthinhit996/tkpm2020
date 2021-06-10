@@ -19,7 +19,6 @@ export default function Staffmanagementdailyworking(props) {
         , data: {}
     })
 
-
     // toast  start
     const [messageToast, setmessageToast] = useState({ message: '', variant: '' });
 
@@ -30,7 +29,6 @@ export default function Staffmanagementdailyworking(props) {
     }, [messageToast])
 
     const { enqueueSnackbar } = useSnackbar();
-
 
     const handlerMessageToast = (mess, variant) => {
         // variant could be success, error, warning, info, or default
@@ -51,7 +49,6 @@ export default function Staffmanagementdailyworking(props) {
         let a = 'Warning';
         setmessageToast({ message: mess, variant: a })
     }
-
     // toast  enddddddddddddddd
 
     const handlerManagementButton = () => {
@@ -68,14 +65,7 @@ export default function Staffmanagementdailyworking(props) {
 
     const [listRowData, setlistRowData] = useState([]);
 
-    // useEffect(async () => {
-    //     if (numberDay.length !== 0) {
-
-    //     }
-    // }, [])
-
     const handlerChangeDate = async (e) => {
-
         if (isValidDate(e.target.value)) {
             // check compare  with today
             var d1 = new Date();
@@ -84,19 +74,16 @@ export default function Staffmanagementdailyworking(props) {
                 if (d2.getMonth() <= d1.getMonth()) {
                     if (d2.getDate() <= d1.getDate()) {
                         console.log(e.target.value);
-
                         // get data
                         await getDailyWorking(e.target.value).then(value => {
                             setlistRowData(value);
                         })
-
                     } else {
                         exportToastWarning("Not Checking Date bigger Today");
                         console.log(refDayChecking) //yyyy-MM-dd
                         setTimeout(() => {
                             history.go(0);
                         }, 1500);
-
                     }
                 } else {
                     exportToastWarning("Not Checking Date bigger Today");
@@ -104,7 +91,6 @@ export default function Staffmanagementdailyworking(props) {
                     setTimeout(() => {
                         history.go(0);
                     }, 1500);
-
                 }
             } else {
                 exportToastWarning("Not Checking Date bigger Today");
@@ -112,17 +98,13 @@ export default function Staffmanagementdailyworking(props) {
                 setTimeout(() => {
                     history.go(0);
                 }, 1500);
-
             }
         }
     }
 
     const handlerEditUpdate = async (data, refNote) => {
-
         console.log(refNote.current.value);
-
         console.log(JSON.stringify(data));
-
         let dataresult = {
             idtoday: staffState.data.idtoday,
             idstaffwork: staffState.data.idstaffwork,
@@ -132,30 +114,18 @@ export default function Staffmanagementdailyworking(props) {
             idstaffmanagement: localStorage.quanlikhachsan_iduser,
             usernamestaff: staffState.data.usernamework,
         }
-
         console.log(dataresult);
-
         let result = await updateDailyworking(dataresult);
-
         if (result) {
             exportToastSuccess("Update Checking Staff Success")
         } else {
             exportToastError("Not Edit Checking Staff Success")
         }
-
         // get data
         await getDailyWorking(refDayChecking.current.value).then(value => {
             setlistRowData(value);
         })
-        // history.push({
-        //     pathname: '/Staffmanagementdailyworking',
-        //     state: {
-        //         numberDay: refDayChecking.current.value,
-        //     }
-        // });
     }
-
-
 
     function isValidDate(dateString) {
         var regEx = /^\d{4}-\d{2}-\d{2}$/;

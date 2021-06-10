@@ -19,6 +19,11 @@ import com.minahotel.sourcebackend.pojo.DetailRoom;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.services.RoomRepositoryServices;
 
+/**
+ * RoomController is class @RestController working on Entity {@link RoomEntity} 
+ * @author Peter
+ *
+ */
 @RestController
 public class RoomController {
 

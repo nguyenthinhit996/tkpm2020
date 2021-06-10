@@ -20,6 +20,11 @@ import com.minahotel.sourcebackend.enums.EnumTicketAndRoom;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.services.ProductionRepositoryServices;
 
+/**
+ * ProductionController is class @RestController working on Entity {@link ProductionEntity} 
+ * @author Peter
+ *
+ */
 @RestController
 public class ProductionController {
 
@@ -31,6 +36,7 @@ public class ProductionController {
 	List<? extends MinaHoTelPojo> getObjectById(@RequestParam(name = "id", defaultValue = "All") String id) {
 		if("All".equals(id)) {
 			
+			@SuppressWarnings("unchecked")
 			List<ProductionEntity>  ds = (List<ProductionEntity>) productionRepositoryServices.getAll();
 			List<ProductionEntity>  dsreturn = new ArrayList<ProductionEntity>();
 			for(int i=0;i<ds.size();i++) {

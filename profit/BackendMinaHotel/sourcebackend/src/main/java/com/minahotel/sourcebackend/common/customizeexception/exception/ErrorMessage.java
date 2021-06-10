@@ -1,26 +1,41 @@
 package com.minahotel.sourcebackend.common.customizeexception.exception;
 
-import java.time.LocalDate;
-
+/**
+ * ErrorMessage is class represent class return client if process occur error or exception
+ * @author Peter
+ *
+ */
 public class ErrorMessage {
 
+	/**
+	 * time current appearance error  
+	 */
 	private String time;
 	
+	/**
+	 * content_error content of error, it can real error or self-defination error
+	 */
 	private String content_error;
 	
+	/**
+	 * code_error code of error in a {@link CodeErrorException}
+	 */
 	private String code_error;
 	
+	/**
+	 * help resolve error
+	 */
 	private String help;
 
 	/**
-	 * @return the time
+	 * @return the time current appearance
 	 */
 	public String getTime() {
 		return time;
 	}
 
 	/**
-	 * @param time the time to set
+	 * @param time 
 	 */
 	public void setTime(String time) {
 		this.time = time;
@@ -74,6 +89,13 @@ public class ErrorMessage {
 				+ ", help=" + help + "]";
 	}
 
+	/**
+	 * Constructor full field of class
+	 * @param time
+	 * @param content_error
+	 * @param code_error
+	 * @param help
+	 */
 	public ErrorMessage(String time, String content_error, String code_error, String help) {
 		super();
 		this.time = time;
@@ -82,9 +104,10 @@ public class ErrorMessage {
 		this.help = help;
 	}
 
+	/**
+	 * Constructor not argument
+	 */
 	public ErrorMessage() {
 		super();
 	}
-	
-	
 }

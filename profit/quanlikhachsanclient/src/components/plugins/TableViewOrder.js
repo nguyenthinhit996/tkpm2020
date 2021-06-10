@@ -56,7 +56,6 @@ export default function TableViewOrder(pros) {
 
     const { enqueueSnackbar } = useSnackbar();
 
-
     const handlerMessageToast = (mess, variant) => {
         // variant could be success, error, warning, info, or default
         enqueueSnackbar(mess, { variant });
@@ -71,7 +70,6 @@ export default function TableViewOrder(pros) {
         let a = 'error';
         setmessageToast({ message: mess, variant: a })
     }
-
     // toast  enddddddddddddddd
 
     const changeInputAmountHandler = async (nameProduct, event) => {
@@ -100,7 +98,6 @@ export default function TableViewOrder(pros) {
     const changeSelectStatusHandler = async (nameProduct, event) => {
         console.log(event);
         console.log(nameProduct + " " + event.target.value);
-
         // if done not change status
         var foundIndex = stateListData.findIndex(x => x.productDetail.nameProduct === nameProduct);
         var item = stateListData[foundIndex];
@@ -139,7 +136,6 @@ export default function TableViewOrder(pros) {
             }
             exportToastError("Not Update occur error");
             return false;
-
         }
     }
 

@@ -1,16 +1,9 @@
 package com.minahotel.sourcebackend.security;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -19,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
@@ -37,6 +29,19 @@ import com.minahotel.sourcebackend.security.filter.LogoutHandlerCustomize;
 import com.minahotel.sourcebackend.security.handle.CustomizeAccessDenieHandle;
 import com.minahotel.sourcebackend.services.StaffRepositoryServices;
 
+
+/**
+ * WebSecurity is class configuration security for application belong things below: 
+ * <li> Authorization (phân quyền) </li>
+ * <li> Handle Forbiden (not token in header or role check). </li>
+ * <li> Handle Logout.  </li>
+ * <li> Handle Authentication (Login process). </li>
+ * <li> Handle Authorization on every request (token validation). </li>
+ * <li> Cross Origin Requests (Cors) and Cross-site Request Forgery (crfs) </li>
+ * <li> Catch All error from application </li>
+ * @author Peter
+ *
+ */
 @Configuration
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
@@ -50,41 +55,52 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers(SecurityConstants.LOG_IN_URL, SecurityConstants.LOG_OUT_URL,
 						SecurityConstants.REFRESH_TOKEN_URL)
 				.permitAll()
-//				.antMatchers("/staff").hasRole("admin")// test delegatingEntryPoint
 				.anyRequest().authenticated()
 				.and()
 				.exceptionHandling().authenticationEntryPoint(delegatingEntryPoint()).accessDeniedHandler(accessDeniedHandler())
 				.and()
-				.addFilter(new JWTLogoutFilterFilter(getLogoutSuccessHandler(), getLogoutHandlerArray()))
-				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
-				.addFilter(new JWTAuthorizationFilter(authenticationManager()))
-				.addFilterBefore(new ErrorFilterCustome(), CorsFilter.class) // handled error all filter above
-
+				.addFilter(new JWTLogoutFilterFilter(getLogoutSuccessHandler(), getLogoutHandlerArray())) // order 2
+				.addFilter(new JWTAuthenticationFilter(authenticationManager())) //order 3
+				.addFilter(new JWTAuthorizationFilter(authenticationManager()))  //order 4
+				.addFilterBefore(new ErrorFilterCustome(), CorsFilter.class) // handled error all filter above // order 1
+				
 				// this disables session creation on Spring Security
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		  
+		
 		http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable();  
 	}
 	
-	
-	// exceptionHandling ExceptionTranslationFilter
-	// accessDeniedHandler For access permission, role . 
+	/**
+	 * ExceptionHandling on ExceptionTranslationFilter. accessDeniedHandler For access permission, role . 
+	 * @return AccessDeniedHandler
+	 */
 	@Bean
 	public AccessDeniedHandler accessDeniedHandler(){
 	    return new CustomizeAccessDenieHandle();
 	}
 	
-	//EntryPoint for annonymous login into authenticated() 
+	/**
+	 * Check EntryPoint for annonymous login into authenticated() forbiden catch
+	 * @return AuthenticationEntryPoint
+	 */
 	@Bean
 	public AuthenticationEntryPoint delegatingEntryPoint() {
 		return new Http403ForbiddenEntryPointCustom();
 	}
 
+	/**
+	 * Set useDetailService and PasswordEncoder for provider authentication 
+	 * @param AuthenticationManagerBuilder auth
+	 */
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 
+	/**
+	 * Config for Cors  
+	 * @return CorsConfigurationSource
+	 */
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
@@ -97,22 +113,32 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		return source;
 	}
 
+	/**
+	 * Config bean for PasswordEncoder 
+	 * @return
+	 */
 	@Bean
 	PasswordEncoder passwordEncoder() {
-//		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-		return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder(); // specify BCryptPasswordEncoder because upgrade from from project orginal
 	}
 
-	LogoutSuccessHandler getLogoutSuccessHandler() {
+	/**
+	 * To handle logout process
+	 * @return LogoutSuccessHandler
+	 */
+	private LogoutSuccessHandler getLogoutSuccessHandler() {
 		SimpleUrlLogoutSuccessHandler simpleLogoutSuccessHandler = new SimpleUrlLogoutSuccessHandler();
 		simpleLogoutSuccessHandler.setDefaultTargetUrl(SecurityConstants.LOG_IN_URL);
 		return simpleLogoutSuccessHandler;
 	}
 
-	LogoutHandler[] getLogoutHandlerArray() {
+	/**
+	 * To handle if logout success
+	 * @return LogoutHandler
+	 */
+	private LogoutHandler[] getLogoutHandlerArray() {
 		LogoutHandlerCustomize logoutHandler = new LogoutHandlerCustomize();
 		LogoutHandler[] handlers = new LogoutHandler[] { logoutHandler };
 		return handlers;
 	}
-
 }

@@ -5,17 +5,25 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/**
+ * CompositeKeyDetailsServicesEntity is class @Embeddable key into entity DetailsServicesEntity
+ * @author Peter
+ *
+ */
 @Embeddable
 public class CompositeKeyDetailsServicesEntity implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5440899625525947199L;
 	
+	/**
+	 * idticketbooking is primary key column in Database
+	 */
 	@Column(name = "idticketbooking")
 	private String idTicketBooking;
 	
+	/**
+	 * idproduct is primary key column in Database
+	 */
 	@Column(name = "idproduct")
 	private String idProduct;
 

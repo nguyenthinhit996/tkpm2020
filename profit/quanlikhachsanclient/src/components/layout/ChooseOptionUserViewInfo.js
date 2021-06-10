@@ -57,9 +57,9 @@ export default function Chooseoptionuserviewinfo(pros) {
 
     const {dispatch} = useContext(Appcontext);
 
-    const history = useHistory();
+    const { openViewInfor, setopenViewInfor } = useContext(NavigationAppContext);
 
-    const content = "Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.";
+    const history = useHistory();
 
     const modalTitle = "View information of User";
 
@@ -93,8 +93,6 @@ export default function Chooseoptionuserviewinfo(pros) {
         OffLoadding(dispatch);
        }
     }, [])
-
-    const { openViewInfor, setopenViewInfor } = useContext(NavigationAppContext);
 
     const handleClose = () => {
         setopenViewInfor(false);

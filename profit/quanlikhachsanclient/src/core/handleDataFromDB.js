@@ -1,5 +1,4 @@
 
-
 export const HandleGetError = (res) => {
     if (undefined !== res.data) {
         if(undefined !== res.data.content_error){// error custom defination

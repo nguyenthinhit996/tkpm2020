@@ -24,8 +24,13 @@
 ### FontEnd React Flux
   <p> User Flux Architecture </p>
   <p> Firebase store image </p>
+  <p> Material-ui framwork </p>
 
 ### BackEnd SpringBoot v2.4
+ <p> Spring Core 5 </p>
+ <p> Spring Security </p>
+ <p> Spring JPA vs Hibernate </p>
+ <p> Log4j </p>
 
 ### Database Mysql v8
 ![image](https://raw.githubusercontent.com/nguyenthinhit996/tkpm2020/master/github.pages/images.png)

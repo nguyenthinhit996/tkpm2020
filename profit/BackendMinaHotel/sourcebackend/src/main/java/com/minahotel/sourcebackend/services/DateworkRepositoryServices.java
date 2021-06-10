@@ -17,6 +17,11 @@ import com.minahotel.sourcebackend.entities.DateWorkEntity;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 import com.minahotel.sourcebackend.repository.DateworkRepository;
 
+/**
+ * DateworkRepositoryServices is class to handle login belong date work for all staff, checking, checkout Date work
+ * @author Peter
+ *
+ */
 @Service
 public class DateworkRepositoryServices implements MinaHotelServices {
 
@@ -93,7 +98,5 @@ public class DateworkRepositoryServices implements MinaHotelServices {
 			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_004);
 		}
 		return false;
-
 	}
-	
 }

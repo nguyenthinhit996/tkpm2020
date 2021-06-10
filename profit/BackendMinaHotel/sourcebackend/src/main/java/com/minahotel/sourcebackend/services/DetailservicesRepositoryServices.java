@@ -37,6 +37,11 @@ import com.minahotel.sourcebackend.repository.StaffRepository;
 import com.minahotel.sourcebackend.repository.TicketbookingRepository;
 import com.minahotel.sourcebackend.repository.TicketcheckoutroomRepository;
 
+/**
+ * DetailservicesRepositoryServices is class to handle logic belong services of user rent room checking, rent vehicle, food, eating...
+ * @author Peter
+ *
+ */
 @Service
 public class DetailservicesRepositoryServices implements MinaHotelServices {
 
@@ -349,9 +354,7 @@ public class DetailservicesRepositoryServices implements MinaHotelServices {
 		} catch (Exception e) {
 			return false;
 		}
-
-		return true;
-		 
+		return true; 
 	}
 	
 	public String getObjectByIdResponseString(String ...id) {		
@@ -375,5 +378,4 @@ public class DetailservicesRepositoryServices implements MinaHotelServices {
 		}
 		return "Error missing ! refesh page";
 	}
-	
 }

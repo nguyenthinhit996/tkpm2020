@@ -1,5 +1,10 @@
 package com.minahotel.sourcebackend.enums;
 
+/**
+ * EnumDailyworking is enum of table Dailyworking
+ * @author Peter
+ *
+ */
 public enum EnumDailyworking {
 
 	IDTODAY("idtoday"),

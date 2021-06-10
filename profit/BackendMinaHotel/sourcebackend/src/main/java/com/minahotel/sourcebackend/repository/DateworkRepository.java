@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 import com.minahotel.sourcebackend.entities.DateWorkEntity;
 import com.minahotel.sourcebackend.repository.customizeinterface.DateworkRepositoryCustom;
 
+/**
+ * DateworkRepository is interface to action CrudRepository with Entity 
+ * @author Peter
+ *
+ */
 @Repository
 public interface DateworkRepository extends CrudRepository<DateWorkEntity, Long>, DateworkRepositoryCustom{
 

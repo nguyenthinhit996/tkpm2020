@@ -27,16 +27,13 @@ const useStyles = makeStyles({
 export default function Serviceview({value,addProductHandler}) {
 
     // const {value} = props;
-
     const classes = useStyles();
-
     // const value = {
     //     imageSrc: images,
     //     nameProduct: "Name Product",
     //     cardContent: " this is contect of product",
     //     moneyProduct:"5000000"
     // }
-
 
     return (
         <div className="serviceview">

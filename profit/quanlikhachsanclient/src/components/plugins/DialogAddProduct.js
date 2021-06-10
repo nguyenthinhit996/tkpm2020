@@ -106,11 +106,7 @@ export default function DialogAddProduct(props) {
         reset();
     };
 
-
-
-
     // firebase start
-
     const [file, setFile] = useState(null);
     const [url, setURL] = useState("");
 

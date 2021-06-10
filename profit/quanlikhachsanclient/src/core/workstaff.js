@@ -1,7 +1,6 @@
 import { axiosInstance } from "../reducers/makeAPI";
 import { HeaderAccessToken } from '../core/header'
 
-
 export const getWorkAllStaff = async () => {
   try {
     let { data } = await axiosInstance.get('/getAllDetailsServicesEntity', { headers: HeaderAccessToken() });
@@ -13,7 +12,6 @@ export const getWorkAllStaff = async () => {
   }
 }
 
-
 export const updateStatusWorkAllStaff = async (value) => {
   try {
     let { data } = await axiosInstance.post('/updateStatusServicesByUserServices', value, { headers: HeaderAccessToken() });
@@ -24,7 +22,6 @@ export const updateStatusWorkAllStaff = async (value) => {
     return error.response;
   }
 }
-
 
 export const detailservicesInforDrinkAndFood = async (idticketbooking, idproduct) => {
   try {
@@ -54,7 +51,6 @@ export const updateDamagedListOfRoom = async (value) => {
   }
 }
 
-
 export const getDailyWorking = async (idtoday) => {
   try {
     let { data } = await axiosInstance.get('/Dailyworking', {
@@ -69,7 +65,6 @@ export const getDailyWorking = async (idtoday) => {
   }
 }
 
-
 export const updateDailyworking = async (value) => {
   try {
     let { data } = await axiosInstance.put('/Dailyworking', value);
@@ -80,8 +75,6 @@ export const updateDailyworking = async (value) => {
     return error.response;
   }
 }
-
-
 
 export const getSalary = async (month) => {
   try {

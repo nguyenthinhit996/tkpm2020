@@ -6,6 +6,11 @@ import java.time.LocalDateTime;
 
 import com.minahotel.sourcebackend.entities.TicketBookingEntity;
 
+/**
+ * TicketcheckoutroomFontEnd is object json communication client and server
+ * @author Peter
+ *
+ */
 public class TicketcheckoutroomFontEnd implements Serializable{
 	
 	/**

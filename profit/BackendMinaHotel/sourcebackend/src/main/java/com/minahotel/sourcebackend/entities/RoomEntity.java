@@ -12,11 +12,19 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
 
+/**
+ * RoomEntity is mapping with table room in Database
+ * @author Peter
+ *
+ */
 @Entity
 @Table(name = "room")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idRoom")
 public class RoomEntity extends MinaHoTelPojo {
 
+	/**
+	 * idroom is primary key column in Database
+	 */
 	@Id
 	@Column(name = "idroom")
 	private Integer idRoom;
