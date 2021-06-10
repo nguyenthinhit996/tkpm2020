@@ -26,6 +26,7 @@ import DialogUpdateDamaged from './DialogUpdateDamaged'
 import { HandleGetError, HandleErrorSystem } from '../../../core/handleDataFromDB'
 import {OpenLoadding, OffLoadding} from '../../../core/Utils'
 import Appcontext from '../../../AppContext';
+import Staffserviceindextable from '../../plugins/PageStaffServices/StaffServiceIndexTable'
 
 const useStyles = makeStyles({
     table: {
@@ -170,7 +171,7 @@ export default function StaffServicesIndex(props) {
                     <button className="btn--quanlikhachsan quanlikhachsan__green__viewCheckOutDamaged" > CheckOutDamaged </button>
                 </div>
                 <div className="groupBodyStaffServicesIndex">
-                    <TableContainer component={Paper} className="tableViewWordOfStaff" >
+                    {/* <TableContainer component={Paper} className="tableViewWordOfStaff" >
                         <Table stickyHeader className={classes.table} aria-label="sticky table">
                             <TableHead className="group--header-table-viewer-workstaff">
                                 <TableRow>
@@ -227,7 +228,10 @@ export default function StaffServicesIndex(props) {
                                 ))}
                             </TableBody>
                         </Table>
-                    </TableContainer>
+                    </TableContainer> */}
+                    <NavigationAppContext.Provider value={ {dataFetchIsServer, changeSelectStatusHandler,handlerButtonDetailViewServices }}>
+                        <Staffserviceindextable />
+                    </NavigationAppContext.Provider>
                 </div>
 
 
