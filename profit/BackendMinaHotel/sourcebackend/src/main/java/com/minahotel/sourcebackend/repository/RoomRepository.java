@@ -14,7 +14,7 @@ import java.util.Optional;
  * @author Peter
  *
  */
-@Repository
+
 public interface RoomRepository extends CrudRepository<RoomEntity, Long>, RoomRepositoryCustom {
 
 	public Optional<RoomEntity> findByidRoom(Integer idRoom);

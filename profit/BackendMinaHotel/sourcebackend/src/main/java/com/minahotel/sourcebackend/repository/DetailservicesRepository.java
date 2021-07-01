@@ -17,7 +17,7 @@ import com.minahotel.sourcebackend.repository.customizeinterface.DetailservicesR
  * @author Peter
  *
  */
-@Repository
+
 public interface DetailservicesRepository extends CrudRepository<DetailsServicesEntity, Long>,DetailservicesRepositoryCustom {
 
 	// cach 1

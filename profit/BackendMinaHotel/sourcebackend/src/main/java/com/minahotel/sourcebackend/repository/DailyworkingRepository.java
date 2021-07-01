@@ -14,7 +14,7 @@ import com.minahotel.sourcebackend.repository.customizeinterface.DailyworkingRep
  * @author Peter
  *
  */
-@Repository
+
 public interface DailyworkingRepository extends CrudRepository<DailyWorkingEntity, Long>, DailyworkingRepositoryCustom{
 	
 	public Optional<DailyWorkingEntity> findByidDailyWorkingEntity(CompositeKeyDailyWorkingEntity key);

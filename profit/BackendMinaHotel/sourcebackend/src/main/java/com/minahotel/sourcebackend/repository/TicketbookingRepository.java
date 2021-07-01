@@ -14,7 +14,7 @@ import com.minahotel.sourcebackend.repository.customizeinterface.TicketbookingRe
  * @author Peter
  *
  */
-@Repository
+
 public interface TicketbookingRepository extends CrudRepository<TicketBookingEntity, Long>, TicketbookingRepositoryCustom {
 
 	public Optional<TicketBookingEntity> findByidTicketBooking(String idTicketBooking);

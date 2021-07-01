@@ -13,12 +13,14 @@ import com.minahotel.sourcebackend.entities.TicketCheckOutRoomEntity;
 import com.minahotel.sourcebackend.enums.EnumCommon;
 import com.minahotel.sourcebackend.enums.EnumTicketbooking;
 import com.minahotel.sourcebackend.repository.customizeinterface.TicketcheckoutroomRepositoryCustom;
+import org.springframework.stereotype.Repository;
 
 /**
  * TicketcheckoutroomRepositoryImpl is class implements method from interface repository custom
  * @author Peter
  *
  */
+@Repository
 public class TicketcheckoutroomRepositoryImpl implements TicketcheckoutroomRepositoryCustom{
  
 	@PersistenceContext

@@ -31,23 +31,23 @@ import com.minahotel.sourcebackend.repository.StaffRepository;
  */
 @Service
 public class StaffRepositoryServices implements MinaHotelServices, UserDetailsService {
-	
+
 	@Autowired
-	StaffRepository staffRepository;
+	private StaffRepository staffRepository;
 	
 	@PersistenceContext
 	EntityManager entityManager;
-	
+
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
 	@Override
-	public List<? extends MinaHoTelPojo> getAll() {		
-		List<StaffEntity> dsAll = staffRepository.findAll();	
-		if(dsAll.size() == 0 ) {
-			throw new NotFoundItemException(CodeErrorException.EN_001);
+	public List<? extends MinaHoTelPojo> getAll() {
+		List<StaffEntity> dsAll = staffRepository.findAll();
+		if (dsAll != null) {
+			return dsAll;
 		}
-		return dsAll;
+		throw new NotFoundItemException(CodeErrorException.EN_001);
 	}
 
 	@Override
@@ -91,8 +91,6 @@ public class StaffRepositoryServices implements MinaHotelServices, UserDetailsSe
 			}else {
 				staffRepository.save(staffNeedUpdate);
 			}
-		}catch(IllegalArgumentException  e) {
-			throw new BusinessException(CodeErrorException.ES_003);
 		}catch (Exception e) {
 			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_002);
 		}
@@ -101,17 +99,14 @@ public class StaffRepositoryServices implements MinaHotelServices, UserDetailsSe
 
 	@Override
 	public boolean deleteObjectById(Object... id) {
-		try {
-			 Optional<StaffEntity> optionGeted = staffRepository.findByidStaff(String.valueOf(id[0]));
-			 if(optionGeted.isPresent()) {
-				 staffRepository.delete(optionGeted.get());
-					return true;
-			 }
-		}catch (Exception e) {
-			throw new CRUDExceptionCustomize(CodeErrorException.CRUD_004);
+		boolean isDelete = false;
+		StaffEntity staffNeedUpdate =  (StaffEntity) id[0];
+		Optional<StaffEntity> optionGeted = staffRepository.findByidStaff(String.valueOf(staffNeedUpdate.getIdStaff()));
+		if (optionGeted.isPresent()) {
+			staffRepository.delete(optionGeted.get());
+			isDelete = true;
 		}
-		return false;
-
+		return isDelete;
 	}
 
 	@Override
@@ -125,7 +120,7 @@ public class StaffRepositoryServices implements MinaHotelServices, UserDetailsSe
 		}
 		return user;
 	}
-	
+
 	public Boolean changePassword(ChangePassPojo objectChangePass){
 		try {
 			StaffEntity staff =entityManager.getReference(StaffEntity.class, objectChangePass.getIdStaff());

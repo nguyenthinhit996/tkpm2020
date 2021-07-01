@@ -13,7 +13,7 @@ import com.minahotel.sourcebackend.repository.customizeinterface.CheckingOutRoom
  * @author Peter
  *
  */
-@Repository
+ 
 public interface CheckingOutRoomDamagedRepository extends CrudRepository<CheckingOutRoomDamagedEntity, Long>, CheckingOutRoomDamagedRepositoryCustom{
 
 	public Optional<CheckingOutRoomDamagedEntity> findByidCheckoutRoomDamaged(String idCheckoutRoomDamaged);

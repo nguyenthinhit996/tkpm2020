@@ -14,9 +14,8 @@ import com.minahotel.sourcebackend.repository.customizeinterface.DateworkReposit
  * @author Peter
  *
  */
-@Repository
+
 public interface DateworkRepository extends CrudRepository<DateWorkEntity, Long>, DateworkRepositoryCustom{
 
 	public Optional<DateWorkEntity>  findByidDateWork(LocalDate localDate);
-	
 }

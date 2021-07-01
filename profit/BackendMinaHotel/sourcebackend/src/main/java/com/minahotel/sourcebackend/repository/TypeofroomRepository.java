@@ -13,7 +13,7 @@ import com.minahotel.sourcebackend.repository.customizeinterface.TypeofroomRepos
  * @author Peter
  *
  */
-@Repository
+
 public interface TypeofroomRepository extends CrudRepository<TypeOfRoomEntity, Long>, TypeofroomRepositoryCustom{
 
 	 public Optional<TypeOfRoomEntity> findByidNameTypeOfRoom(String idNameTypeOfRoom);

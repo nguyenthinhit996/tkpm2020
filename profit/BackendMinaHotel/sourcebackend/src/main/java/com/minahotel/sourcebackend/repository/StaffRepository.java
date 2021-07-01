@@ -14,7 +14,7 @@ import com.minahotel.sourcebackend.repository.customizeinterface.StaffRepository
  * @author Peter
  *
  */
-@Repository
+
 public interface StaffRepository extends CrudRepository<StaffEntity, Long>, StaffRepositoryCustom{
 
 	  List<StaffEntity> findAll();

@@ -10,12 +10,14 @@ import javax.persistence.criteria.Root;
 
 import com.minahotel.sourcebackend.entities.DetailsServicesEntity;
 import com.minahotel.sourcebackend.repository.customizeinterface.DetailservicesRepositoryCustom;
+import org.springframework.stereotype.Repository;
 
 /**
  * DetailservicesRepositoryImpl is class implements method from interface repository custom 
  * @author Peter
  *
  */
+@Repository
 public class DetailservicesRepositoryImpl implements DetailservicesRepositoryCustom{
 
 	@PersistenceContext

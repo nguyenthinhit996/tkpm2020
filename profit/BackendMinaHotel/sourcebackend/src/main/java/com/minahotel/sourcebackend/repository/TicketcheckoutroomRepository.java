@@ -13,7 +13,7 @@ import com.minahotel.sourcebackend.repository.customizeinterface.Ticketcheckoutr
  * @author Peter
  *
  */
-@Repository
+
 public interface TicketcheckoutroomRepository extends CrudRepository<TicketCheckOutRoomEntity, Long>, TicketcheckoutroomRepositoryCustom{
 
 	public Optional<TicketCheckOutRoomEntity> findByidTicketCheckout(String idTicketCheckout);

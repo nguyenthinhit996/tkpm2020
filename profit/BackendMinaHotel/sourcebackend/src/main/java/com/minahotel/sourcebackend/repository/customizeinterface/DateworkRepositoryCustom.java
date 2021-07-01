@@ -11,6 +11,6 @@ import com.minahotel.sourcebackend.pojo.MinaHoTelPojo;
  */
 public interface DateworkRepositoryCustom {
 	
-	List<? extends MinaHoTelPojo> findByidDateWork(String id);
+
 	
 }

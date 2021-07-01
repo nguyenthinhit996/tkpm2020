@@ -1,6 +1,7 @@
 package com.minahotel.sourcebackend.repository.implementsrepo;
 
 import com.minahotel.sourcebackend.repository.customizeinterface.CheckingOutRoomDamagedRepositoryCustom;
+import org.springframework.stereotype.Repository;
 
 
 /**
@@ -8,6 +9,7 @@ import com.minahotel.sourcebackend.repository.customizeinterface.CheckingOutRoom
  * @author Peter
  *
  */
+@Repository
 public class CheckingOutRoomDamagedRepositoryImpl implements CheckingOutRoomDamagedRepositoryCustom{
 
 	 

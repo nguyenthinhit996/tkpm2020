@@ -13,7 +13,7 @@ import com.minahotel.sourcebackend.repository.customizeinterface.ProductionRepos
  * @author Peter
  *
  */
-@Repository
+
 public interface ProductionRepository extends CrudRepository<ProductionEntity, Long>, ProductionRepositoryCustom{
 
  public Optional<ProductionEntity> findByidProduct(String idProduct);
