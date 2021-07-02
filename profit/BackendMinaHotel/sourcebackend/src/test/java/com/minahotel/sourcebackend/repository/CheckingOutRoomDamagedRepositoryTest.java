@@ -1,5 +1,6 @@
 package com.minahotel.sourcebackend.repository;
 
+import com.minahotel.sourcebackend.ConfigActiveTestProfilesCustomize;
 import com.minahotel.sourcebackend.entities.CheckingOutRoomDamagedEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // not change database general use
+@ConfigActiveTestProfilesCustomize
 class CheckingOutRoomDamagedRepositoryTest {
 
     @Autowired

@@ -1,5 +1,6 @@
 package com.minahotel.sourcebackend.repository;
 
+import com.minahotel.sourcebackend.ConfigActiveTestProfilesCustomize;
 import com.minahotel.sourcebackend.entities.StaffEntity;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +17,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // not change database general use
+@ConfigActiveTestProfilesCustomize
 class StaffRepositoryTest {
 
     @Autowired

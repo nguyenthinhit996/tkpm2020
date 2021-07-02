@@ -1,41 +1,31 @@
 package com.minahotel.sourcebackend.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.minahotel.sourcebackend.ConfigActiveTestProfilesCustomize;
 import com.minahotel.sourcebackend.SourcebackendApplication;
 import com.minahotel.sourcebackend.common.customizeexception.exception.CRUDExceptionCustomize;
 import com.minahotel.sourcebackend.entities.StaffEntity;
 import com.minahotel.sourcebackend.pojo.ChangePassPojo;
-import com.minahotel.sourcebackend.pojo.DetailRoom;
-import com.minahotel.sourcebackend.repository.StaffRepository;
 import com.minahotel.sourcebackend.services.StaffRepositoryServices;
-import org.assertj.core.util.VisibleForTesting;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.util.NestedServletException;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -46,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = SourcebackendApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(addFilters = false)
+@ConfigActiveTestProfilesCustomize
 public class StaffControllerTest {
 
     private static final String STAFF_EXSIT = "1";

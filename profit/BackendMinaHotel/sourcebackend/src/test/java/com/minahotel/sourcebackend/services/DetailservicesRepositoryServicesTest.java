@@ -1,11 +1,12 @@
 package com.minahotel.sourcebackend.services;
 
+import com.minahotel.sourcebackend.ConfigActiveTestProfilesCustomize;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@ConfigActiveTestProfilesCustomize
 class DetailservicesRepositoryServicesTest {
 
     @BeforeEach

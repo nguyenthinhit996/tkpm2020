@@ -1,5 +1,6 @@
 package com.minahotel.sourcebackend.repository;
 
+import com.minahotel.sourcebackend.ConfigActiveTestProfilesCustomize;
 import com.minahotel.sourcebackend.entities.ProductionEntity;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // not change database general use
+@ConfigActiveTestProfilesCustomize
 class ProductionRepositoryTest {
 
     @Autowired

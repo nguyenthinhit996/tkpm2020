@@ -1,5 +1,6 @@
 package com.minahotel.sourcebackend.repository;
 
+import com.minahotel.sourcebackend.ConfigActiveTestProfilesCustomize;
 import com.minahotel.sourcebackend.entities.DetailsServicesEntity;
 import com.minahotel.sourcebackend.entities.compositekey.CompositeKeyDetailsServicesEntity;
 import org.junit.jupiter.api.AfterEach;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // not change database general use
+@ConfigActiveTestProfilesCustomize
 class DetailservicesRepositoryTest {
 
     @Autowired

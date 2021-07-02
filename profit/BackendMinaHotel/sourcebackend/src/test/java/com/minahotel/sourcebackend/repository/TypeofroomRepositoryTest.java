@@ -1,5 +1,6 @@
 package com.minahotel.sourcebackend.repository;
 
+import com.minahotel.sourcebackend.ConfigActiveTestProfilesCustomize;
 import com.minahotel.sourcebackend.entities.TypeOfRoomEntity;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // not change database general use
+@ConfigActiveTestProfilesCustomize
 class TypeofroomRepositoryTest {
 
     @Autowired

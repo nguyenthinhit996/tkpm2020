@@ -9,7 +9,9 @@ import org.springframework.context.annotation.ComponentScan;
 public class SourcebackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SourcebackendApplication.class, args);
+		SpringApplication app = new SpringApplication(SourcebackendApplication.class);
+//		app.setAdditionalProfiles("dev");
+		app.setAdditionalProfiles("production");
+		app.run(args);
 	}
-
 }
