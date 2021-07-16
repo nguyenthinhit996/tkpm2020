@@ -1,15 +1,22 @@
 package com.minahotel.sourcebackend.common.customizeexception.exception;
 
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * ErrorMessage is class represent class return client if process occur error or exception
  * @author Peter
  *
  */
+@Schema(name = "ErrorMessage")
 public class ErrorMessage {
 
 	/**
 	 * time current appearance error  
 	 */
+	@Schema(description = "time occur error"
+		,example = "2021-12-12"
+	)
 	private String time;
 	
 	/**

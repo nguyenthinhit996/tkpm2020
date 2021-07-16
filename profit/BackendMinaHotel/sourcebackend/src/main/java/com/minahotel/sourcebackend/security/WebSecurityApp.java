@@ -20,6 +20,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 
 import com.minahotel.sourcebackend.security.entrypoints.Http403ForbiddenEntryPointCustom;
 import com.minahotel.sourcebackend.security.filter.ErrorFilterCustome;
@@ -45,7 +46,7 @@ import com.minahotel.sourcebackend.services.StaffRepositoryServices;
  */
 @Configuration
 @EnableWebSecurity
-public class WebSecurity extends WebSecurityConfigurerAdapter {
+public class WebSecurityApp extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private StaffRepositoryServices userDetailsService;
@@ -142,5 +143,19 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		LogoutHandlerCustomize logoutHandler = new LogoutHandlerCustomize();
 		LogoutHandler[] handlers = new LogoutHandler[] { logoutHandler };
 		return handlers;
+	}
+
+
+	// config auth ignore for swagger
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers(
+				"/v3/api-docs/**",
+				"/configuration/ui",
+				"/swagger-resources/**",
+				"/swagger-ui/**",
+				"/configuration/security",
+				"/swagger-ui.html",
+				"/webjars/**");
 	}
 }

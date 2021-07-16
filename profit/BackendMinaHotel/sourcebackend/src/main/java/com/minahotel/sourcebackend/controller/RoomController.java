@@ -3,6 +3,8 @@ package com.minahotel.sourcebackend.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,7 +31,7 @@ public class RoomController {
 
 	@Autowired
 	RoomRepositoryServices roomRepositoryServices;
-	
+
 
 	@GetMapping("/room")
 	List<? extends MinaHoTelPojo> getObjectById(@RequestParam(name = "id", defaultValue = "All") String id) {

@@ -3,6 +3,7 @@ package com.minahotel.sourcebackend.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,9 @@ public class CheckingOutRoomDamagedController {
 	@Autowired
 	CheckingOutRoomDamagedRepositoryServices checkingOutRoomDamagedRepositoryServices;
 
+	@Operation(summary = "get object checkout room damaged"
+			,description = "Item | Describe"
+	)
 	@GetMapping("/checkingOutRoomDamaged")
 	List<? extends MinaHoTelPojo> getObjectById(@RequestParam(name = "idtoday", defaultValue = "All") String idtoday) {
 		if ("All".equals(idtoday)) {
