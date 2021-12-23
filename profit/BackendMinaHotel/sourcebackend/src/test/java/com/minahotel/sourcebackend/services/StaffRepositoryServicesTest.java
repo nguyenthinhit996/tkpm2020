@@ -7,6 +7,7 @@ import com.minahotel.sourcebackend.entities.StaffEntity;
 import com.minahotel.sourcebackend.pojo.ChangePassPojo;
 import com.minahotel.sourcebackend.pojo.DetailRoom;
 import com.minahotel.sourcebackend.repository.StaffRepository;
+import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -179,38 +180,41 @@ class StaffRepositoryServicesTest {
         verify(staffRepository).save(any());
     }
 
-    @Test
-    @DisplayName("delete success")
-    void deleteObjectById_ThenDeleteSucess() {
-        //given
-        StaffEntity staff = new StaffEntity();
-        staff.setIdStaff("idExist");
-        staff.setNameStaff("nameNew");
-        staff.setStatus("On");
+//    @Test
+//    @Ignore
+//    @DisplayName("delete success")
+//    void deleteObjectById_ThenDeleteSucess() {
+//        //given
+//        StaffEntity staff = new StaffEntity();
+//        staff.setIdStaff("idExist");
+//        staff.setNameStaff("nameNew");
+//        staff.setStatus("On");
+//
+//        //when
+//        boolean result = staffRepositoryServices.deleteObjectById(STAFF_EXIST);
+//
+//        //then
+//        assertThat(result).isTrue();
+//        verify(staffRepository).delete(any());
+//    }
 
-        //when
-        boolean result = staffRepositoryServices.deleteObjectById(STAFF_EXIST);
+//    @Ignore
+//    @Test
+//    @DisplayName("delete not success")
+//    void deleteObjectById_ThenDeleteIgnore() {
+//        //when
+//        boolean result = staffRepositoryServices.deleteObjectById("idExistXXX");
+//        //then
+//        assertThat(result).isFalse();
+//    }
 
-        //then
-        assertThat(result).isTrue();
-        verify(staffRepository).delete(any());
-    }
-
-    @Test
-    @DisplayName("delete not success")
-    void deleteObjectById_ThenDeleteIgnore() {
-        //when
-        boolean result = staffRepositoryServices.deleteObjectById("idExistXXX");
-        //then
-        assertThat(result).isFalse();
-    }
-
-    @Test
-    @DisplayName("not delete")
-    void deleteObjectById_ThenNotDelete() {
-        //when
-        staffRepositoryServices.deleteObjectById("idExistXXXX");
-    }
+//    @Ignore
+//    @Test
+//    @DisplayName("not delete")
+//    void deleteObjectById_ThenNotDelete() {
+//        //when
+//        staffRepositoryServices.deleteObjectById("idExistXXXX");
+//    }
 
     @Test
     @DisplayName("load User ByUsername")
